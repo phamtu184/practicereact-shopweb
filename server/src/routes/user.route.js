@@ -3,7 +3,7 @@ var router = express.Router();
 var controller = require('../controller/user.controller');
 
 /* GET home page. */
-router.get('/login', controller.login);
+router.post('/login', controller.postLogin);
 
 router.post('/register', controller.register);
 
