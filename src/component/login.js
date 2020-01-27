@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBBtn, MDBModalFooter } from 'mdbreact';
 import {Link} from "react-router-dom";
-//import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 class Login extends Component {
   constructor(props){
@@ -12,7 +14,7 @@ class Login extends Component {
     }
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
-    //this.onSubmit = this.onSubmit.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
   }
   onChangeEmail(e){
     this.setState({
@@ -24,12 +26,63 @@ class Login extends Component {
       password: e.target.value
     })
   }
-  // onSubmit(e){
-  //   console.log()
-  // }
+  onSubmit(e){
+    e.preventDefault();
+    let info = {
+      email: this.state.email,
+      password: this.state.password
+    }
+    if(!info.email || !info.password){
+      toast.warn("Vui lòng nhập đầy đủ các trường", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true
+      })
+    }
+    else{
+      axios.post("/users/login", info)
+      .then(res => {
+        if(res.data==="notuser"){
+          toast.error("Tài khoản không tồn tại", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true
+          })
+        }
+        else if(res.data==="wrongpw"){
+          toast.error("Sai mật khẩu", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true
+          })
+        }
+        else{
+          console.log(res)
+          toast.success("Đăng nhập thành công", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true
+          })
+        }
+      })
+    }
+  }
   render(){
     return(
       <MDBContainer>
+        <ToastContainer/>
         <MDBRow className="justify-content-center">
           <MDBCol md="6">
             <MDBCard className="mt-4 grey-text">

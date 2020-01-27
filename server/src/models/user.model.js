@@ -27,6 +27,13 @@ const userSchema = new Schema({
   role:{
     type: Number,
     required: true
+  },
+  confirmed:{
+    type: Boolean,
+    required: true
+  },
+  token:{
+    type: String
   }
 },{
   timestamps: true

@@ -10,7 +10,7 @@ class Userlist extends Component {
     };
   }
   componentDidMount(){
-    axios.get('/users/userlist')
+    axios.get('/users/userslist')
     .then(response => {
       this.setState({
         users: response.data

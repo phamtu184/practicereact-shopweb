@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput, MDBCard, MDBCardBody, MDBModalFooter } from 'mdbreact';
 import {Link} from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
-import '../style/style.css'
 import 'react-toastify/dist/ReactToastify.css';
 
 import axios from 'axios';
@@ -119,10 +118,10 @@ class Register extends Component {
       phone: this.state.phone.value,
       email: this.state.email.value,
       password: this.state.password.value,
-      role: this.state.role
+      role: this.state.role,
+      confirmed: false
     }
     if (formValid(this.state.fullname.valid, this.state.email.valid, this.state.phone.valid, this.state.password.valid, this.state.passwordCf.valid)){
-      console.log("success")
       axios.post("/users/register", info)
       .then(res => {
         if(res.data === "added"){
