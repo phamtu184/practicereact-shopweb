@@ -10,6 +10,6 @@ router.post('/register', controller.register);
 
 router.get('/userslist', auth, controller.userlist);
 
-router.get('/confirmation/:token', controller.confirmEmail);
+//router.get('/confirmation/:token', controller.confirmEmail);
 
 module.exports = router;

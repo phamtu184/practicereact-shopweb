@@ -120,12 +120,12 @@ class Register extends Component {
       password: this.state.password.value,
       role: this.state.role,
       confirmed: false
-    }
+  }
     if (formValid(this.state.fullname.valid, this.state.email.valid, this.state.phone.valid, this.state.password.valid, this.state.passwordCf.valid)){
       axios.post("/users/register", info)
       .then(res => {
-        if(res.data === "added"){
-          toast.success("User added!", {
+        if(res.data === "exist"){
+          toast.error("User da ton tai!", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -135,7 +135,7 @@ class Register extends Component {
           })
         }
         else{
-          toast.error("User da ton tai!", {
+          toast.success("User added!", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -156,7 +156,6 @@ class Register extends Component {
         draggable: true
       })
     }
-    
   }
   render(){
     return(
