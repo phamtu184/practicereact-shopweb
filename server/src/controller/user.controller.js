@@ -19,7 +19,7 @@ module.exports.postLogin = function(req, res){
         return res.json('wrongpw');
       }
       jwt.sign(
-        { id: user.id },
+        { id: user.id, name: user.fullname },
         process.env.JWTSECRET,
         { expiresIn: 1000*60*60*24 },
         (err, token) => {
@@ -40,17 +40,28 @@ module.exports.postLogin = function(req, res){
   })
 }
 module.exports.register = async function(req, res, next){
-  const {fullname, phone, email, password, role, confirmed} = req.body;
+  const {fullname, phone, email, password, confirmed} = req.body;
+  const role = 2;
   const newUser = new User({fullname, phone, email, password, role, confirmed});
   const te = await User.find({email: email});
-  
   if(te.length>0){
     res.json("exist")
   }
   else{
     newUser.save()
     .then(res.json('added'))
-    .catch(err => res.send('err: '+err));
+    .catch(err =>console.log(err));
+  }
+}
+
+module.exports.islogin = async function(req, res){
+  const token = req.cookies.xauthtoken;
+  if(!token) res.json('login:false');
+  try{
+    const decoded = jwt.verify(token, process.env.JWTSECRET);
+    res.json(decoded);
+  }catch(e){
+    console.log('token faile');
   }
 }
 

@@ -7,14 +7,26 @@ import {
 import '../style/style.css'
 import CartIcon from '../image/supermarket.svg'
 import {CartContext} from '../context/cart'
+import axios from 'axios';
 
 class Navbar extends Component{
-  state = {
-    isOpen: false
-  };
-  
-  toggleCollapse = () => {
-    this.setState({ isOpen: !this.state.isOpen });
+  constructor(props){
+    super(props);
+    this.state= {
+      isLogin: false,
+      username: ''
+    };
+  }
+  componentDidMount(){
+    axios.get('/users/islogin')
+    .then(res=>{
+      if(res.data!=='login:false'){
+        this.setState({
+          isLogin: true,
+          username: res.data.name
+        });
+      }
+    })
   }
   render(){
     return(
@@ -25,13 +37,10 @@ class Navbar extends Component{
               <strong className="white-text">Navbar</strong>
             </MDBNavbarBrand>
             <MDBNavbarToggler onClick={this.toggleCollapse} />
-            <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
+            <MDBCollapse id="navbarCollapse3" navbar>
               <MDBNavbarNav left>
                 <MDBNavItem>
                   <MDBNavLink activeClassName="active2" to="/">Home</MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem>
-                  <MDBNavLink activeClassName="active2" to="/users/register">Register</MDBNavLink>
                 </MDBNavItem>
                 <MDBNavItem>
                   <MDBNavLink activeClassName="active2" to="/users/userslist">Users list</MDBNavLink>
@@ -63,7 +72,10 @@ class Navbar extends Component{
                   </MDBNavLink>
                 </MDBNavItem>
                 <MDBNavItem>
-                  <MDBNavLink activeClassName="active2" to="/users/login">Login</MDBNavLink>
+                  { this.state.isLogin
+                    ?<MDBNavLink activeClassName="active2" to="/users/login">{this.state.username}</MDBNavLink>
+                    :<MDBNavLink activeClassName="active2" to="/users/login">Login</MDBNavLink>
+                  }
                 </MDBNavItem>
               </MDBNavbarNav>
             </MDBCollapse>

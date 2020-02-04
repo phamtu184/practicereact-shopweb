@@ -1,12 +1,9 @@
 import React from 'react';
 import Navbar from './component/navbar'
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import 'bootstrap-css-only/css/bootstrap.min.css';
-import 'mdbreact/dist/css/mdb.css'; 
+//import '@fortawesome/fontawesome-free/css/all.min.css';
 import {CartProvider} from './context/cart'
 import { BrowserRouter as Router ,Switch, Route} from "react-router-dom";
 
-import Register from './pages/register';
 import Userslist from './pages/usersList';
 import Login from './pages/login';
 import Home from './pages/home';
@@ -20,9 +17,6 @@ function App() {
         <Navbar></Navbar>
       </CartProvider>
       <Switch>
-      <Route path="/users/register">
-        <Register />
-      </Route>
       <Route path="/users/userslist">
         <Userslist />
       </Route>

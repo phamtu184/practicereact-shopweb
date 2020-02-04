@@ -56,3 +56,11 @@
 #classicformpage label {
   color: #fff !important;
 }
+
+/* --------Register form input----------- */
+legend{
+  width: auto !important;
+}
+.middle{
+  vertical-align: middle;
+}
