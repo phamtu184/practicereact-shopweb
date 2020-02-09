@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import 'bootstrap-css-only/css/bootstrap.min.css';
-import 'mdbreact/dist/css/mdb.css'; 
 import { MDBContainer, MDBRow,
          MDBView, MDBMask } from 'mdbreact';
 import Formlogin from '../component/loginPages/formLogin';

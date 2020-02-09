@@ -26,19 +26,21 @@ class Userlist extends Component {
     return(
       <MDBContainer>
         <h2>Users</h2>
-        <MDBRow>
-          {users.map((user, index)=>(
-            <MDBCol md='4' key={index}>
-              <MDBCard style={{ width: "300px", height:"400px"}} className="mt-4">
-                <MDBCardBody>
-                  <MDBCardTitle>{user.fullname}</MDBCardTitle>
-                  <MDBCardText>{user.email}</MDBCardText>
-                  <MDBCardText>{user.phone}</MDBCardText>
-                </MDBCardBody>
-              </MDBCard>
-            </MDBCol>
-          ))}
+        {users.length > 0 &&
+          <MDBRow>
+            {users.map((user, index)=>(
+              <MDBCol md='4' key={index}>
+                <MDBCard style={{ width: "300px", height:"400px"}} className="mt-4">
+                  <MDBCardBody>
+                    <MDBCardTitle>{user.fullname}</MDBCardTitle>
+                    <MDBCardText>{user.email}</MDBCardText>
+                    <MDBCardText>{user.phone}</MDBCardText>
+                  </MDBCardBody>
+                </MDBCard>
+              </MDBCol>
+            ))}
         </MDBRow>
+        }
       </MDBContainer>
     )
   }

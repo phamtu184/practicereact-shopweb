@@ -19,7 +19,7 @@ module.exports.postLogin = function(req, res){
         return res.json('wrongpw');
       }
       jwt.sign(
-        { id: user.id, name: user.fullname },
+        { id: user.id, name: user.fullname, role: user.role },
         process.env.JWTSECRET,
         { expiresIn: 1000*60*60*24 },
         (err, token) => {
@@ -62,6 +62,15 @@ module.exports.islogin = async function(req, res){
     res.json(decoded);
   }catch(e){
     console.log('token faile');
+  }
+}
+module.exports.islogout = function(req, res){
+  try{
+    res.clearCookie("xauthtoken");
+    return res.sendStatus(200);
+  }
+  catch(e){
+    console.log(e)
   }
 }
 
