@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
+import React, {useEffect} from 'react';
 import { ToastContainer ,toast } from 'react-toastify';
 import Carousel from '../component/homePages/carousel';
 import Features from '../component/homePages/features';
 import ProductList from '../component/homePages/newProductList'
 
-class Home extends Component {
-
-  componentDidMount(){
+export default function Home() {
+  useEffect(() => {
     if(localStorage.welcome){
       toast.success("Đăng nhập thành công", {
         position: "top-right",
@@ -18,17 +17,13 @@ class Home extends Component {
       })
       localStorage.removeItem("welcome");
     }
-  }
-  render(){
-    return(
-      <div>
-        <ToastContainer/>
-        <Carousel/>
-        <Features/>
-        <ProductList/>
-      </div>
-    )
-  }
+  },[])
+  return(
+    <div>
+      <ToastContainer/>
+      <Carousel/>
+      <Features/>
+      <ProductList/>
+    </div>
+  )
 }
-
-export default Home;

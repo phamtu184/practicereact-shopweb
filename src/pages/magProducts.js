@@ -1,14 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Magproducts extends Component {
-
-  render(){
-    return(
-      <div>
-        <h2>magproducts</h2>
-      </div>
-    )
-  }
+export default function Magproducts(){
+  return(
+    <div>
+      <h2>magproducts</h2>
+    </div>
+  )
 }
-
-export default Magproducts;

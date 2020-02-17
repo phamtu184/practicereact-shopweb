@@ -26,29 +26,21 @@ const CssTextField = withStyles({
 })(TextField);
 
 export default function Formlogin (props) {
-  const [state, setState] = useState({
-    emailLogin: "",
-    passwordLogin: "",
-    isLoading: false,
-    snackBar: false
-  });
-  const { isLoading } = state;
+  const [emailLogin, setEmailLogin] = useState(null);
+  const [passwordLogin, setPasswordLogin] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const onChangeEmailLogin = (e)=>{
-    setState({
-      ...state, emailLogin: e.target.value
-    })
+    setEmailLogin(e.target.value)
   };
   const onChangePasswordLogin = (e)=>{
-    setState({
-      ...state, passwordLogin: e.target.value
-    })
+    setPasswordLogin(e.target.value)
   }
   const onSubmitLogin= (e)=>{
     e.preventDefault();
-    setState({ ...state, isLoading: true });
+    setIsLoading(true);
     let info = {
-      email: state.emailLogin,
-      password: state.passwordLogin
+      email: emailLogin,
+      password: passwordLogin
     }
     if(!info.email || !info.password){
       toast.warn("Vui lòng nhập đầy đủ các trường", {
@@ -59,7 +51,7 @@ export default function Formlogin (props) {
         pauseOnHover: true,
         draggable: true
       })
-      setState({ ...state, isLoading: false });
+      setIsLoading(false);
     }
     else{
       axios.post("/users/login", info)
@@ -73,7 +65,7 @@ export default function Formlogin (props) {
             pauseOnHover: true,
             draggable: true
           })
-          setState({ ...state, isLoading: false })
+          setIsLoading(false);
         }
         else if(res.data==="wrongpw"){
           toast.error("Sai mật khẩu", {
@@ -84,11 +76,11 @@ export default function Formlogin (props) {
             pauseOnHover: true,
             draggable: true
           })
-          setState({ ...state, isLoading: false })
+          setIsLoading(false);
         }
         else{
           localStorage.setItem("welcome", "true");
-          setState({ ...state, isLoading: false });
+          setIsLoading(false);
           window.location.assign('/');
         }
       })
@@ -110,7 +102,7 @@ export default function Formlogin (props) {
                 label="Email"
                 type="email"
                 onChange={onChangeEmailLogin}
-                value={state.emailLogin}
+                value={emailLogin}
                 fullWidth
               />
               <CssTextField
@@ -118,7 +110,7 @@ export default function Formlogin (props) {
                 label="Mật khẩu"
                 type="password"
                 onChange={onChangePasswordLogin}
-                value={state.passwordLogin}
+                value={passwordLogin}
                 fullWidth
                 className='mt-3'
               />

@@ -32,85 +32,68 @@ const CssTextField = withStyles({
 })(TextField);
 
 export default function Formregister(props) {
-  const [state, setState] = useState({
-    fullname: {
-      value: "",
-      valid: true,
-      errorMessage: ""
-    },
-    phone: {
-      value: "",
-      valid: true,
-      errorMessage: ""
-    },
-    email: {
-      value: "",
-      valid: true,
-      errorMessage: ""
-    },
-    password: {
-      value: "",
-      valid: true,
-      errorMessage: ""
-    },
-    passwordCf: {
-      value: "",
-      valid: true,
-      errorMessage: ""
-    },
-    isLoading: false
+  const [fullname, setFullname] = useState({
+    value: "",
+    valid: true,
+    errorMessage: ""
   });
+  const [phone, setPhone] = useState({
+    value: "",
+    valid: true,
+    errorMessage: ""
+  });
+  const [email, setEmail] = useState({
+    value: "",
+    valid: true,
+    errorMessage: ""
+  });
+  const [password, setPassword] = useState({
+    value: "",
+    valid: true,
+    errorMessage: ""
+  });
+  const [passwordCf, setPasswordCf] = useState({
+    value: "",
+    valid: true,
+    errorMessage: ""
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
   const onChangeFullname = (event)=> {
-    setState({
-      ...state,
-      fullname : {
-        value: event.target.value,
-        valid: !!event.target.value && event.target.value.length > 5,
-        errorMessage: state.fullname.valid ? "" : "Họ tên phải lớn hơn 5 kí tự"
-      }
+    setFullname({
+      value: event.target.value,
+      valid: !!event.target.value && event.target.value.length > 5,
+      errorMessage: fullname.valid ? "" : "Họ tên phải lớn hơn 5 kí tự"
     })
   }
   const onChangePhone = (event)=> {
     const regexp = /^\d{10}$/;
     const checkingResult = regexp.exec(event.target.value);
-    setState({
-      ...state,
-      phone : {
-        value: event.target.value,
-        valid: !!event.target.value && checkingResult !== null,
-        errorMessage: state.phone.valid ? "" : "Số điện thoại chỉ chứa số và 10 kí tự"
-      }
+    setPhone({
+      value: event.target.value,
+      valid: !!event.target.value && checkingResult !== null,
+      errorMessage: phone.valid ? "" : "Số điện thoại chỉ chứa số và 10 kí tự"
     })
   }
   const onChangeEmail = (event)=> {
-    setState({ 
-      ...state,
-      email : {
-        value: event.target.value,
-        valid: !!event.target.value && event.target.value.length > 5,
-        errorMessage: state.email.valid ? "" : "Tên đăng nhập phải lớn hơn 5 kí tự"
-      }
+    setEmail({ 
+      value: event.target.value,
+      valid: !!event.target.value && event.target.value.length > 5,
+      errorMessage: email.valid ? "" : "Tên đăng nhập phải lớn hơn 5 kí tự"
     });
   }
   const onChangePassword = (event)=> {
-    setState({ 
-      ...state,
-      password : {
-        value: event.target.value,
-        valid: !!event.target.value && event.target.value.length > 5,
-        errorMessage: state.password.valid ? "" : "Mật khẩu phải lớn hơn 5 kí tự"
-      } 
+    setPassword({ 
+      value: event.target.value,
+      valid: !!event.target.value && event.target.value.length > 5,
+      errorMessage: password.valid ? "" : "Mật khẩu phải lớn hơn 5 kí tự"
     });
   }
   const onChangePasswordCf = (event)=> {
-    setState({ 
-      ...state,
-      passwordCf : {
-        value: event.target.value,
-        valid: !!event.target.value && event.target.value === state.password.value && event.target.value.length > 5,
-        errorMessage: state.passwordCf.valid ? "" : "Xác nhận mật khẩu phải giống với mật khẩu"
-      }
+    setPasswordCf({ 
+      value: event.target.value,
+      valid: !!event.target.value && event.target.value === password.value && event.target.value.length > 5,
+      errorMessage: passwordCf.valid ? "" : "Xác nhận mật khẩu phải giống với mật khẩu"
     });
   }
 
@@ -140,21 +123,19 @@ export default function Formregister(props) {
 
   const onSubmitRegister = (event)=> {
     event.preventDefault();
-    setState({ ...state, isLoading: true });
+    setIsLoading(true);
     const info = {
-      fullname: state.fullname.value,
-      phone: state.phone.value,
-      email: state.email.value,
-      password: state.password.value,
-      role: state.role,
+      fullname: fullname.value,
+      phone: phone.value,
+      email: email.value,
+      password: password.value,
       confirmed: false
     }
-    if (formValid(state.fullname.valid, state.email.valid,
-        state.phone.valid, state.password.valid,
-        state.passwordCf.valid)
-        && nullFormValid(state.fullname.value, state.email.value,
-          state.phone.value, state.password.value,
-          state.passwordCf.value)){
+    if (formValid(fullname.valid, email.valid,
+        phone.valid, password.valid, passwordCf.valid)
+        && nullFormValid(fullname.value, email.value,
+          phone.value, password.value,
+          passwordCf.value)){
       axios.post("/users/register", info)
         .then(res => {
           if(res.data === "exist"){
@@ -166,7 +147,7 @@ export default function Formregister(props) {
               pauseOnHover: true,
               draggable: true
             })
-            setState({ ...state, isLoading: false });
+            setIsLoading(false);
           }
           else{
             toast.success("Đăng kí thành công!", {
@@ -177,7 +158,7 @@ export default function Formregister(props) {
               pauseOnHover: true,
               draggable: true
             })
-            setState({ ...state, isLoading: false });
+            setIsLoading(false);
           }
         })
     }
@@ -190,11 +171,10 @@ export default function Formregister(props) {
         pauseOnHover: true,
         draggable: true
       })
-      setState({...state, isLoading: false })
+      setIsLoading(false);
     }
   }
   
-  const {isLoading} = state;
   return(
     <MDBCol md="6" xl="6" className="mb-4">
       <MDBAnimation type="fadeInRight" delay=".3s">
@@ -212,54 +192,54 @@ export default function Formregister(props) {
                 label="Họ tên"
                 type="text"
                 onChange={onChangeFullname}
-                value={state.fullname.value}
+                value={fullname.value}
                 fullWidth
-                error={state.fullname.valid===false}
-                helperText={state.fullname.valid===false ? state.fullname.errorMessage:''}
+                error={fullname.valid===false}
+                helperText={fullname.valid===false ? fullname.errorMessage:''}
               />
               <CssTextField
                 variant="outlined"
                 label="Số điện thoại"
                 type="text"
                 onChange={onChangePhone}
-                value={state.phone.value}
+                value={phone.value}
                 fullWidth
                 className='mt-3'
-                error={state.phone.valid===false}
-                helperText={state.phone.valid===false ? state.phone.errorMessage:''}
+                error={phone.valid===false}
+                helperText={phone.valid===false ? phone.errorMessage:''}
               />
               <CssTextField
                 variant="outlined"
                 label="Email"
                 type="email"
                 onChange={onChangeEmail}
-                value={state.email.value}
+                value={email.value}
                 fullWidth
                 className='mt-3'
-                error={state.email.valid===false}
-                helperText={state.email.valid===false ? state.email.errorMessage:''}
+                error={email.valid===false}
+                helperText={email.valid===false ? email.errorMessage:''}
               />
               <CssTextField
                 variant="outlined"
                 label="Mật khẩu"
                 type="password"
                 onChange={onChangePassword}
-                value={state.password.value}
+                value={password.value}
                 fullWidth
                 className='mt-3'
-                error={state.password.valid===false}
-                helperText={state.password.valid===false ? state.password.errorMessage:''}
+                error={password.valid===false}
+                helperText={password.valid===false ? password.errorMessage:''}
               />
               <CssTextField
                 variant="outlined"
                 label="Xác nhận mật khẩu"
                 type="password"
                 onChange={onChangePasswordCf}
-                value={state.passwordCf.value}
+                value={passwordCf.value}
                 fullWidth
                 className='mt-3'
-                error={state.passwordCf.valid===false}
-                helperText={state.passwordCf.valid===false ? state.passwordCf.errorMessage:''}
+                error={passwordCf.valid===false}
+                helperText={passwordCf.valid===false ? passwordCf.errorMessage:''}
               />            
               <div className="text-center mb-3">
                 <div className="text-center mb-3">
