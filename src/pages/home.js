@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ToastContainer ,toast } from 'react-toastify';
-import Carousel from '../component/homePages/carousel'
+import Carousel from '../component/homePages/carousel';
+import Features from '../component/homePages/features';
 import ProductList from '../component/homePages/newProductList'
 
 class Home extends Component {
@@ -23,6 +24,7 @@ class Home extends Component {
       <div>
         <ToastContainer/>
         <Carousel/>
+        <Features/>
         <ProductList/>
       </div>
     )

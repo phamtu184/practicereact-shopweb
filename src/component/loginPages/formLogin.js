@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {TextField, CircularProgress, Button} from '@material-ui/core';
+import React, {useState} from 'react';
+import { TextField, CircularProgress, Button } from '@material-ui/core';
 import { MDBBtn, MDBCol, MDBCard, MDBCardBody, MDBModalFooter, MDBAnimation} from 'mdbreact'
 import { withStyles } from '@material-ui/core/styles';
 import { toast } from 'react-toastify';
@@ -25,34 +25,30 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-export default class Formlogin extends Component {
-  constructor(props){
-    super(props);
-    this.state={
-      emailLogin: "",
-      passwordLogin: "",
-      isLoading: false,
-    }
-    this.onChangeEmailLogin = this.onChangeEmailLogin.bind(this);
-    this.onChangePasswordLogin = this.onChangePasswordLogin.bind(this);
-    this.onSubmitLogin = this.onSubmitLogin.bind(this)
-  }
-  onChangeEmailLogin(e){
-    this.setState({
-      emailLogin: e.target.value
+export default function Formlogin (props) {
+  const [state, setState] = useState({
+    emailLogin: "",
+    passwordLogin: "",
+    isLoading: false,
+    snackBar: false
+  });
+  const { isLoading } = state;
+  const onChangeEmailLogin = (e)=>{
+    setState({
+      ...state, emailLogin: e.target.value
+    })
+  };
+  const onChangePasswordLogin = (e)=>{
+    setState({
+      ...state, passwordLogin: e.target.value
     })
   }
-  onChangePasswordLogin(e){
-    this.setState({
-      passwordLogin: e.target.value
-    })
-  }
-  onSubmitLogin(e){
+  const onSubmitLogin= (e)=>{
     e.preventDefault();
-    this.setState({ isLoading: true });
+    setState({ ...state, isLoading: true });
     let info = {
-      email: this.state.emailLogin,
-      password: this.state.passwordLogin
+      email: state.emailLogin,
+      password: state.passwordLogin
     }
     if(!info.email || !info.password){
       toast.warn("Vui lòng nhập đầy đủ các trường", {
@@ -63,7 +59,7 @@ export default class Formlogin extends Component {
         pauseOnHover: true,
         draggable: true
       })
-      this.setState({ isLoading: false });
+      setState({ ...state, isLoading: false });
     }
     else{
       axios.post("/users/login", info)
@@ -77,7 +73,7 @@ export default class Formlogin extends Component {
             pauseOnHover: true,
             draggable: true
           })
-          this.setState({ isLoading: false })
+          setState({ ...state, isLoading: false })
         }
         else if(res.data==="wrongpw"){
           toast.error("Sai mật khẩu", {
@@ -88,72 +84,68 @@ export default class Formlogin extends Component {
             pauseOnHover: true,
             draggable: true
           })
-          this.setState({ isLoading: false })
+          setState({ ...state, isLoading: false })
         }
         else{
           localStorage.setItem("welcome", "true");
-          this.setState({ isLoading: false });
+          setState({ ...state, isLoading: false });
           window.location.assign('/');
         }
       })
     }
   }
-
-  render(){
-    const {isLoading} = this.state;
-    return(
-      <MDBCol md="6" xl="5" className="mb-4 align-self-center">
-        <MDBAnimation type="fadeInRight" delay=".3s">
-          <MDBCard className="mt-4 white-text">
-            <MDBCardBody className="mx-4">
-              <div className="text-center">
-                <h3 className="mb-5">
-                  <strong>Đăng nhập</strong>
-                </h3>
+  return(
+    <MDBCol md="6" xl="5" className="mb-4 align-self-center">
+      <MDBAnimation type="fadeInRight" delay=".3s">
+        <MDBCard className="mt-4 white-text">
+          <MDBCardBody className="mx-4">
+            <div className="text-center">
+              <h3 className="mb-5">
+                <strong>Đăng nhập</strong>
+              </h3>
+            </div>
+            <form onSubmit={onSubmitLogin}>
+              <CssTextField 
+                variant="outlined"
+                label="Email"
+                type="email"
+                onChange={onChangeEmailLogin}
+                value={state.emailLogin}
+                fullWidth
+              />
+              <CssTextField
+                variant="outlined"
+                label="Mật khẩu"
+                type="password"
+                onChange={onChangePasswordLogin}
+                value={state.passwordLogin}
+                fullWidth
+                className='mt-3'
+              />
+              <div className="text-center mb-3">
+              <MDBBtn
+                type="submit"
+                gradient="blue"
+                rounded
+                className="btn-block z-depth-1a mt-4"
+                disabled={isLoading}
+              >
+                { isLoading && <CircularProgress size={16} color="inherit" className="middle"/> }
+                <span className="ml-2">Login</span> 
+              </MDBBtn>                  
               </div>
-              <form onSubmit={this.onSubmitLogin}>
-                <CssTextField 
-                  variant="outlined"
-                  label="Email"
-                  type="email"
-                  onChange={this.onChangeEmailLogin}
-                  value={this.state.emailLogin}
-                  fullWidth
-                />
-                <CssTextField
-                  variant="outlined"
-                  label="Mật khẩu"
-                  type="password"
-                  onChange={this.onChangePasswordLogin}
-                  value={this.state.passwordLogin}
-                  fullWidth
-                  className='mt-3'
-                />
-                <div className="text-center mb-3">
-                <MDBBtn
-                  type="submit"
-                  gradient="blue"
-                  rounded
-                  className="btn-block z-depth-1a mt-4"
-                  disabled={isLoading}
-                >
-                  { isLoading && <CircularProgress size={16} color="inherit" className="middle"/> }
-                  <span className="ml-2">Login</span> 
-                </MDBBtn>                  
-                </div>
-              </form> 
-            </MDBCardBody>
-            <MDBModalFooter className="mx-5 pt-3 mb-1">
-              <p className="font-small d-flex justify-content-end align-items-center">
-                Chưa có tài khoản?
-                <Button onClick={this.props.toRegister} className="ml-1 white-text">
-                  Đăng kí
-                </Button>
-              </p>
-            </MDBModalFooter>
-          </MDBCard>
-        </MDBAnimation>
-      </MDBCol>
-    )
-  }
+            </form> 
+          </MDBCardBody>
+          <MDBModalFooter className="mx-5 pt-3 mb-1">
+            <p className="font-small d-flex justify-content-end align-items-center">
+              Chưa có tài khoản?
+              <Button onClick={props.toRegister} className="ml-1 white-text">
+                Đăng kí
+              </Button>
+            </p>
+          </MDBModalFooter>
+        </MDBCard>
+      </MDBAnimation>
+    </MDBCol>
+  )
 }
