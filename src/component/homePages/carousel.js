@@ -1,66 +1,32 @@
 import React from "react";
-import { MDBCarousel, MDBCarouselCaption, MDBCarouselInner, 
-  MDBCarouselItem, MDBView, MDBMask, MDBAnimation  } from "mdbreact";
+import Slider from "react-slick";
+import Background from '../../image/background.jpg'
+import Background2 from '../../image/background2.jpg'
+import Background3 from '../../image/background3.jpg'
 
 const CarouselPage = () => {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    fade: true,
+  };
   return (
-    <>
-      <MDBCarousel
-      activeItem={1}
-      length={3}
-      showControls={true}
-      showIndicators={true}
-      className="z-depth-1"
-      
-    >
-      <MDBCarouselInner>
-        <MDBCarouselItem itemId="1">
-          <MDBView>
-            <img
-              className="d-block w-100"
-              src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg"
-              alt="First slide"
-            />
-          <MDBMask overlay="black-light" />
-          </MDBView>
-          <MDBAnimation type="fadeInLeft">
-            <MDBCarouselCaption>
-              <h3 className="h3-responsive">Light mask</h3>
-              <p>First text</p>
-            </MDBCarouselCaption>
-          </MDBAnimation>
-        </MDBCarouselItem>
-        <MDBCarouselItem itemId="2">
-          <MDBView>
-            <img
-              className="d-block w-100"
-              src="https://mdbootstrap.com/img/Photos/Slides/img%20(6).jpg"
-              alt="Second slide"
-            />
-          <MDBMask overlay="black-strong" />
-          </MDBView>
-          <MDBCarouselCaption>
-            <h3 className="h3-responsive">Strong mask</h3>
-            <p>Second text</p>
-          </MDBCarouselCaption>
-        </MDBCarouselItem>
-        <MDBCarouselItem itemId="3">
-          <MDBView>
-            <img
-              className="d-block w-100"
-              src="https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg"
-              alt="Third slide"
-            />
-          <MDBMask overlay="black-slight" />
-          </MDBView>
-          <MDBCarouselCaption>
-            <h3 className="h3-responsive">Slight Mast</h3>
-            <p>Third text</p>
-          </MDBCarouselCaption>
-        </MDBCarouselItem>
-      </MDBCarouselInner>
-    </MDBCarousel>
-    </>
+    <div className='container carousel'>
+      <Slider {...settings}>
+        <div>
+          <img src={Background} alt='background1'/>
+        </div>
+        <div>
+          <img src={Background2} alt='background2'/>
+        </div>
+        <div>
+          <img src={Background3} alt='background3'/>
+        </div>
+      </Slider>
+    </div>
   );
 }
 

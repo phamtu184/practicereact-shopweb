@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import {TextField, CircularProgress, Button} from '@material-ui/core';
-import { MDBBtn, MDBCol, MDBCard, MDBCardBody, MDBModalFooter, MDBAnimation} from 'mdbreact'
+import {TextField, CircularProgress, Button, Card, CardContent, CardActions} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -8,12 +7,12 @@ import { toast } from 'react-toastify';
 const CssTextField = withStyles({
   root: {
     '& .MuiInputBase-input': {
-      color: 'white',
+      color: 'black',
     },
     '& .MuiOutlinedInput-root': {
       '& fieldset': {
-        borderColor: 'white',
-        color: 'white'
+        borderColor: 'black',
+        color: 'black'
       },
       '&:hover fieldset': {
         borderColor: '#40c4ff',
@@ -176,10 +175,10 @@ export default function Formregister(props) {
   }
   
   return(
-    <MDBCol md="6" xl="6" className="mb-4">
-      <MDBAnimation type="fadeInRight" delay=".3s">
-        <MDBCard className="mt-4 white-text">
-          <MDBCardBody className="mx-4">
+    <div className="col-md-6 mb-4">
+      <div type="fadeInRight" delay=".3s">
+        <Card className="mt-4 white-text">
+          <CardContent className="mx-4">
             <div className="text-center">
               <h3 className="mb-5">
                 <strong>Đăng kí</strong>
@@ -243,30 +242,29 @@ export default function Formregister(props) {
               />            
               <div className="text-center mb-3">
                 <div className="text-center mb-3">
-                  <MDBBtn
+                  <Button
                     type="submit"
                     gradient="blue"
-                    rounded
                     className="btn-block z-depth-1a mt-4"
                     disabled={isLoading}
                   >
                     { isLoading && <CircularProgress size={16} color="inherit" className="middle"/> }
                     <span className="ml-2">Đăng kí</span> 
-                  </MDBBtn> 
+                  </Button> 
                 </div>
               </div>
             </form> 
-          </MDBCardBody>
-          <MDBModalFooter className="mx-5 pt-3 mb-1">
+          </CardContent>
+          <CardActions className="mx-5 pt-3 mb-1">
             <div className="font-small d-flex justify-content-end align-items-center">
               <span>Đã có tài khoản</span>
               <Button onClick={props.toLogin} className="ml-1 white-text">
                 Đăng nhập
               </Button>
             </div>
-          </MDBModalFooter>
-        </MDBCard>
-      </MDBAnimation>
-    </MDBCol>
+          </CardActions>
+        </Card>
+      </div>
+    </div>
   )
 }

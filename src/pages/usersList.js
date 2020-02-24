@@ -1,42 +1,37 @@
 import React, {useEffect, useState} from 'react';
-import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCol, MDBContainer, MDBRow } from 'mdbreact';
+import { Typography , Card, CardContent } from '@material-ui/core';
 import axios from 'axios';
 
 export default function Userlist() {
-  const [userss, setUsers] = useState({
-    users:[]
-  });
+  const [users, setUsers] = useState([]);
   useEffect(()=>{
     axios.get('/users/userslist')
     .then(response => {
-      setUsers({
-        users: response.data
-      });
+      setUsers(response.data);
     })
     .catch(function (error) {
       // handle error
       console.log(error);
     })
   }, [])
-  const {users} = userss;
   return(
-    <MDBContainer>
+    <div className='container'>
       <h2>Users</h2>
       {users.length > 0 &&
-        <MDBRow>
+        <div className='row'>
           {users.map((user, index)=>(
-            <MDBCol md='4' key={index}>
-              <MDBCard style={{ width: "300px", height:"400px"}} className="mt-4">
-                <MDBCardBody>
-                  <MDBCardTitle>{user.fullname}</MDBCardTitle>
-                  <MDBCardText>{user.email}</MDBCardText>
-                  <MDBCardText>{user.phone}</MDBCardText>
-                </MDBCardBody>
-              </MDBCard>
-            </MDBCol>
+            <div className='col-md-4' key={index}>
+              <Card style={{ width: "300px", height:"400px"}} className="mt-4">
+                <CardContent>
+                  <Typography>{user.fullname}</Typography>
+                  <Typography>{user.email}</Typography>
+                  <Typography>{user.phone}</Typography>
+                </CardContent>
+              </Card>
+            </div>
           ))}
-      </MDBRow>
+      </div>
       }
-    </MDBContainer>
+    </div>
   )
 }

@@ -1,11 +1,10 @@
 import React from "react";
-import {  MDBRow, MDBCol, MDBContainer } from "mdbreact";
 import { Paper } from '@material-ui/core';
-import PetsIconPug from '../../image/pug.svg';
+import PetsIconPug from '../../image/svglogo/pug.svg';
 
 const FeaturesPage = () => {
   return (
-    <MDBContainer className="text-center my-5">
+    <div className="text-center my-5 container">
       <h2 className="h1-responsive font-weight-bold my-5">
         Why is it so great?
       </h2>
@@ -14,8 +13,8 @@ const FeaturesPage = () => {
         eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
         ad minim veniam.
       </p>
-      <MDBRow>
-        <MDBCol md="4">
+      <div className='row'>
+        <div className='col-md-4'>
           <Paper elevation={3} className="px-4 py-4 h-100 w-100">
             <img src={PetsIconPug} alt='carticon' style={{width:'60px', height:'60px'}}></img>
             <h5 className="font-weight-bold my-4">Analytics</h5>
@@ -24,18 +23,17 @@ const FeaturesPage = () => {
               Reprehenderit maiores aperiam minima assumenda deleniti hic.
             </p>
           </Paper>
-        </MDBCol>
-        <MDBCol md="4">
+        </div>
+        <div className='col-md-4'>
           <Paper elevation={3} className="px-4 py-4 h-100 w-100">
             <img src={PetsIconPug} alt='carticon' style={{width:'60px', height:'60px'}}></img>
             <h5 className="font-weight-bold my-4">Analytics</h5>
             <p className="grey-text mb-md-0 mb-5">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              
             </p>
           </Paper>
-        </MDBCol>
-        <MDBCol md="4">
+        </div>
+        <div className='col-md-4'>
           <Paper elevation={3} className="px-4 py-4 h-100 w-100">
             <img src={PetsIconPug} alt='carticon' style={{width:'60px', height:'60px'}}></img>
             <h5 className="font-weight-bold my-4">Analytics</h5>
@@ -44,9 +42,9 @@ const FeaturesPage = () => {
               Reprehenderit maiores aperiam minima assumenda deleniti hic.
             </p>
           </Paper>
-        </MDBCol>
-      </MDBRow>
-    </MDBContainer>
+        </div>
+      </div>
+    </div>
   );
 }
 

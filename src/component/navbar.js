@@ -1,102 +1,127 @@
-import React, { Component } from 'react';
-import {
-  MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse,
-  MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBBadge, Container
-  } from "mdbreact";
-import 'bootstrap-css-only/css/bootstrap.min.css';
-import 'mdbreact/dist/css/mdb.css'; 
-import '../style/style.css'
-import CartIcon from '../image/supermarket.svg'
-import {CartContext} from '../context/cart'
-import axios from 'axios';
-import Menuitemlogin from './loginPages/menuItemLogin'
+import React, { useState, useEffect} from 'react';
 
-class Navbar extends Component{
-  constructor(props){
-    super(props);
-    this.state= {
-      isLogin: false,
-      username: '',
-      role: '',
-      isOpen: false
-    };
+import '../style/bootstrap.min.css'; 
+import '../style/style.scss'
+import { makeStyles } from '@material-ui/core/styles';
+
+import { AppBar, Toolbar, BottomNavigation, BottomNavigationAction, Button, IconButton, SvgIcon } from '@material-ui/core';
+import MenuIcon from '../image/svglogo/menu.svg';
+import { NavLink } from "react-router-dom";
+
+//import CartIcon from '../image/svglogo/supermarket.svg'
+//import {CartContext} from '../context/cart'
+import axios from 'axios';
+import Menuitemlogin from './loginPages/menuItemLogin';
+import Menuitemloginbotnav from './loginPages/menuItemLoginBotNav';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+  appBar:{
+    top: 'auto',
+    bottom: 0,
   }
-  componentDidMount(){
+}));
+function HomeIcon(props) {
+  return (
+    <SvgIcon {...props}>
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+    </SvgIcon>
+  );
+}
+
+export default function Navbar() {
+  const [isLogin, setIslogin] = useState(false);
+  const [username, setUsername] = useState(null);
+  const [role, setRole] = useState(null);
+  const [isCollapse, setIsCollapse] = useState(false);
+  const [value, setValue] = useState(0);
+  useEffect(()=>{
     axios.get('/users/islogin')
     .then(res=>{
       if(res.data!=='login:false'){
-        this.setState({
-          isLogin: true,
-          username: res.data.name,
-          role: res.data.role
-        });
+        setIslogin(true);
+        setUsername(res.data.name);
+        setRole(res.data.role);
       }
     })
+  },[]);
+  const toggleCollapse = () => {
+    setIsCollapse(!isCollapse);
   }
-  toggleCollapse = () => {
-    this.setState({ isOpen: !this.state.isOpen });
-  }
-  render(){
-    return(
-      <nav>
-        <MDBNavbar color="default-color" className="white-text blue darken-3" dark expand="md" scrolling transparent>
-          <Container>
-            <MDBNavbarBrand>
-              <strong className="white-text">Navbar</strong>
-            </MDBNavbarBrand>
-            <MDBNavbarToggler onClick={this.toggleCollapse} />
-            <MDBCollapse id="navbarCollapse3" navbar isOpen={this.state.isOpen}>
-              <MDBNavbarNav left>
-                <MDBNavItem>
-                  <MDBNavLink activeClassName="active2" to="/">Trang chủ</MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem>
-                  <MDBNavLink activeClassName="active2" to="/users/userslist">Users list</MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem>
-                  <MDBNavLink activeClassName="active2" to="/products">Products</MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem>
-                  <MDBDropdown>
-                    <MDBDropdownToggle nav caret>
-                      <span className="mr-2">Dropdown</span>
-                    </MDBDropdownToggle>
-                    <MDBDropdownMenu>
-                      <MDBDropdownItem href="#!">Action</MDBDropdownItem>
-                      <MDBDropdownItem href="#!">Another Action</MDBDropdownItem>
-                      <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
-                      <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
-                    </MDBDropdownMenu>
-                  </MDBDropdown>
-                </MDBNavItem>
-              </MDBNavbarNav>
-              <MDBNavbarNav right>
-                <MDBNavItem>
-                  <MDBNavLink activeClassName="active2" to="/products">
-                    <img src={CartIcon} alt='carticon' style={{width:'16px', height:'16px'}}></img>
-                    <CartContext.Consumer>
-                      {({cartItems}) => <MDBBadge color="danger" className="ml-2">{cartItems.length}</MDBBadge>}
-                    </CartContext.Consumer>
-                  </MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem>
-                  { this.state.role === 1 && 
-                    <MDBNavLink activeClassName="active2" to="/magproducts">Quản lý sản phẩm</MDBNavLink>
-                  }
-                </MDBNavItem>
-                <MDBNavItem>
-                  { this.state.isLogin
-                    ?<Menuitemlogin username={this.state.username}/>
-                    :<MDBNavLink activeClassName="active2" to="/users/login">Đăng nhập</MDBNavLink>
-                  }
-                </MDBNavItem>
-              </MDBNavbarNav>
-            </MDBCollapse>
-          </Container>
-        </MDBNavbar>
+  const classes = useStyles();
+  return(
+    <div>
+      <nav className='top-nav'>
+        <AppBar color="default" position='fixed'>
+          <Toolbar className='container'>
+            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleCollapse}>
+              <img className='toggle-icon' src={MenuIcon} alt='menu icon' style={{width:'32px', height:'32px'}}/>
+            </IconButton>
+            <strong className="white-text">Navbar</strong>
+            <ul className={`nav-content ${isCollapse ? 'is-collapse' : ''}`}>
+              <li>
+                <NavLink activeClassName="nav-item-active" to="/" exact={true}>
+                  <Button>Trang chủ</Button>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink activeClassName="nav-item-active" to="/users/userslist">
+                  <Button>User List</Button>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink activeClassName="nav-item-active" to="/products">
+                  <Button>Products</Button>
+                </NavLink>
+              </li>
+              { role === 1 && 
+                <li>
+                  <NavLink activeClassName="nav-item-active" to="/magproducts">
+                    <Button>Quản lý sản phẩm</Button>
+                  </NavLink>
+                </li>
+              }
+              { isLogin
+                ?<li><Menuitemlogin username={username}/></li>
+                :<li>
+                  <NavLink activeClassName="nav-item-active" to="/users/login">
+                    <Button>Đăng Nhập</Button>
+                  </NavLink>
+                </li>
+              }
+            </ul>
+          </Toolbar>
+        </AppBar>
       </nav>
-    )
-  }
+      <nav className='bottom-nav'>
+        <AppBar position="fixed" className={classes.appBar}>
+          <BottomNavigation
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+          >
+            <BottomNavigationAction label="Trang chủ" icon={<HomeIcon />} component={NavLink} to="/" />
+            <BottomNavigationAction label="User List" icon={<HomeIcon />} component={NavLink} to="/users/userslist"/>
+            <BottomNavigationAction label="Products" icon={<HomeIcon />} component={NavLink} to="/products"/>
+            { role === 1 && 
+              <BottomNavigationAction label="Quản lý sản phẩm" icon={<HomeIcon />} component={NavLink} to="/magproducts" />
+            }
+            { isLogin
+              ?<Menuitemloginbotnav username={username}/>
+              :<BottomNavigationAction label="Đăng Nhập" icon={<HomeIcon />} component={NavLink} to="/users/login"/>
+            }
+          </BottomNavigation>
+        </AppBar>
+      </nav>
+    </div>
+  )
 }
-
-export default Navbar;

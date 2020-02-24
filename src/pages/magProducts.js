@@ -1,9 +1,10 @@
 import React from 'react';
+import { Paper } from '@material-ui/core';
 
 export default function Magproducts(){
   return(
     <div>
-      <h2>magproducts</h2>
+      <Paper elevation={3}></Paper>
     </div>
   )
 }

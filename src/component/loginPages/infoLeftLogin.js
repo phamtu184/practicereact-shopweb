@@ -1,9 +1,9 @@
 import React from 'react';
-import { MDBBtn, MDBAnimation } from 'mdbreact'
+import { Button } from '@material-ui/core';
 
 export default function Leftinfologin(props) {
   return(
-    <MDBAnimation
+    <div
       type="fadeInLeft"
       delay=".3s"
       className="white-text text-center text-md-left col-md-6 mt-xl-5 mb-5"
@@ -18,9 +18,9 @@ export default function Leftinfologin(props) {
         veniam sapiente, fugiat! Commodi sequi non animi ea dolor
         molestiae, quisquam iste, maiores. Nulla.
       </h6>
-      <MDBBtn outline color="white">
+      <Button>
         Learn More
-      </MDBBtn>
-    </MDBAnimation>
+      </Button>
+    </div>
   )
 }

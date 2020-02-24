@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from './component/navbar'
 //import '@fortawesome/fontawesome-free/css/all.min.css';
-import {CartProvider} from './context/cart'
+//import {CartProvider} from './context/cart'
 import { BrowserRouter as Router ,Switch, Route} from "react-router-dom";
 
 import Userslist from './pages/usersList';
@@ -14,9 +14,8 @@ function App() {
   return (
     <div>
       <Router>
-        <CartProvider>
-          <Navbar/>
-        </CartProvider>
+        <Navbar/>
+        <div className='clone-topnav'/>
         <Switch>
           <Route path="/users/userslist" component={Userslist}/>
           <Route path="/users/login" component={Login}/>

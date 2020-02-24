@@ -1,8 +1,16 @@
 import React from 'react';
-import { Button, Menu, MenuItem } from '@material-ui/core';
+import { Menu, MenuItem, BottomNavigationAction, SvgIcon } from '@material-ui/core';
 import axios from 'axios';
 
-export default function Menuitemlogin(props) {
+function HomeIcon(props) {
+  return (
+    <SvgIcon {...props}>
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+    </SvgIcon>
+  );
+}
+
+export default function Menuitemloginbotnav(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = event => {
@@ -25,9 +33,7 @@ export default function Menuitemlogin(props) {
 
   return (
     <div>
-      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} >
-        {props.username}
-      </Button>
+      <BottomNavigationAction label={props.username} icon={<HomeIcon />} onClick={handleClick} />
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}

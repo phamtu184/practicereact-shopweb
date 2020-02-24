@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { MDBContainer, MDBRow,
-         MDBView, MDBMask } from 'mdbreact';
 import Formlogin from '../component/loginPages/formLogin';
 import Formregister from '../component/loginPages/formRegister';
 import Leftinfologin from '../component/loginPages/infoLeftLogin';
@@ -15,20 +13,18 @@ export default function Login(props) {
   return(
     <div id='classicformpage'>
       <ToastContainer/>
-      <MDBView>
-        <MDBMask className="d-flex justify-content-center gradient">
-          <MDBContainer>
-            <MDBRow className="mt-4">
+        <div className="d-flex justify-content-center gradient">
+          <div className='container'>
+            <div className="row mt-4">
               <Leftinfologin/>
               {loginForm ? (
                 <Formlogin toRegister={toRegister}/>
               ) : (
                 <Formregister toLogin={toRegister}/>
               )}
-            </MDBRow>
-          </MDBContainer>
-        </MDBMask>
-      </MDBView>
+            </div>
+          </div>
+        </div>
     </div>
   )
 }

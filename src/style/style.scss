@@ -1,0 +1,113 @@
+/* -----------Nav bar---------- ----------*/
+.nav-content{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  li{
+    float: left;
+    display: block;
+    text-align: center;
+    padding: 8px 4px;
+    text-decoration: none;
+    a:hover{
+      text-decoration: none;
+    }
+    button{
+      font-weight: 550;
+    }
+  }
+}
+.nav-item-active{
+  display: inline-flex;
+  position: relative;
+  align-items: center;
+  border-radius: 4px;
+  justify-content: center;
+  background-color: #3f51b5;
+  button{
+    color: #fff !important;
+  }
+}
+.clone-topnav{
+  height: 64px;
+}
+.toggle-icon{
+  display: none;
+}
+@media only screen and (max-width: 20000px){
+  .bottom-nav{
+    display: none;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .clone-topnav{
+    height: 0px;
+  }
+  .toggle-icon{
+    display: none;
+  }
+  .bottom-nav{
+    display: block;
+  }
+  .top-nav{
+    display: none;
+  }
+  //ul.nav-content {
+    // width: 100%;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: space-between;
+    // flex-wrap: wrap;
+    // overflow: hidden;
+    // max-height: 0;
+    // -moz-transition-duration: 0.8s;
+    // -webkit-transition-duration: 0.8s;
+    // -o-transition-duration: 0.8s;
+    // transition-duration: 0.8s;
+    // -moz-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    // -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    // -o-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    // transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    // &.is-collapse {
+    //   overflow: hidden;
+    //   max-height: 500px; /* approximate max height */
+    //   -moz-transition-duration: 0.5s;
+    //   -webkit-transition-duration: 0.5s;
+    //   -o-transition-duration: 0.5s;
+    //   transition-duration: 0.5s;
+    //   -moz-transition-timing-function: ease-in;
+    //   -webkit-transition-timing-function: ease-in;
+    //   -o-transition-timing-function: ease-in;
+    //   transition-timing-function: ease-in;
+    // }
+    // li {
+    //   padding: 15px 10px;
+    //   margin: 0px 0px;
+    //   width: 100%;
+    // }
+  //}
+}
+
+/* --------Register form input----------- */
+// legend{
+//   width: auto !important;
+// }
+// .middle{
+//   vertical-align: middle;
+// }
+
+/* ----------------home page-------------- */
+.slick-prev:before, .slick-next:before{
+  color: black !important;
+}
+*:focus {
+  outline: none !important;
+}
+/* ----------------Carousel-------------- */
+.carousel{
+  img{
+    width: 1110px;
+    height: 693px;
+  }
+}
