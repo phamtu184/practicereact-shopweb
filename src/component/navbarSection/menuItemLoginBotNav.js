@@ -1,18 +1,16 @@
 import React from 'react';
-import { Button, Menu, MenuItem } from '@material-ui/core';
+import { Menu, MenuItem, BottomNavigationAction } from '@material-ui/core';
 import axios from 'axios';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
-export default function Menuitemlogin(props) {
+export default function Menuitemloginbotnav(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   const handleLogout = () => {
     try{
     axios.post('/users/islogin')
@@ -22,12 +20,9 @@ export default function Menuitemlogin(props) {
       console.log(e)
     }
   }
-
   return (
     <div>
-      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} >
-        {props.username}
-      </Button>
+      <BottomNavigationAction label={props.username} icon={<ExitToAppIcon />} onClick={handleClick} />
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}

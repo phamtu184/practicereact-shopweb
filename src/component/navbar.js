@@ -1,25 +1,25 @@
-import React, { useState, useEffect} from 'react';
-
-import '../style/bootstrap.min.css'; 
-import '../style/style.scss'
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { AppBar, Toolbar, BottomNavigation, BottomNavigationAction, Button, IconButton, SvgIcon } from '@material-ui/core';
-import MenuIcon from '../image/svglogo/menu.svg';
-import { NavLink } from "react-router-dom";
+import { AppBar, Toolbar, BottomNavigation, BottomNavigationAction, Button, IconButton } from '@material-ui/core';
+//icon
+import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
+import ShoppingBasketRoundedIcon from '@material-ui/icons/ShoppingBasketRounded';
+import SettingsRoundedIcon from '@material-ui/icons/SettingsRounded';
+import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
+import LoginIcon from '../image/svglogo/login.svg';
 
+import { NavLink } from "react-router-dom";
 //import CartIcon from '../image/svglogo/supermarket.svg'
 //import {CartContext} from '../context/cart'
 import axios from 'axios';
-import Menuitemlogin from './loginPages/menuItemLogin';
-import Menuitemloginbotnav from './loginPages/menuItemLoginBotNav';
+import Menuitemlogin from './navbarSection/menuItemLogin';
+import Menuitemloginbotnav from './navbarSection/menuItemLoginBotNav';
+import LoginDrawer from './navbarSection/loginDrawer';
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
@@ -29,44 +29,37 @@ const useStyles = makeStyles(theme => ({
     bottom: 0,
   }
 }));
-function HomeIcon(props) {
-  return (
-    <SvgIcon {...props}>
-      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-    </SvgIcon>
-  );
-}
 
 export default function Navbar() {
-  const [isLogin, setIslogin] = useState(false);
+  const [isLogin, setLogin] = useState(false);
   const [username, setUsername] = useState(null);
   const [role, setRole] = useState(null);
-  const [isCollapse, setIsCollapse] = useState(false);
   const [value, setValue] = useState(0);
+  const [isDrawer, setDrawer] = useState(false);
+  const openDrawer = () => {
+    setDrawer(true)
+  }
+  const closeDrawer = () => {
+    setDrawer(false)
+  }
   useEffect(()=>{
     axios.get('/users/islogin')
     .then(res=>{
       if(res.data!=='login:false'){
-        setIslogin(true);
+        setLogin(true);
         setUsername(res.data.name);
         setRole(res.data.role);
       }
     })
   },[]);
-  const toggleCollapse = () => {
-    setIsCollapse(!isCollapse);
-  }
   const classes = useStyles();
   return(
-    <div>
+    <>
       <nav className='top-nav'>
         <AppBar color="default" position='fixed'>
           <Toolbar className='container'>
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleCollapse}>
-              <img className='toggle-icon' src={MenuIcon} alt='menu icon' style={{width:'32px', height:'32px'}}/>
-            </IconButton>
             <strong className="white-text">Navbar</strong>
-            <ul className={`nav-content ${isCollapse ? 'is-collapse' : ''}`}>
+            <ul className='nav-content'>
               <li>
                 <NavLink activeClassName="nav-item-active" to="/" exact={true}>
                   <Button>Trang chủ</Button>
@@ -89,15 +82,13 @@ export default function Navbar() {
                   </NavLink>
                 </li>
               }
-              { isLogin
-                ?<li><Menuitemlogin username={username}/></li>
-                :<li>
-                  <NavLink activeClassName="nav-item-active" to="/users/login">
-                    <Button>Đăng Nhập</Button>
-                  </NavLink>
-                </li>
-              }
             </ul>
+            { isLogin
+              ?<Menuitemlogin style={{marginLeft:'auto'}} username={username}/>
+              :<IconButton edge="start" style={{marginLeft:'auto'}} color="inherit" onClick={openDrawer} >
+                <img src={LoginIcon} alt='login icon' style={{width:'32px', height:'32px'}}/>
+              </IconButton>
+            }
           </Toolbar>
         </AppBar>
       </nav>
@@ -109,19 +100,20 @@ export default function Navbar() {
               setValue(newValue);
             }}
           >
-            <BottomNavigationAction label="Trang chủ" icon={<HomeIcon />} component={NavLink} to="/" />
-            <BottomNavigationAction label="User List" icon={<HomeIcon />} component={NavLink} to="/users/userslist"/>
-            <BottomNavigationAction label="Products" icon={<HomeIcon />} component={NavLink} to="/products"/>
+            <BottomNavigationAction label="Trang chủ" icon={<HomeRoundedIcon />} component={NavLink} to="/" />
+            <BottomNavigationAction label="User List" icon={<HomeRoundedIcon />} component={NavLink} to="/users/userslist"/>
+            <BottomNavigationAction label="Products" icon={<ShoppingBasketRoundedIcon />} component={NavLink} to="/products"/>
             { role === 1 && 
-              <BottomNavigationAction label="Quản lý sản phẩm" icon={<HomeIcon />} component={NavLink} to="/magproducts" />
+              <BottomNavigationAction label="Quản lý" icon={<SettingsRoundedIcon />} component={NavLink} to="/magproducts" />
             }
             { isLogin
               ?<Menuitemloginbotnav username={username}/>
-              :<BottomNavigationAction label="Đăng Nhập" icon={<HomeIcon />} component={NavLink} to="/users/login"/>
+              :<BottomNavigationAction label="Đăng Nhập" icon={<AccountCircleRoundedIcon />} component={NavLink} to="/users/login"/>
             }
           </BottomNavigation>
         </AppBar>
       </nav>
-    </div>
+      <LoginDrawer isDrawer={isDrawer} openDrawer={openDrawer} closeDrawer={closeDrawer}/>
+    </>
   )
 }

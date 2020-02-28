@@ -2,7 +2,10 @@ import React, {useEffect} from 'react';
 import { ToastContainer ,toast } from 'react-toastify';
 import Carousel from '../component/homePages/carousel';
 import Features from '../component/homePages/features';
-import ProductList from '../component/homePages/newProductList'
+import ProductList from '../component/homePages/newProductList';
+import Drawer from '../component/navbarSection/loginDrawer';
+
+import { DrawerProvider } from '../context/drawer';
 
 export default function Home() {
   useEffect(() => {
@@ -24,6 +27,9 @@ export default function Home() {
       <Carousel/>
       <Features/>
       <ProductList/>
+      <DrawerProvider>
+        <Drawer/>
+      </DrawerProvider>
     </div>
   )
 }
