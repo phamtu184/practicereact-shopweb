@@ -1,35 +1,45 @@
-import React, {useEffect} from 'react';
-import { ToastContainer ,toast } from 'react-toastify';
+import React, { useEffect, useState } from 'react';
+import { Snackbar } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
 import Carousel from '../component/homePages/carousel';
 import Features from '../component/homePages/features';
 import ProductList from '../component/homePages/newProductList';
-import Drawer from '../component/navbarSection/loginDrawer';
 
-import { DrawerProvider } from '../context/drawer';
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 export default function Home() {
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [infoSnackbar, setInfoSnackbar] = useState('');
+  const [typeSnackbar, setTypeSnackbar] = useState('');
   useEffect(() => {
     if(localStorage.welcome){
-      toast.success("Đăng nhập thành công", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true
-      })
+      setOpenSnackbar(true);
+      setInfoSnackbar('Đăng nhập thành công');
+      setTypeSnackbar('success');
       localStorage.removeItem("welcome");
     }
   },[])
+  const closeSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenSnackbar(false);
+  };
+  const vertical = 'top';
+  const horizontal = 'right';
   return(
     <div>
-      <ToastContainer/>
+      <Snackbar open={openSnackbar} autoHideDuration={6000} 
+      onClose={closeSnackbar} anchorOrigin={{ vertical, horizontal }}>
+        <Alert onClose={closeSnackbar} severity={typeSnackbar}>
+          {infoSnackbar}
+        </Alert>
+      </Snackbar>
       <Carousel/>
       <Features/>
       <ProductList/>
-      <DrawerProvider>
-        <Drawer/>
-      </DrawerProvider>
     </div>
   )
 }

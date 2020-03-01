@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { SwipeableDrawer, Button, Card, CardContent, CardActions, TextField, CircularProgress, IconButton } from '@material-ui/core';
-import { toast } from 'react-toastify';
+import { Button, Card, CardContent, CardActions, 
+  TextField, CircularProgress, Snackbar } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
 import axios from 'axios';
-import LoginIcon from '../../image/svglogo/login.svg';
-//import { DrawerContext } from '../../context/drawer';
 
 const CssTextField = withStyles({
   root: {
@@ -26,11 +25,18 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-export default function DrawerLogin(props){
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+export default function LoginDrawer(props){
   const [emailLogin, setEmailLogin] = useState('');
   const [passwordLogin, setPasswordLogin] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  //const { isDrawer, openDrawer, closeDrawer } = useContext(DrawerContext);
+
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [infoSnackbar, setInfoSnackbar] = useState('');
+  const [typeSnackbar, setTypeSnackbar] = useState('');
 
   const onChangeEmailLogin = (e)=>{
     setEmailLogin(e.target.value)
@@ -38,6 +44,12 @@ export default function DrawerLogin(props){
   const onChangePasswordLogin = (e)=>{
     setPasswordLogin(e.target.value)
   }
+  const closeSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenSnackbar(false);
+  };
   const onSubmitLogin= (e)=>{
     e.preventDefault();
     setIsLoading(true);
@@ -46,39 +58,24 @@ export default function DrawerLogin(props){
       password: passwordLogin
     }
     if(!info.email || !info.password){
-      toast.warn("Vui lòng nhập đầy đủ các trường", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true
-      })
+      setOpenSnackbar(true);
+      setInfoSnackbar('Vui lòng nhập đầy đủ các trường');
+      setTypeSnackbar('warning');
       setIsLoading(false);
     }
     else{
       axios.post("/users/login", info)
       .then(res => {
         if(res.data==="notuser"){
-          toast.error("Tài khoản không tồn tại", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true
-          })
+          setOpenSnackbar(true);
+          setInfoSnackbar('Tài khoản không tồn tại');
+          setTypeSnackbar('error');
           setIsLoading(false);
         }
         else if(res.data==="wrongpw"){
-          toast.error("Sai mật khẩu", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true
-          })
+          setOpenSnackbar(true);
+          setInfoSnackbar('Sai mật khẩu');
+          setTypeSnackbar('error');
           setIsLoading(false);
         }
         else{
@@ -89,11 +86,16 @@ export default function DrawerLogin(props){
       })
     }
   }
+  const vertical = 'top';
+  const horizontal = 'right';
   return(
-    <SwipeableDrawer open={props.isDrawer} onClose={props.closeDrawer} onOpen={props.openDrawer} anchor='right'>
-      <IconButton onClick={props.closeDrawer} style={{width:'64px', height:'64px'}}>
-        <img src={LoginIcon} alt='login icon' style={{width:'32px', height:'32px'}} />
-      </IconButton>
+    <>
+      <Snackbar open={openSnackbar} autoHideDuration={6000} 
+      onClose={closeSnackbar} anchorOrigin={{ vertical, horizontal }}>
+        <Alert onClose={closeSnackbar} severity={typeSnackbar}>
+          {infoSnackbar}
+        </Alert>
+      </Snackbar>
       <Card>
         <CardContent className="mx-4">
           <div className="text-center">
@@ -141,6 +143,6 @@ export default function DrawerLogin(props){
           </p>
         </CardActions>
       </Card>
-    </SwipeableDrawer>
+    </>
   )
 }
