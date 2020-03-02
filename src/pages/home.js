@@ -14,11 +14,20 @@ export default function Home() {
   const [infoSnackbar, setInfoSnackbar] = useState('');
   const [typeSnackbar, setTypeSnackbar] = useState('');
   useEffect(() => {
-    if(localStorage.welcome){
-      setOpenSnackbar(true);
-      setInfoSnackbar('Đăng nhập thành công');
-      setTypeSnackbar('success');
-      localStorage.removeItem("welcome");
+    switch(localStorage.event){
+      case 'LOGIN_SUCCESS':
+        setOpenSnackbar(true);
+        setInfoSnackbar('Đăng nhập thành công');
+        setTypeSnackbar('success');
+        localStorage.removeItem("event");
+        break;
+      case 'ACTIVE_EMAIL':
+        setOpenSnackbar(true);
+        setInfoSnackbar('Kích hoạt email thành công');
+        setTypeSnackbar('success');
+        localStorage.removeItem("event");
+        break;
+      default:
     }
   },[])
   const closeSnackbar = (event, reason) => {

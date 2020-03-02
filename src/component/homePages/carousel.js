@@ -4,13 +4,28 @@ import Background from '../../image/background.jpg'
 import Background2 from '../../image/background2.jpg'
 import Background3 from '../../image/background3.jpg'
 
-const settingimg = {
-  backgroundPosition: 'center',
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: 'cover',
-  width: '100%',
-  height: 'auto',
+function NextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, right:'25px'}}
+      onClick={onClick}
+    />
+  );
 }
+
+function PrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, left:'25px', zIndex: '2'}}
+      onClick={onClick}
+    />
+  );
+}
+
 const CarouselPage = () => {
   const settings = {
     dots: true,
@@ -19,18 +34,20 @@ const CarouselPage = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     fade: true,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />
   };
   return (
-    <div className='container carousel'>
+    <div className='carousel'>
       <Slider {...settings}>
         <div>
-          <img src={Background} style={settingimg} alt='background1'/>
+          <img src={Background} alt='background1'/>
         </div>
         <div>
-          <img src={Background2} style={settingimg} alt='background2'/>
+          <img src={Background2} alt='background2'/>
         </div>
         <div>
-          <img src={Background3} style={settingimg} alt='background3'/>
+          <img src={Background3} alt='background3'/>
         </div>
       </Slider>
     </div>

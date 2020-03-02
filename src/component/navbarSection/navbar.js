@@ -7,7 +7,7 @@ import Drawer from './drawer';
 export default function Navbar() {
   const [isLogin, setLogin] = useState(false);
   const [username, setUsername] = useState('');
-  const [role, setRole] = useState(0);
+  const [role, setRole] = useState(2);
   const [isDrawer, setDrawer] = useState(false);
   const openDrawer = () => {
     setDrawer(true)
@@ -20,7 +20,7 @@ export default function Navbar() {
     .then(res=>{
       if(res.data!=='login:false'){
         setLogin(true);
-        setUsername(res.data.name);
+        setUsername(res.data.username);
         setRole(res.data.role);
       }
     })

@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const SALT_WORK_FACTOR = 10;
 
 const userSchema = new Schema({
-  fullname: {
+  username: {
     type: String,
     required: true,
     trim: true
@@ -28,12 +28,22 @@ const userSchema = new Schema({
     type: Number,
     required: true
   },
-  confirmed:{
-    type: Boolean,
-    required: true
+  address: {
+    type: String,
+    required: false
   },
-  token:{
-    type: String
+  isAuthenticated: {
+    type: Boolean,
+    required: false,
+    default: false
+  },
+  verify_token: {
+    type: String,
+    required: false
+  },
+  cart: {
+    type: Object,
+    required: false
   }
 },{
   timestamps: true

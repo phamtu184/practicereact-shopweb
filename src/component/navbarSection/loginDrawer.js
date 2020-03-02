@@ -30,7 +30,7 @@ function Alert(props) {
 }
 
 export default function LoginDrawer(props){
-  const [emailLogin, setEmailLogin] = useState('');
+  const [usernameLogin, setUsernameLogin] = useState('');
   const [passwordLogin, setPasswordLogin] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -38,8 +38,8 @@ export default function LoginDrawer(props){
   const [infoSnackbar, setInfoSnackbar] = useState('');
   const [typeSnackbar, setTypeSnackbar] = useState('');
 
-  const onChangeEmailLogin = (e)=>{
-    setEmailLogin(e.target.value)
+  const onChangeUsernameLogin = (e)=>{
+    setUsernameLogin(e.target.value)
   };
   const onChangePasswordLogin = (e)=>{
     setPasswordLogin(e.target.value)
@@ -54,10 +54,10 @@ export default function LoginDrawer(props){
     e.preventDefault();
     setIsLoading(true);
     let info = {
-      email: emailLogin,
+      username: usernameLogin,
       password: passwordLogin
     }
-    if(!info.email || !info.password){
+    if(!info.username || !info.password){
       setOpenSnackbar(true);
       setInfoSnackbar('Vui lòng nhập đầy đủ các trường');
       setTypeSnackbar('warning');
@@ -79,7 +79,7 @@ export default function LoginDrawer(props){
           setIsLoading(false);
         }
         else{
-          localStorage.setItem("welcome", "true");
+          localStorage.setItem("event", "LOGIN_SUCCESS");
           setIsLoading(false);
           window.location.assign('/');
         }
@@ -106,10 +106,10 @@ export default function LoginDrawer(props){
           <form onSubmit={onSubmitLogin}>
             <CssTextField 
               variant="outlined"
-              label="Email"
-              type="email"
-              onChange={onChangeEmailLogin}
-              value={emailLogin}
+              label="Tên đăng nhập"
+              type="text"
+              onChange={onChangeUsernameLogin}
+              value={usernameLogin}
               fullWidth
             />
             <CssTextField

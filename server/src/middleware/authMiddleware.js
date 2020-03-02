@@ -8,7 +8,7 @@ function auth(req, res, next){
     req.user = decoded;
     next();
   }catch(e){
-    console.log('err')
+    console.log(e)
   }
 }
 

@@ -35,7 +35,7 @@ function Alert(props) {
 }
 
 export default function RegisterDrawer(props){
-  const [fullname, setFullname] = useState({
+  const [username, setUsername] = useState({
     value: "",
     valid: true,
     errorMessage: ""
@@ -71,11 +71,11 @@ export default function RegisterDrawer(props){
     }
     setOpenSnackbar(false);
   };
-  const onChangeFullname = (event)=> {
-    setFullname({
+  const onChangeUsername = (event)=> {
+    setUsername({
       value: event.target.value,
-      valid: !!event.target.value && event.target.value.length > 5,
-      errorMessage: fullname.valid ? "" : "Họ tên phải lớn hơn 5 kí tự"
+      valid: !!event.target.value && event.target.value.length > 3,
+      errorMessage: username.valid ? "" : "Tên đăng nhập phải lớn hơn 3 kí tự"
     })
   }
   const onChangePhone = (event)=> {
@@ -137,32 +137,34 @@ export default function RegisterDrawer(props){
     event.preventDefault();
     setIsLoading(true);
     const info = {
-      fullname: fullname.value,
+      username: username.value,
       phone: phone.value,
       email: email.value,
       password: password.value,
-      confirmed: false
     }
-    if (formValid(fullname.valid, email.valid,
+    if (formValid(username.valid, email.valid,
         phone.valid, password.valid, passwordCf.valid)
-        && nullFormValid(fullname.value, email.value,
+        && nullFormValid(username.value, email.value,
           phone.value, password.value,
           passwordCf.value)){
       axios.post("/users/register", info)
-        .then(res => {
-          if(res.data === "exist"){
-            setOpenSnackbar(true);
-            setInfoSnackbar('Email đã tồn tại');
-            setTypeSnackbar('error');
-            setIsLoading(false);
-          }
-          else{
-            setOpenSnackbar(true);
-            setInfoSnackbar('Đăng kí thành công');
-            setTypeSnackbar('success');
-            setIsLoading(false);
-          }
-        })
+      .then(res => {
+        if(res.data === "exist"){
+          setOpenSnackbar(true);
+          setInfoSnackbar('Tên đăng nhập đã tồn tại');
+          setTypeSnackbar('error');
+          setIsLoading(false);
+        }
+        else{
+          axios.post('/auth/confirmemail')
+          .then()
+          .catch(function (error) {
+            console.log(error);
+          })
+          setIsLoading(false);
+          window.location.assign('/verifyemail');
+        }
+      })
     }
     else{
       setOpenSnackbar(true);
@@ -192,13 +194,13 @@ export default function RegisterDrawer(props){
             <CssTextField 
               autoComplete='off'
               variant="outlined"
-              label="Họ tên"
+              label="Tên đăng nhập"
               type="text"
-              onChange={onChangeFullname}
-              value={fullname.value}
+              onChange={onChangeUsername}
+              value={username.value}
               fullWidth
-              error={fullname.valid===false}
-              helperText={fullname.valid===false ? fullname.errorMessage:''}
+              error={username.valid===false}
+              helperText={username.valid===false ? username.errorMessage:''}
             />
             <CssTextField
               variant="outlined"

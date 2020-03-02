@@ -36,21 +36,23 @@ export default function Botnav(props){
             component={NavLink} to="/" 
           />
           <BottomNavigationAction 
-            label="User List" 
-            icon={<HomeRoundedIcon />} 
-            component={NavLink} to="/users/userslist"
-          />
-          <BottomNavigationAction 
             label="Products" 
             icon={<ShoppingBasketRoundedIcon />} 
             component={NavLink} to="/products"
           />
           {props.role === 1 && 
-            <BottomNavigationAction 
-              label="Quản lý" 
-              icon={<SettingsRoundedIcon />} 
-              component={NavLink} to="/magproducts" 
-            />
+            <>
+              <BottomNavigationAction 
+                label="Quản lý" 
+                icon={<SettingsRoundedIcon />} 
+                component={NavLink} to="/magproducts" 
+              />
+              <BottomNavigationAction 
+                label="User List" 
+                icon={<HomeRoundedIcon />} 
+                component={NavLink} to="/users/userslist"
+              />
+            </>
           }
           {props.isLogin
             ?<Menuitemloginbotnav username={props.username}/>
