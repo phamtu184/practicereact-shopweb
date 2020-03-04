@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Snackbar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import Carousel from '../component/homePages/carousel';
+import LayoutPromoBox from '../component/homePages/layoutPromoBox';
 import Features from '../component/homePages/features';
 import ProductList from '../component/homePages/newProductList';
 
@@ -47,6 +48,7 @@ export default function Home() {
         </Alert>
       </Snackbar>
       <Carousel/>
+      <LayoutPromoBox/>
       <Features/>
       <ProductList/>
     </div>

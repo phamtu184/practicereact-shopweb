@@ -96,7 +96,7 @@ export default function LoginDrawer(props){
           {infoSnackbar}
         </Alert>
       </Snackbar>
-      <Card>
+      <Card className='card-login'>
         <CardContent className="mx-4">
           <div className="text-center">
             <h3 className="mb-5">
@@ -137,7 +137,7 @@ export default function LoginDrawer(props){
         <CardActions className="mx-5 pt-3 mb-1">
           <p className="font-small d-flex justify-content-end align-items-center">
             Chưa có tài khoản?
-            <Button onClick={props.toRegister} className="ml-1 white-text">
+            <Button onClick={props.toRegister} className="ml-1">
               Đăng kí
             </Button>
           </p>

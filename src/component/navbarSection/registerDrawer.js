@@ -149,9 +149,15 @@ export default function RegisterDrawer(props){
           passwordCf.value)){
       axios.post("/users/register", info)
       .then(res => {
-        if(res.data === "exist"){
+        if(res.data === "USERNAME_EXIST"){
           setOpenSnackbar(true);
           setInfoSnackbar('Tên đăng nhập đã tồn tại');
+          setTypeSnackbar('error');
+          setIsLoading(false);
+        }
+        else if(res.data === "EMAIL_EXIST"){
+          setOpenSnackbar(true);
+          setInfoSnackbar('Email đã tồn tại');
           setTypeSnackbar('error');
           setIsLoading(false);
         }
@@ -183,7 +189,7 @@ export default function RegisterDrawer(props){
           {infoSnackbar}
         </Alert>
       </Snackbar>
-      <Card className="white-text" style={{width:'526px'}}>
+      <Card className="card-register" style={{width:'526px'}}>
         <CardContent className="mx-4">
           <div className="text-center">
             <h3 className="mb-5">

@@ -1,56 +1,93 @@
-import React from "react";
-import Slider from "react-slick";
-import Background from '../../image/background.jpg'
-import Background2 from '../../image/background2.jpg'
-import Background3 from '../../image/background3.jpg'
+import React, { useState } from "react";
+import '../../style/animate.min.css'
+import Carousel from './carousel/Carousel';
+import CarouselItem from './carousel/CarouselItem';
+import CarouselControl from './carousel/CarouselControl';
+import CarouselIndicators from './carousel/CarouselIndicators';
+import CarouselCaption from './carousel/CarouselCaption';
 
-function NextArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, right:'25px'}}
-      onClick={onClick}
-    />
-  );
-}
+import Background1 from '../../image/background.jpg';
+import Background2 from '../../image/background2.jpg';
+import Background3 from '../../image/background3.jpg';
+//import { Button } from '@material-ui/core';
 
-function PrevArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, left:'25px', zIndex: '2'}}
-      onClick={onClick}
-    />
-  );
-}
+const items = [
+  {
+    src: Background1,
+    altText: 'Slide 1',
+    captionHeader3: 'Website',
+    captionHeader1: 'Cửa hàng',
+    captionText: 'Được xây dựng với react và nodejs',
+    captionButton: 'Mua sắm ngay'
+  },
+  {
+    src: Background2,
+    altText: 'Slide 2',
+    captionHeader3: 'Website',
+    captionHeader1: 'Cửa hàng',
+    captionText: 'Được xây dựng với react và nodejs',
+    captionButton: 'Mua sắm ngay'
+  },
+  {
+    src: Background3,
+    altText: 'Slide 3',
+    captionHeader3: 'Website',
+    captionHeader1: 'Cửa hàng',
+    captionText: 'Được xây dựng với react và nodejs',
+    captionButton: 'Mua sắm ngay'
+  }
+];
 
 const CarouselPage = () => {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    fade: true,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />
-  };
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [animating, setAnimating] = useState(false);
+
+  const next = () => {
+    if (animating) return;
+    const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
+    setActiveIndex(nextIndex);
+  }
+
+  const previous = () => {
+    if (animating) return;
+    const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
+    setActiveIndex(nextIndex);
+  }
+
+  const goToIndex = (newIndex) => {
+    if (animating) return;
+    setActiveIndex(newIndex);
+  }
+  const slides = items.map((item) => {
+    return (
+      <CarouselItem
+        onExiting={() => setAnimating(true)}
+        onExited={() => setAnimating(false)}
+        key={item.src}
+      >
+        <img src={item.src} alt={item.altText} />
+        <CarouselCaption
+          className="animated fadeInDown"
+          captionText={item.captionText} 
+          captionHeader3={item.captionHeader3}
+          captionHeader1={item.captionHeader1}
+          captionButton={item.captionButton}
+       />
+      </CarouselItem>
+    );
+  });
   return (
-    <div className='carousel'>
-      <Slider {...settings}>
-        <div>
-          <img src={Background} alt='background1'/>
-        </div>
-        <div>
-          <img src={Background2} alt='background2'/>
-        </div>
-        <div>
-          <img src={Background3} alt='background3'/>
-        </div>
-      </Slider>
-    </div>
+    <Carousel
+      activeIndex={activeIndex}
+      next={next}
+      previous={previous}
+      className='carousel carousel-fade'
+    >
+      <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
+      {slides}
+      <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
+      <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
+    </Carousel>
   );
 }
 

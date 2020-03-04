@@ -1,11 +1,15 @@
 import React from 'react';
 
-import { AppBar, Toolbar, Button, IconButton, useScrollTrigger, Slide, Fab } from '@material-ui/core';
-import LoginIcon from '../../image/svglogo/login.svg';
+import { AppBar, Toolbar, Button, IconButton, useScrollTrigger, Slide, Fab, Badge } from '@material-ui/core';
+// icon
+import LoginIcon from '../../image/svglogo/user.svg';
+import CartIcon from '../../image/svglogo/supermarket.svg';
+import LoupeIcon from '../../image/svglogo/loupe.svg'
+import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+
 import { NavLink } from "react-router-dom";
 import Menuitemlogin from '../navbarSection/menuItemLogin';
 import ScrollTop from './backToTop';
-import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 
 function HideOnScroll(props) {
   const { children, window } = props;
@@ -24,7 +28,7 @@ export default function Topnav(props){
         <AppBar color="default" position='fixed'>
           <Toolbar className='container'>
             <strong className="white-text mr-2">Navbar</strong>
-            <ul className='nav-content'>
+            <ul className='nav-content-right'>
               <li>
                 <NavLink activeClassName="nav-item-active" to="/" exact={true}>
                   <Button>Trang chủ</Button>
@@ -48,12 +52,26 @@ export default function Topnav(props){
                 </li></>
               }
             </ul>
-            { props.isLogin
-              ?<Menuitemlogin style={{marginLeft:'auto'}} username={props.username}/>
-              :<IconButton edge="start" style={{marginLeft:'auto'}} color="inherit" onClick={props.openDrawer} >
-                <img src={LoginIcon} alt='login icon' style={{width:'22px', height:'22px'}}/>
-              </IconButton>
-            }
+            <ul className='nav-content-left'>
+              <li>
+                <IconButton edge="start" color="inherit">
+                  <img src={LoupeIcon} alt='loupe icon'/>
+                </IconButton>
+              </li>
+              <li>
+                <Badge badgeContent={4} color="primary">
+                  <IconButton edge="start" color="inherit">
+                    <img src={CartIcon} alt='cart icon'/>
+                  </IconButton>
+                </Badge>
+              </li>
+              { props.isLogin
+                ?<li><Menuitemlogin username={props.username}/></li>
+                :<li><IconButton edge="start" color="inherit" onClick={props.openDrawer} >
+                  <img src={LoginIcon} alt='login icon'/>
+                </IconButton></li>
+              }
+            </ul>
           </Toolbar>
         </AppBar>
       </HideOnScroll>

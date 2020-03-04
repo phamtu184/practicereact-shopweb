@@ -41,9 +41,13 @@ module.exports.register = async function(req, res, next){
   const {username, phone, email, password} = req.body;
   const role = 2;
   const newUser = new User({username, phone, email, password, role});
-  const te = await User.find({username: username});
-  if(te.length>0){
-    res.json("exist")
+  const checkUsername = await User.find({username: username});
+  const checkEmail = await User.find({email:email})
+  if(checkUsername.length>0){
+    res.json("USERNAME_EXIST")
+  }
+  else if(checkEmail.length>0){
+    res.json("EMAIL_EXIST")
   }
   else{
     newUser.save()
