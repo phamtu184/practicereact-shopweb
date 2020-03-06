@@ -15,6 +15,7 @@ const useStyles = makeStyles(theme => ({
   appBar:{
     top: 'auto',
     bottom: 0,
+    zIndex:1201
   }
 }));
 
@@ -22,7 +23,7 @@ export default function Botnav(props){
   const [value, setValue] = useState(0);
   const classes = useStyles();
   return(
-    <nav className='bottom-nav'>
+    <nav className='bottom-nav' >
       <AppBar position="fixed" className={classes.appBar}>
         <BottomNavigation
           value={value}
@@ -41,18 +42,11 @@ export default function Botnav(props){
             component={NavLink} to="/products"
           />
           {props.role === 1 && 
-            <>
-              <BottomNavigationAction 
-                label="Quản lý" 
-                icon={<SettingsRoundedIcon />} 
-                component={NavLink} to="/magproducts" 
-              />
-              <BottomNavigationAction 
-                label="User List" 
-                icon={<HomeRoundedIcon />} 
-                component={NavLink} to="/users/userslist"
-              />
-            </>
+            <BottomNavigationAction 
+              label="Quản lý" 
+              icon={<SettingsRoundedIcon />} 
+              component={NavLink} to="/magsetting" 
+            />
           }
           {props.isLogin
             ?<Menuitemloginbotnav username={props.username}/>

@@ -25,7 +25,7 @@ export default function Topnav(props){
   return(
     <div className='top-nav'>
       <HideOnScroll {...props}>
-        <AppBar color="default" position='fixed'>
+        <AppBar color="default" position='fixed' style={{zIndex:'1201'}}>
           <Toolbar className='container'>
             <strong className="white-text mr-2">Navbar</strong>
             <ul className='nav-content-right'>
@@ -36,18 +36,13 @@ export default function Topnav(props){
               </li>
               <li>
                 <NavLink activeClassName="nav-item-active" to="/products">
-                  <Button>Products</Button>
+                  <Button>Sản phẩm</Button>
                 </NavLink>
               </li>
               { props.role === 1 && 
                 <><li>
-                  <NavLink activeClassName="nav-item-active" to="/magproducts">
-                    <Button>Quản lý sản phẩm</Button>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink activeClassName="nav-item-active" to="/users/userslist">
-                    <Button>User List</Button>
+                  <NavLink activeClassName="nav-item-active" to="/magsetting">
+                    <Button>Quản lý</Button>
                   </NavLink>
                 </li></>
               }
