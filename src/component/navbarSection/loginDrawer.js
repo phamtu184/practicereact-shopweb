@@ -122,15 +122,15 @@ export default function LoginDrawer(props){
               className='mt-3'
             />
             <div className="text-center mb-3">
-            <Button
-              type="submit"
-              gradient="blue"
-              className="btn-block z-depth-1a mt-4"
-              disabled={isLoading}
-            >
-              { isLoading && <CircularProgress size={16} color="inherit" className="middle"/> }
-              <span className="ml-2">Login</span> 
-            </Button>                  
+              <Button
+                type="submit"
+                gradient="blue"
+                className="btn-block z-depth-1a mt-4"
+                disabled={isLoading}
+              >
+                { isLoading && <CircularProgress size={16} color="inherit" className="middle"/> }
+                <span className="ml-2">Login</span> 
+              </Button>                  
             </div>
           </form> 
         </CardContent>

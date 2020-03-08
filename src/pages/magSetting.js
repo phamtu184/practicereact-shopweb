@@ -1,9 +1,119 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import ProductSetting from '../component/magSetting/productsSetting';
 import UserSetting from '../component/magSetting/usersSetting';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Tabs, Tab, Box, Typography, Paper } from '@material-ui/core';
+import { Collapse, ListItemText, ListItemIcon, ListItem, List, Tab, Tabs, Box, Typography } from '@material-ui/core';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
+  nested: {
+    paddingLeft: theme.spacing(4),
+  }
+}));
+
+export default function MagSetting(){
+  const classes = useStyles();
+  const [openProduct, setOpenProduct] = useState(true);
+  const [openUser, setOpenUser] = useState(false);
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+  const handleClickOpenProduct = () => {
+    setOpenProduct(!openProduct);
+    setOpenUser(!openUser);
+  };
+  const handleClickOpenUser = () => {
+    setOpenUser(!openUser);
+    setOpenProduct(!openProduct);
+  };
+  return(
+    <div className='row'>
+      <div className='col-sm-2'>
+        <List
+        component="nav"
+        aria-labelledby="nested-list-subheader"
+        className={classes.root}
+        >
+          <ListItem button onClick={handleClickOpenProduct}>
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary="Inbox" />
+            {openProduct ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={openProduct} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItem >
+                <Tabs
+                  value={value}
+                  onChange={handleChange}
+                  indicatorColor="primary"
+                  textColor="primary"
+                  scrollButtons="auto"
+                  orientation="vertical"
+                >
+                  <Tab label="Item One" {...a11yProps(0)} />
+                  <Tab label="Item Two" {...a11yProps(1)} />
+                </Tabs>
+              </ListItem>
+            </List>
+          </Collapse>
+
+          <ListItem button onClick={handleClickOpenUser}>
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary="Inbox" />
+            {openUser ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={openUser} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItem >
+                <Tabs
+                  value={value}
+                  onChange={handleChange}
+                  indicatorColor="primary"
+                  textColor="primary"
+                  scrollButtons="auto"
+                  orientation="vertical"
+                >
+                  <Tab style={{display:'none'}} {...a11yProps(0)} />
+                  <Tab style={{display:'none'}} {...a11yProps(1)} />
+                  <Tab label="Item 3" {...a11yProps(2)} />
+                  <Tab label="Item 4" {...a11yProps(3)} />
+                </Tabs>
+              </ListItem>
+            </List>
+          </Collapse>
+        </List>
+      </div>
+      <div className='col-sm-10'>
+        <TabPanel value={value} index={0}>
+          <ProductSetting/>
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <UserSetting/>
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          Item 3
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          Item 4
+        </TabPanel>
+      </div>
+    </div>
+  )
+}
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -27,98 +137,3 @@ function a11yProps(index) {
     'aria-controls': `vertical-tabpanel-${index}`,
   };
 }
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-    display: 'flex',
-    height: 'auto',
-  },
-  tabs: {
-    borderRight: `1px solid ${theme.palette.divider}`,
-  }
-}));
-
-export default function VerticalTabs() {
-  const [value, setValue] = useState(0);
-  const [media, setMedia] = useState('');
-  useEffect(()=>{
-    const handler = e => setMedia(e.matches);
-    window.matchMedia("(max-width: 800px)").addListener(handler);
-  },[])
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-  const classes = useStyles();
-  return (
-    <>
-      {media && 
-        <Paper>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            className='container'
-          >
-            <Tab label="Sản phẩm" />
-            <Tab label="Tài khoản" />
-          </Tabs>
-        </Paper>
-      }
-      <div className={classes.root}>
-        {!media && 
-          <Tabs
-          orientation="vertical"
-          variant="scrollable"
-          value={value}
-          onChange={handleChange}
-          aria-label="Vertical tabs example"
-          className={classes.tabs}
-          indicatorColor="primary"
-          textColor="primary"
-          >
-            <Tab label="Sản phẩm" {...a11yProps(0)} />
-            <Tab label="Tài khoản" {...a11yProps(1)} />
-          </Tabs>
-        }
-        <TabPanel value={value} index={0}>
-          <ProductSetting/>
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <UserSetting/>
-        </TabPanel>
-      </div>
-    </>
-  );
-}
-// const [users, setUsers] = useState([]);
-  // useEffect(()=>{
-  //   axios.get('/users/userslist')
-  //   .then(response => {
-  //     setUsers(response.data);
-  //   })
-  //   .catch(function (error) {
-  //     // handle error
-  //     console.log(error);
-  //   })
-  // }, [])
-  // <div className='container'>
-    //   <h2>Users</h2>
-    //   {users.length > 0 &&
-    //     <div className='row'>
-    //       {users.map((user, index)=>(
-    //         <div className='col-md-4' key={index}>
-    //           <Card style={{ width: "300px", height:"400px"}} className="mt-4">
-    //             <CardContent>
-    //               <Typography>{user.fullname}</Typography>
-    //               <Typography>{user.email}</Typography>
-    //               <Typography>{user.phone}</Typography>
-    //             </CardContent>
-    //           </Card>
-    //         </div>
-    //       ))}
-    //   </div>
-    //   }
-    // </div>
