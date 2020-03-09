@@ -91,7 +91,7 @@ export default function ProductsSetting(props){
     })
   }
   const onChangePrice = (event)=> {
-    const regexp = /[0-9]/;
+    const regexp = /^[0-9]+$/;
     const checkingResult = regexp.exec(event.target.value);
     setPrice({
       value: event.target.value,
@@ -170,12 +170,27 @@ export default function ProductsSetting(props){
         && nullFormValid(name.value, desc.value,
           price.value, size.value, type.value,
           gender.value, images.value)){
-      // axios.post("/product/postProduct", info)
-      // .then(res => {
-      //   setIsLoading(false);
-      //   window.location.assign('/magsetting');
-      // })
-      console.log(info)
+      axios.post("/product/postproduct", info)
+      .then(res => {
+        if(res.data==='ADDED_PRODUCT'){
+          setOpenSnackbar(true);
+          setInfoSnackbar('Nhập sản phẩm thành công');
+          setTypeSnackbar('success');
+          setIsLoading(false);
+          setName({value:''});
+          setDesc({value:''});
+          setPrice({value:''});
+          setType({value:''});
+          setImages({value:''});
+        }
+        else{
+          setOpenSnackbar(true);
+          setInfoSnackbar('Nhập sản phẩm tb');
+          setTypeSnackbar('error');
+          setIsLoading(false);
+        }
+        
+      })
     }
     else{
       setOpenSnackbar(true);

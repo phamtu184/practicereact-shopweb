@@ -1,9 +1,10 @@
 import React, {  useState } from 'react';
 import ProductSetting from '../component/magSetting/productsSetting';
-import UserSetting from '../component/magSetting/usersSetting';
+import ProductsList from '../component/magSetting/productsList';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Collapse, ListItemText, ListItemIcon, ListItem, List, Tab, Tabs, Box, Typography } from '@material-ui/core';
+
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -48,7 +49,7 @@ export default function MagSetting(){
             <ListItemIcon>
               <InboxIcon />
             </ListItemIcon>
-            <ListItemText primary="Inbox" />
+            <ListItemText primary="Sản phẩm" />
             {openProduct ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse in={openProduct} timeout="auto" unmountOnExit>
@@ -62,8 +63,8 @@ export default function MagSetting(){
                   scrollButtons="auto"
                   orientation="vertical"
                 >
-                  <Tab label="Item One" {...a11yProps(0)} />
-                  <Tab label="Item Two" {...a11yProps(1)} />
+                  <Tab label="Nhập sản phẩm" {...a11yProps(0)} />
+                  <Tab label="Danh sách sản phẩm" {...a11yProps(1)} />
                 </Tabs>
               </ListItem>
             </List>
@@ -102,7 +103,7 @@ export default function MagSetting(){
           <ProductSetting/>
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <UserSetting/>
+          <ProductsList/>
         </TabPanel>
         <TabPanel value={value} index={2}>
           Item 3

@@ -16,7 +16,7 @@ function App() {
   return (
     <Router>
       <Navbar/>
-      <Toolbar id="back-to-top-anchor" />
+      <Toolbar id="back-to-top-anchor"/>
       <Switch>
         <Route path="/verifyemail" component={VerifyEmail}/>
         <Route path="/verifytoken/:token" component={VerifyToken}/>
