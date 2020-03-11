@@ -13,60 +13,39 @@ const useStyles = makeStyles({
 });
 
 export default function UsersSetting(){
-  const [products, setProducts] = useState([]);
+  const [users, setUsers] = useState([]);
   useEffect(()=>{
-    axiost.get('/product/product')
-    .then((res)=>setProducts(res.data))
-  },[]);
-
-  const deleteProduct = (product)=> {
-    const index = products.indexOf(product);
-    axiost.delete('/product/product', {data:{_id: product._id}})
-    .then(()=>setProducts(
-      [
-        ...products.slice(0, index),
-        ...products.slice(index + 1)
-      ]
-    ))
-  }
+    axiost.get('/user/userslist')
+    .then((res)=>setUsers(res.data))
+  },[])
 
   const classes = useStyles();
   return(
     <div>
-      <h2>Danh sách sản phẩm</h2>
+      <h2>Danh sách tài khoản</h2>
       <div className='row'>
-        {products.map((product, index)=>(
+        {users.map((user, index)=>(
           <div className='col-md-3' key={index}>
             <Card className={classes.root} >
               <CardActionArea>
                 <CardMedia
                   className={classes.media}
-                  image={product.images[0]}
-                  title={product.name}
+                  title={user.username}
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
-                    Tên: {product.name}
+                    Tên tài khoản: {user.username}
                   </Typography>
                   <Typography color="textSecondary" component="p">
-                    Miêu tả: {product.description}
+                    SĐT: {user.phone}
                   </Typography>
                   <Typography color="textSecondary" component="p">
-                    Giá: {product.price} đồng
-                  </Typography>
-                  <Typography color="textSecondary" component="p">
-                    Kích cỡ: {product.size}
-                  </Typography>
-                  <Typography color="textSecondary" component="p">
-                    Loài: {product.type}
-                  </Typography>
-                  <Typography color="textSecondary" component="p">
-                    Giới tính: {product.gender}
+                    Email: {user.email}
                   </Typography>
                 </CardContent>
               </CardActionArea>
               <CardActions>
-                <Button size="small" color="primary" onClick={()=>deleteProduct(product)}>
+                <Button size="small" color="primary">
                   Xóa
                 </Button>
               </CardActions>

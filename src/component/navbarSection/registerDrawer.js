@@ -147,7 +147,7 @@ export default function RegisterDrawer(props){
         && nullFormValid(username.value, email.value,
           phone.value, password.value,
           passwordCf.value)){
-      axios.post("/users/register", info)
+      axios.post("/auth/register", info)
       .then(res => {
         if(res.data === "USERNAME_EXIST"){
           setOpenSnackbar(true);

@@ -13,3 +13,10 @@ module.exports.postProduct = function(req, res) {
   .then((product) => res.json('ADDED_PRODUCT'))
   .catch((err)=>console.log(err))
 }
+
+module.exports.deleteProduct = function(req, res) {
+  const { _id } = req.body;
+  Product.findByIdAndDelete(_id)
+  .then(()=> res.json('DELETE_PRODUCT'))
+  .catch((err)=>console.log(err))
+}

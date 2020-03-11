@@ -64,7 +64,7 @@ export default function LoginDrawer(props){
       setIsLoading(false);
     }
     else{
-      axios.post("/users/login", info)
+      axios.post("/auth/login", info)
       .then(res => {
         if(res.data==="notuser"){
           setOpenSnackbar(true);

@@ -4,13 +4,7 @@ var controller = require('../controller/user.controller');
 const auth = require('../middleware/authMiddleware');
 
 /* GET home page. */
-router.post('/login', controller.postLogin);
-
-router.post('/register', controller.register);
 
 router.get('/userslist', auth, controller.userlist);
-
-router.get('/islogin', controller.islogin);
-router.post('/islogin', controller.islogout);
 
 module.exports = router;

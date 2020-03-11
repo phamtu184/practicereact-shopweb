@@ -170,7 +170,7 @@ export default function ProductsSetting(props){
         && nullFormValid(name.value, desc.value,
           price.value, size.value, type.value,
           gender.value, images.value)){
-      axios.post("/product/postproduct", info)
+      axios.post("/product/product", info)
       .then(res => {
         if(res.data==='ADDED_PRODUCT'){
           setOpenSnackbar(true);
@@ -311,6 +311,7 @@ export default function ProductsSetting(props){
                 gradient="blue"
                 className="btn-block z-depth-1a mt-4"
                 disabled={isLoading}
+                color='primary'
               >
                 { isLoading && <CircularProgress size={16} color="inherit" className="middle"/> }
                 <span className="ml-2">Click</span> 

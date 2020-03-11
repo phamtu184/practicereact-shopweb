@@ -16,7 +16,7 @@ export default function Navbar() {
     setDrawer(false)
   }
   useEffect(()=>{
-    axios.get('/users/islogin')
+    axios.get('/auth/islogin')
     .then(res=>{
       if(res.data!=='login:false'){
         setLogin(true);

@@ -4,7 +4,7 @@ import axios from 'axios';
 export default function VerifyEmail(){
   const [email, setEmail] = useState('');
   useEffect(()=>{
-    axios.get('/users/islogin')
+    axios.get('/auth/islogin')
     .then(res=>{
       if(res.data!=='login:false'){
         setEmail(res.data.email);

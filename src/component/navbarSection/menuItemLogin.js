@@ -15,7 +15,7 @@ export default function Menuitemlogin(props) {
 
   const handleLogout = () => {
     try{
-    axios.post('/users/islogin')
+    axios.post('/auth/islogin')
     .then(window.location.assign('/'))
     }
     catch(e){

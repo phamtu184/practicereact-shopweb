@@ -6,7 +6,6 @@ var mongoose = require('mongoose');
 
 require('dotenv').config()
 
-var indexRouter = require('./src/routes/index');
 var usersRouter = require('./src/routes/user.route');
 var authRouter = require('./src/routes/auth.route');
 var productRouter = require('./src/routes/product.route');
@@ -26,8 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', usersRouter);
 app.use('/auth', authRouter);
 app.use('/product', productRouter);
 
