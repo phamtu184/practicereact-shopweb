@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { AppBar, Toolbar, Button, IconButton, useScrollTrigger, Slide, Fab, Badge } from '@material-ui/core';
+import { AppBar, Toolbar, Button, IconButton, useScrollTrigger, Slide, Fab, Badge, SvgIcon } from '@material-ui/core';
 // icon
 import LoginIcon from '../../image/svglogo/user.svg';
 import CartIcon from '../../image/svglogo/supermarket.svg';
-import LoupeIcon from '../../image/svglogo/loupe.svg'
+import { SearchIcon } from '../../image/svglogo/svlogo'
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 
 import { NavLink } from "react-router-dom";
@@ -50,7 +50,7 @@ export default function Topnav(props){
             <ul className='nav-content-left'>
               <li>
                 <IconButton edge="start" color="inherit">
-                  <img src={LoupeIcon} alt='loupe icon'/>
+                  <Searchicon/>
                 </IconButton>
               </li>
               <li>
@@ -76,5 +76,12 @@ export default function Topnav(props){
         </Fab>
       </ScrollTop>
     </div>
+  )
+}
+
+function Searchicon(props){
+  return(
+    <SvgIcon {...props} viewBox="0 -28 512.001 512" xmlns="http://www.w3.org/2000/svg"><path d={SearchIcon}/>
+    </SvgIcon>
   )
 }

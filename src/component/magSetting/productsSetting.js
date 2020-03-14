@@ -40,7 +40,7 @@ export default function ProductsSetting(props){
     valid: true,
     errorMessage: ""
   });
-  const [desc, setDesc] = useState({
+  const [description, setDescription] = useState({
     value: "",
     valid: true,
     errorMessage: ""
@@ -85,8 +85,8 @@ export default function ProductsSetting(props){
       value: event.target.value,
     })
   }
-  const onChangeDesc = (event)=> {
-    setDesc({
+  const onChangeDescription = (event)=> {
+    setDescription({
       value: event.target.value,
     })
   }
@@ -107,8 +107,6 @@ export default function ProductsSetting(props){
   const onChangeType = (event)=> {
     setType({ 
       value: event.target.value,
-      valid: event.target.value.length > 3,
-      errorMessage: type.valid ? "" : "Loài lớn hơn 3 kí tự"
     });
   }
   const onChangeGender = (event)=> {
@@ -157,17 +155,17 @@ export default function ProductsSetting(props){
     setIsLoading(true);
     const info = {
       name: name.value,
-      desc: desc.value,
+      description: description.value,
       price: price.value,
       size: size.value,
       type: type.value,
       gender: gender.value,
       images: images.value
     }
-    if (formValid(name.valid, desc.valid,
+    if (formValid(name.valid, description.valid,
       price.valid, size.valid, type.valid,
       gender.valid, images.valid)
-        && nullFormValid(name.value, desc.value,
+        && nullFormValid(name.value, description.value,
           price.value, size.value, type.value,
           gender.value, images.value)){
       axios.post("/product/product", info)
@@ -178,7 +176,7 @@ export default function ProductsSetting(props){
           setTypeSnackbar('success');
           setIsLoading(false);
           setName({value:''});
-          setDesc({value:''});
+          setDescription({value:''});
           setPrice({value:''});
           setType({value:''});
           setImages({value:''});
@@ -232,12 +230,12 @@ export default function ProductsSetting(props){
               variant="outlined"
               label="Miêu tả"
               type="text"
-              onChange={onChangeDesc}
-              value={desc.value}
+              onChange={onChangeDescription}
+              value={description.value}
               fullWidth
               className='mt-3'
-              error={desc.valid===false}
-              helperText={desc.valid===false ? desc.errorMessage:''}
+              error={description.valid===false}
+              helperText={description.valid===false ? description.errorMessage:''}
             />
             <CssTextField
               variant="outlined"

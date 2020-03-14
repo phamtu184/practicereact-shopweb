@@ -1,8 +1,13 @@
+
+$blue-500: #2196f3;
+$blue-600: #1e88e5;
 $blue-700: #1976d2;
 $blue-800: #1565c0;
+$font: 'Dosis', sans-serif;
 @import url('https://fonts.googleapis.com/css?family=Dosis&display=swap');
 body{
   line-height:none;
+  font-family: $font;
 }
 /* -----------Nav bar---------- ----------*/
 .top-nav{
@@ -44,7 +49,7 @@ body{
   align-items: center;
   border-radius: 4px;
   justify-content: center;
-  background-color: $blue-700;
+  background-color: $blue-600;
   button{
     color: #fff !important;
   }
@@ -85,7 +90,7 @@ body{
 .card-login, .card-register{
   .MuiButton-root{
     color: white;
-    background-color: $blue-700
+    background-color: $blue-600
   }
   .MuiButton-root:hover{
     background-color: $blue-800
@@ -116,7 +121,7 @@ body{
     }
     .MuiButton-root{
       color: white;
-      background-color: $blue-700
+      background-color: $blue-600
     }
     .MuiButton-root:hover{
       background-color: $blue-800
@@ -194,7 +199,7 @@ body{
   .search-bar { 
     grid-area: 1 / 1 / 6 / 2; 
     .MuiRadio-root{
-      color: $blue-700
+      color: $blue-600
     }
     .MuiExpansionPanelSummary-root{
       border-bottom: 1px solid rgba(0, 0, 0, .125);
@@ -208,6 +213,9 @@ body{
     .search-top-bar{
       display: flex;
       flex-wrap: wrap;
+      h2{
+        font-family: $font;
+      }
     }
     .product-list{
       display: flex;
@@ -252,9 +260,12 @@ body{
               display: inline-block;
               vertical-align: top;
               list-style: none outside;
+              .MuiTooltip-arrow{
+                color: #03a9f4;
+              }
               button{
-                color:$blue-700;
-                border: 2px solid $blue-700;
+                color:$blue-600;
+                border: 2px solid $blue-600;
                 background-color: white;
                 padding: 7px;
                 svg{
@@ -263,7 +274,7 @@ body{
               }
               button:hover{
                 color:white;
-                background-color: $blue-700;
+                background-color: $blue-600;
               }
             }
           }
@@ -274,9 +285,10 @@ body{
           }
           .btn-addtocart{
             border-radius: 10px;
-            background-color: $blue-700;
+            background-color: $blue-600;
             span{
               color: white;
+              font-weight: 550;
             }
           }
           .btn-addtocart:hover{
@@ -300,7 +312,7 @@ body{
       .product-info{
         .product-name{
           font-family: 'Dosis', sans-serif;
-          color: $blue-700;
+          color: $blue-600;
           text-transform: uppercase;
           text-overflow: ellipsis;
           white-space: nowrap;
@@ -322,7 +334,7 @@ body{
           font-family: dosis;
           font-weight: 700;
           font-size: 18px;
-          color: $blue-700;
+          color: $blue-600;
         }
       }
     }
