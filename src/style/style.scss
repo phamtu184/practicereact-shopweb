@@ -1,5 +1,9 @@
 $blue-700: #1976d2;
 $blue-800: #1565c0;
+@import url('https://fonts.googleapis.com/css?family=Dosis&display=swap');
+body{
+  line-height:none;
+}
 /* -----------Nav bar---------- ----------*/
 .top-nav{
   li{
@@ -180,7 +184,147 @@ $blue-800: #1565c0;
     }
   }
 }
-/* ----------------Card-product-------------- */
-.card-product{
-  
+/* ----------------products-------------- */
+.parent {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  .search-bar { 
+    grid-area: 1 / 1 / 6 / 2; 
+    .MuiRadio-root{
+      color: $blue-700
+    }
+    .MuiExpansionPanelSummary-root{
+      border-bottom: 1px solid rgba(0, 0, 0, .125);
+      margin-bottom: -1px;
+      background-color: rgba(0, 0, 0, .03)
+    }
+  }
+
+  .products-section { 
+    grid-area: 1 / 2 / 6 / 6; 
+    .search-top-bar{
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .product-list{
+      display: flex;
+      flex-wrap: wrap;
+      .product-thumb{
+        overflow: hidden;
+        border: 1px solid #e5e5e5;
+        position: relative;
+        .product-img{
+          display: block;
+          overflow: hidden;
+          transition: all 0.3s ease-out 0s;
+          -webkit-transition: all 0.3s ease-out 0s;
+          width: 100%;
+          max-width: 100%;
+          height: auto;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+          position: relative;
+        }
+        .product-extra-link{
+          position: absolute;
+          height: 100px;
+          top: 0;
+          bottom: 0;
+          margin: auto;
+          left: 0;
+          right: 0;
+          z-index: 12;
+          transition: all 0.3s ease-out 0s;
+          -webkit-transition: all 0.3s ease-out 0s;
+          text-align: center;
+          ul{
+            margin: 0 0 1em;
+            padding: 0;
+            list-style: none outside;
+            clear: both;
+            display: flex;
+            justify-content: space-evenly;
+            li{
+              display: inline-block;
+              vertical-align: top;
+              list-style: none outside;
+              button{
+                color:$blue-700;
+                border: 2px solid $blue-700;
+                background-color: white;
+                padding: 7px;
+                svg{
+                  font-size: 18px;
+                }
+              }
+              button:hover{
+                color:white;
+                background-color: $blue-700;
+              }
+            }
+          }
+          button{
+            transition: all 0.3s ease-out 0s;
+            transform: scale(0);
+            -webkit-transform: scale(0);
+          }
+          .btn-addtocart{
+            border-radius: 10px;
+            background-color: $blue-700;
+            span{
+              color: white;
+            }
+          }
+          .btn-addtocart:hover{
+            background-color: $blue-800;
+          }
+        }
+      }
+      .product-thumb:hover{
+        .product-extra-link{
+          button{
+            transform: scale(1);
+            -webkit-transform: scale(1);
+          }
+        }
+        .product-img{
+          filter: opacity(50%);
+          transform: scale(1.2);
+        }
+      }
+      
+      .product-info{
+        .product-name{
+          font-family: 'Dosis', sans-serif;
+          color: $blue-700;
+          text-transform: uppercase;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          font-weight: 700;
+          font-size: 18px;
+        }
+        .product-rating{
+          width: 200;
+          display: flex;
+          align-items: flex-start;
+          label{
+            display: block;
+          }
+        }
+        .product-desc{
+          margin-bottom: 0.25rem;
+        }
+        .product-price{
+          font-family: dosis;
+          font-weight: 700;
+          font-size: 18px;
+          color: $blue-700;
+        }
+      }
+    }
+  }
 }

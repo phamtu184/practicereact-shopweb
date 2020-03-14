@@ -1,8 +1,24 @@
-import React, { Component } from 'react';
-// import axios from 'axios';
-// import {CartContext} from '../context/cart'
+import React from 'react';
 
-class Products extends Component{
+import SearchBar from '../component/products/searchBar';
+import ProductsList from '../component/products/productsList'
+
+export default function Products(){
+
+  return(
+    <div className='container mt-4'>
+      <div className='parent'>
+        <div className='search-bar'>
+          <SearchBar/>
+        </div>
+        <div className='products-section'>
+          <ProductsList/>
+        </div>
+      </div>
+    </div>
+  )
+}
+//class Products extends Component{
   // constructor(props){
   //   super(props);
   //   this.state= {
@@ -21,12 +37,12 @@ class Products extends Component{
   //     console.log(error);
   //   })
   // }
-  render(){
+ // render(){
     //const {products} = this.state;
-    return(
-      <div>
-        Products
-      </div>
+    //return(
+     // <div>
+        //Products
+      //</div>
       // <MDBContainer>
       //   <h2>Products</h2>
       //   <MDBRow>
@@ -48,13 +64,13 @@ class Products extends Component{
       //     ))}
       //   </MDBRow>
       // </MDBContainer>
-    )
-  }
+    //)
+  //}
   // render(){
   //   return(
   //     <h1>Products</h1>
   //   )
   // }
-}
+//}
 
-export default Products;
+//export default Products;
