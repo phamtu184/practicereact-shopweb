@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
 import { Button, Box, IconButton, SvgIcon, Tooltip } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 
 import SortTopBar from './sortTopBar';
+import WalkingLoader from './wakingLoader';
 import { SearchIcon, HeartIcon, SyncIcon } from '../../image/svglogo/svlogo';
-
-import axios from 'axios';
+import { ProductContext } from './productContext';
 
 const labels = {
   0.5: 'Useless',
@@ -32,52 +32,37 @@ const EditTooltip = withStyles(theme => ({
 }))(Tooltip);
 
 export default function ProductsList(){
-  const [products, setProducts] = useState([]);
   const [valueRating, setValueRating] = useState(4);
   const [hoverRating, setHoverRating] = useState(-1);
-  useEffect(()=>{
-    axios.get('/product/product')
-    .then((res)=>{
-      setProducts(res.data)
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
-    
-  },[])
+  const { products, loading } = useContext(ProductContext);
 
   return(
     <div className='ml-4 mt-4'>
       <SortTopBar/>
-      <div className='product-list mt-4'>
+      {loading? <WalkingLoader/>
+      :<div className='product-list mt-4'>
         {products.map((product,index)=>(
-          <div className='col-md-4 col-sm-6 mb-4'>
+          <div className='col-md-6 col-lg-4 mb-4' key={index}>
             <div className='product-thumb'>
               <div className='product-extra-link'>
                 <ul>
                   <li>
                     <EditTooltip title="Yêu thích" arrow placement="top"
-                      PopperProps={{
-                        disablePortal: true,
-                      }}
+                      PopperProps={{disablePortal: true}}
                     >
                       <IconButton ><Hearticon/></IconButton>
                     </EditTooltip>
                   </li>
                   <li>
                     <EditTooltip title="Thông tin" arrow placement="top"
-                      PopperProps={{
-                        disablePortal: true,
-                      }}
+                      PopperProps={{disablePortal: true}}
                     >
                       <IconButton ><Searchicon/></IconButton>
                     </EditTooltip>
                   </li>
                   <li>
-                  <EditTooltip title="Compare" arrow placement="top"
-                      PopperProps={{
-                        disablePortal: true,
-                      }}
+                    <EditTooltip title="Compare" arrow placement="top"
+                      PopperProps={{disablePortal: true}}
                     >
                       <IconButton ><Syncicon/></IconButton>
                     </EditTooltip>
@@ -112,6 +97,7 @@ export default function ProductsList(){
           </div>
         ))}
       </div>
+      }
     </div>
   )
 }

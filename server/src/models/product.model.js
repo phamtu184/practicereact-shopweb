@@ -19,7 +19,7 @@ const productSchema = new Schema({
     type: String,
     required: true
   },
-  type: {
+  breed: {
     type: String,
     required: true
   },

@@ -2,20 +2,23 @@ import React from 'react';
 
 import SearchBar from '../component/products/searchBar';
 import ProductsList from '../component/products/productsList'
+import {ProductProvider} from '../component/products/productContext';
 
 export default function Products(){
 
   return(
-    <div className='container mt-4'>
-      <div className='parent'>
-        <div className='search-bar'>
-          <SearchBar/>
-        </div>
-        <div className='products-section'>
-          <ProductsList/>
+    <ProductProvider>
+      <div className='container mt-4'>
+        <div className='parent'>
+          <div className='search-bar'>
+            <SearchBar/>
+          </div>
+          <div className='products-section'>
+            <ProductsList/>
+          </div>
         </div>
       </div>
-    </div>
+    </ProductProvider>
   )
 }
 //class Products extends Component{

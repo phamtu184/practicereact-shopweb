@@ -1,90 +1,96 @@
 import React, { useState } from 'react';
 
 import { ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Typography,
-  Radio, RadioGroup, FormControlLabel  } from '@material-ui/core';
+  SwipeableDrawer, useMediaQuery, IconButton } from '@material-ui/core';
+import MenuIcon from '../../image/svglogo/menu.svg';
+
+import SearchCheckSize from './searchCheckSize';
+import SearchCheckBreed from './searchCheckBreed';
+import SearchCheckPrice from './searchCheckPrice';
 
 export default function SearchBar(){
-  const [expandedPrice, setExpandedPrice] = useState(true);
-  const [expandedSize, setExpandedSize] = useState(true);
-  const [expandedType, setExpandedType] = useState(true);
+  const [drawer, setDrawer] = useState(false);
+  const clickOpenDrawer = () =>{
+    setDrawer(true);
+  }
+  const clickCloseDrawer = () =>{
+    setDrawer(false);
+  }
   
-  const handleChangePrice = () => {
-    setExpandedPrice(!expandedPrice);
-  };
-  const handleChangeSize = () => {
-    setExpandedSize(!expandedSize);
-  };
-  const handleChangeType = () => {
-    setExpandedType(!expandedType);
-  };
-
+  const matches = useMediaQuery('(max-width:992px)');
   return (
-    <div>
-      <ExpansionPanel square expanded={expandedPrice} onChange={handleChangePrice}>
-        <ExpansionPanelSummary>
-          <Typography color='primary' variant='body1'>Lọc theo giá</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <GroupRadioPrice/>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-      <ExpansionPanel square expanded={expandedSize} onChange={handleChangeSize}>
+    <>
+    {matches
+    ?<>
+      <IconButton onClick={clickOpenDrawer}>
+        <img src={MenuIcon} alt='Menu icon' style={{width:'20px', height:'20px'}}/>
+      </IconButton>
+      <SwipeableDrawer open={drawer} onOpen={clickOpenDrawer} onClose={clickCloseDrawer} anchor='left'>
+        <Expanded/>
+      </SwipeableDrawer>
+    </>
+    : <Expanded/>
+    }
+    </>
+  );
+}
+
+function Expanded(){
+  const [expanded, setExpanded] = useState({
+    size: true,
+    breed: true,
+    price: true
+  });
+  const [searchSize, setSearchSize] = useState()
+  const [searchBreed, setSearchBreed] = useState()
+  const [searchPrice, setSearchPrice] = useState()
+
+  const ChangeExpandedSize = () => {
+    setExpanded({...expanded, size:!expanded.size});
+  };
+  const ChangeExpandedBreed = () => {
+    setExpanded({...expanded, breed:!expanded.breed});
+  };
+  const ChangeExpandedPrice = () => {
+    setExpanded({...expanded, price:!expanded.price});
+  };
+  const getSize = (data) => {
+    setSearchSize(data)
+  }
+  const getBreed = (data) => {
+    setSearchBreed(data)
+  }
+  const getPrice = (data) => {
+    setSearchPrice(data)
+  }
+  return(
+    <>
+      <ExpansionPanel square expanded={expanded.size} onChange={ChangeExpandedSize}>
         <ExpansionPanelSummary>
           <Typography>Lọc theo kích thước</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <GroupRadioSize/>
+          <SearchCheckSize getValueSize={getSize}/>
         </ExpansionPanelDetails>
       </ExpansionPanel>
-      <ExpansionPanel square expanded={expandedType} onChange={handleChangeType}>
+
+      <ExpansionPanel square expanded={expanded.breed} onChange={ChangeExpandedBreed}>
         <ExpansionPanelSummary>
           <Typography>Lọc theo giống</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <GroupRadioType/>
+          <SearchCheckBreed getValueBreed={getBreed}/>
         </ExpansionPanelDetails>
       </ExpansionPanel>
-    </div>
-  );
-}
 
-function GroupRadioPrice(){
-  const [price, setPrice] = useState('');
-  const radioGroupPrice = event => {
-    setPrice(event.target.value);
-  };
-  return(
-    <RadioGroup value={price} onChange={radioGroupPrice}>
-      <FormControlLabel value="female" control={<Radio size='small' />} label="Dưới 3 triệu" />
-      <FormControlLabel value="male" control={<Radio size='small' />} label="3-7 triệu" />
-      <FormControlLabel value="other" control={<Radio size='small' />} label="Trên 7 triệu" />
-    </RadioGroup>
-  )
-}
-function GroupRadioSize(){
-  const [size, setSize] = useState('');
-  const radioGroupSize = event => {
-    setSize(event.target.value);
-  };
-  return(
-    <RadioGroup value={size} onChange={radioGroupSize}>
-      <FormControlLabel value="s" control={<Radio size='small' />} label="S" />
-      <FormControlLabel value="m" control={<Radio size='small' />} label="M" />
-      <FormControlLabel value="l" control={<Radio size='small' />} label="L" />
-    </RadioGroup>
-  )
-}
-function GroupRadioType(){
-  const [type, setType] = useState('');
-  const radioGroupType = event => {
-    setType(event.target.value);
-  };
-  return(
-    <RadioGroup value={type} onChange={radioGroupType}>
-      <FormControlLabel value="Pug" control={<Radio size='small' />} label="Pug" />
-      <FormControlLabel value="Husky" control={<Radio size='small' />} label="Husky" />
-      <FormControlLabel value="Chow chow" control={<Radio size='small' />} label="Chow chow" />
-      <FormControlLabel value="Poodle" control={<Radio size='small' />} label="Poodle" />
-    </RadioGroup>
+      <ExpansionPanel square expanded={expanded.price} onChange={ChangeExpandedPrice}>
+        <ExpansionPanelSummary>
+          <Typography >Lọc theo giá</Typography>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          <SearchCheckPrice getValuePrice={getPrice}/>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+    </>
   )
 }

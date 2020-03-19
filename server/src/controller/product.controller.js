@@ -7,8 +7,8 @@ module.exports.getProduct = function(req, res){
 }
 
 module.exports.postProduct = function(req, res) {
-  const { name, description, price, size, type, gender, images} = req.body;
-  const newProduct = new Product({name, description, price, size, type, gender, images});
+  const { name, description, price, size, breed, gender, images} = req.body;
+  const newProduct = new Product({name, description, price, size, breed, gender, images});
   newProduct.save()
   .then((product) => res.json('ADDED_PRODUCT'))
   .catch((err)=>console.log(err))
