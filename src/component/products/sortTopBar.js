@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import { InputLabel, FormControl, Select, Input } from '@material-ui/core';
+
+import { ProductContext } from './productContext';
 
 const useInputStyles = makeStyles({
   underline: {
@@ -16,18 +18,14 @@ const useInputStyles = makeStyles({
 });
 
 export default function SortTopBar(){
-  const [sort, setSort] = useState('popular');
-  const [page, setPage] = useState(12);
+  const { postPerPage, setPostPerPage, sort, onChangeSort } = useContext(ProductContext);
 
-  const onChangeSort = (event)=> {
-    setSort(event.target.value);
-  }
   const onChangePage = (event)=> {
-    setPage(event.target.value);
+    setPostPerPage(event.target.value);
   }
   const inputClasses = useInputStyles();
   return(
-    <div className='search-top-bar'>
+    <div className='search-top-bar ml-3'>
       <h2 className='mr-auto'>Shop</h2>
       <FormControl size='small'>
         <InputLabel >
@@ -51,15 +49,15 @@ export default function SortTopBar(){
           Trang
         </InputLabel>
         <Select 
-        native
-          value={page}
+          native
+          value={postPerPage}
           onChange={onChangePage}
           autoWidth={true}
           input={<Input classes={inputClasses} />}
         >
+          <option value={9}>9</option>
           <option value={12}>12</option>
           <option value={18}>18</option>
-          <option value={24}>24</option>
         </Select >
       </FormControl>
     </div>

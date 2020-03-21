@@ -1,30 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 
 import { FormControlLabel, FormGroup, FormControl, Checkbox, TextField} from '@material-ui/core';
+import { ProductContext } from './productContext';
 export default function SearchCheckBreed(props){
-  const [breed, setBreed] = useState({
-    pug: false,
-    husky: false,
-    chowchow: false,
-    poodle: false,
-    search:''
-  });
-  useEffect(() => {
-    props.getValueBreed(breed)
-  }, [breed, props] )
-
-  const CheckBreed = name => event => {
-    setBreed({ ...breed, [name]: event.target.checked });
-  };
-  const changeSearch = (event) =>{
-    setBreed({
-      pug: false,
-      husky: false,
-      chowchow: false,
-      poodle: false,
-      search: event.target.value
-    })
-  }
+  const { breed, changeSearchBreed, CheckBreed } = useContext(ProductContext);
+  
   return(
     <FormControl component="fieldset">
       <FormGroup>
@@ -48,7 +28,7 @@ export default function SearchCheckBreed(props){
           }
           label="Poodle"
         />
-        <TextField label="Giống" variant="filled" value={breed.search} onChange={changeSearch}/>
+        <TextField label="Giống" variant="filled" value={breed.search} onChange={changeSearchBreed}/>
       </FormGroup>
     </FormControl>
   )

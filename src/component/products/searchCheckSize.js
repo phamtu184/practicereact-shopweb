@@ -1,19 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 
 import { FormControlLabel, FormGroup, FormControl, Checkbox } from '@material-ui/core';
-export default function SearchCheckSize(props){
-  const [size, setSize] = useState({
-    s: false,
-    m: false,
-    l: false,
-  });
-  useEffect(() => {
-    props.getValueSize(size)
-  }, [size, props] )
+import { ProductContext } from './productContext';
 
-  const CheckSize = name => event => {
-    setSize({ ...size, [name]: event.target.checked });
-  };
+export default function SearchCheckSize(){
+  const { size, CheckSize } = useContext(ProductContext);
   return(
     <FormControl component="fieldset">
       <FormGroup>

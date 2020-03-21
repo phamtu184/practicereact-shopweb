@@ -422,6 +422,11 @@ $type: linear;
         }
       }
     }
+    .MuiPagination-root{
+      .Mui-selected{
+        color: $blue-700
+      }
+    }
   }
 }
 .MuiDrawer-root{

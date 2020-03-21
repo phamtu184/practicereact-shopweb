@@ -41,9 +41,6 @@ function Expanded(){
     breed: true,
     price: true
   });
-  const [searchSize, setSearchSize] = useState()
-  const [searchBreed, setSearchBreed] = useState()
-  const [searchPrice, setSearchPrice] = useState()
 
   const ChangeExpandedSize = () => {
     setExpanded({...expanded, size:!expanded.size});
@@ -54,15 +51,6 @@ function Expanded(){
   const ChangeExpandedPrice = () => {
     setExpanded({...expanded, price:!expanded.price});
   };
-  const getSize = (data) => {
-    setSearchSize(data)
-  }
-  const getBreed = (data) => {
-    setSearchBreed(data)
-  }
-  const getPrice = (data) => {
-    setSearchPrice(data)
-  }
   return(
     <>
       <ExpansionPanel square expanded={expanded.size} onChange={ChangeExpandedSize}>
@@ -70,7 +58,7 @@ function Expanded(){
           <Typography>Lọc theo kích thước</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <SearchCheckSize getValueSize={getSize}/>
+          <SearchCheckSize />
         </ExpansionPanelDetails>
       </ExpansionPanel>
 
@@ -79,7 +67,7 @@ function Expanded(){
           <Typography>Lọc theo giống</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <SearchCheckBreed getValueBreed={getBreed}/>
+          <SearchCheckBreed />
         </ExpansionPanelDetails>
       </ExpansionPanel>
 
@@ -88,7 +76,7 @@ function Expanded(){
           <Typography >Lọc theo giá</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <SearchCheckPrice getValuePrice={getPrice}/>
+          <SearchCheckPrice />
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </>

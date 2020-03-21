@@ -2,10 +2,10 @@ import React from 'react';
 
 import SearchBar from '../component/products/searchBar';
 import ProductsList from '../component/products/productsList'
+import SortTopBar from '../component/products/sortTopBar';
 import {ProductProvider} from '../component/products/productContext';
 
 export default function Products(){
-
   return(
     <ProductProvider>
       <div className='container mt-4'>
@@ -13,7 +13,8 @@ export default function Products(){
           <div className='search-bar'>
             <SearchBar/>
           </div>
-          <div className='products-section'>
+          <div className='products-section ml-3 mt-2'>
+            <SortTopBar/>
             <ProductsList/>
           </div>
         </div>

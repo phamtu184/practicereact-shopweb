@@ -4,8 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { Button, Box, IconButton, SvgIcon, Tooltip } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 
-import SortTopBar from './sortTopBar';
 import WalkingLoader from './wakingLoader';
+import Pagination from './pagination';
 import { SearchIcon, HeartIcon, SyncIcon } from '../../image/svglogo/svlogo';
 import { ProductContext } from './productContext';
 
@@ -37,68 +37,70 @@ export default function ProductsList(){
   const { products, loading } = useContext(ProductContext);
 
   return(
-    <div className='ml-4 mt-4'>
-      <SortTopBar/>
+    <>
       {loading? <WalkingLoader/>
-      :<div className='product-list mt-4'>
-        {products.map((product,index)=>(
-          <div className='col-md-6 col-lg-4 mb-4' key={index}>
-            <div className='product-thumb'>
-              <div className='product-extra-link'>
-                <ul>
-                  <li>
-                    <EditTooltip title="Yêu thích" arrow placement="top"
-                      PopperProps={{disablePortal: true}}
-                    >
-                      <IconButton ><Hearticon/></IconButton>
-                    </EditTooltip>
-                  </li>
-                  <li>
-                    <EditTooltip title="Thông tin" arrow placement="top"
-                      PopperProps={{disablePortal: true}}
-                    >
-                      <IconButton ><Searchicon/></IconButton>
-                    </EditTooltip>
-                  </li>
-                  <li>
-                    <EditTooltip title="Compare" arrow placement="top"
-                      PopperProps={{disablePortal: true}}
-                    >
-                      <IconButton ><Syncicon/></IconButton>
-                    </EditTooltip>
-                  </li>
-                </ul>
-                <Button className='btn-addtocart'>
-                  Thêm vào giỏ hàng
-                </Button>
+      :<>
+        <div className='product-list mt-3'>
+          {products.map((product,index)=>(
+            <div className='col-md-6 col-lg-4 mb-4' key={index}>
+              <div className='product-thumb'>
+                <div className='product-extra-link'>
+                  <ul>
+                    <li>
+                      <EditTooltip title="Yêu thích" arrow placement="top"
+                        PopperProps={{disablePortal: true}}
+                      >
+                        <IconButton ><Hearticon/></IconButton>
+                      </EditTooltip>
+                    </li>
+                    <li>
+                      <EditTooltip title="Thông tin" arrow placement="top"
+                        PopperProps={{disablePortal: true}}
+                      >
+                        <IconButton ><Searchicon/></IconButton>
+                      </EditTooltip>
+                    </li>
+                    <li>
+                      <EditTooltip title="Compare" arrow placement="top"
+                        PopperProps={{disablePortal: true}}
+                      >
+                        <IconButton ><Syncicon/></IconButton>
+                      </EditTooltip>
+                    </li>
+                  </ul>
+                  <Button className='btn-addtocart'>
+                    Thêm vào giỏ hàng
+                  </Button>
+                </div>
+                <img src={product.images} alt={product.name} className='product-img' style={{height:'270', width:'270'}}/>
               </div>
-              <img src={product.images} alt={product.name} className='product-img' style={{height:'270', width:'270'}}/>
-            </div>
-            <div className='product-info mt-2'>
-              <h3 className='product-name'>{product.name}</h3>
-              <div className='product-rating'>
-                <Rating
-                  name="hover-feedback"
-                  size="small"
-                  value={valueRating}
-                  precision={0.5}
-                  onChange={(event, newValue) => {
-                    setValueRating(newValue);
-                  }}
-                  onChangeActive={(event, newHover) => {
-                    setHoverRating(newHover);
-                  }}
-                />
-                {valueRating !== null && <Box ml={2}>{labels[hoverRating !== -1 ? hoverRating : valueRating]}</Box>}
+              <div className='product-info mt-2'>
+                <h3 className='product-name'>{product.name}</h3>
+                <div className='product-rating'>
+                  <Rating
+                    name="hover-feedback"
+                    size="small"
+                    value={valueRating}
+                    precision={0.5}
+                    onChange={(event, newValue) => {
+                      setValueRating(newValue);
+                    }}
+                    onChangeActive={(event, newHover) => {
+                      setHoverRating(newHover);
+                    }}
+                  />
+                  {valueRating !== null && <Box ml={2}>{labels[hoverRating !== -1 ? hoverRating : valueRating]}</Box>}
+                </div>
+                <p className='product-desc'>{product.description}</p>
+                <span className='product-price'>£{product.price}</span>
               </div>
-              <p className='product-desc'>{product.description}</p>
-              <span className='product-price'>£{product.price}</span>
             </div>
-          </div>
-        ))}
-      </div>
-      }
-    </div>
+          ))}
+        </div>
+        <Pagination/>
+        <div style={{height:'200px'}}></div>
+      </>}
+    </>
   )
 }
 function Hearticon(props){

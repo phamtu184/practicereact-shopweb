@@ -55,7 +55,7 @@ export default function ProductsSetting(props){
     valid: true,
     errorMessage: ""
   });
-  const [type, setType] = useState({
+  const [breed, setBreed] = useState({
     value: "",
     valid: true,
     errorMessage: ""
@@ -104,8 +104,8 @@ export default function ProductsSetting(props){
       value: event.target.value,
     });
   }
-  const onChangeType = (event)=> {
-    setType({ 
+  const onChangeBreed = (event)=> {
+    setBreed({ 
       value: event.target.value,
     });
   }
@@ -158,15 +158,15 @@ export default function ProductsSetting(props){
       description: description.value,
       price: price.value,
       size: size.value,
-      type: type.value,
+      breed: breed.value,
       gender: gender.value,
       images: images.value
     }
     if (formValid(name.valid, description.valid,
-      price.valid, size.valid, type.valid,
+      price.valid, size.valid, breed.valid,
       gender.valid, images.valid)
         && nullFormValid(name.value, description.value,
-          price.value, size.value, type.value,
+          price.value, size.value, breed.value,
           gender.value, images.value)){
       axios.post("/product/product", info)
       .then(res => {
@@ -178,7 +178,7 @@ export default function ProductsSetting(props){
           setName({value:''});
           setDescription({value:''});
           setPrice({value:''});
-          setType({value:''});
+          setBreed({value:''});
           setImages({value:''});
         }
         else{
@@ -252,12 +252,12 @@ export default function ProductsSetting(props){
               variant="outlined"
               label="Giống"
               type="text"
-              onChange={onChangeType}
-              value={type.value}
+              onChange={onChangeBreed}
+              value={breed.value}
               fullWidth
               className='mt-3'
-              error={type.valid===false}
-              helperText={type.valid===false ? type.errorMessage:''}
+              error={breed.valid===false}
+              helperText={breed.valid===false ? breed.errorMessage:''}
             />   
             <FormControl variant="outlined" className='mt-3' fullWidth>
               <InputLabel >

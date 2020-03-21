@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 
 import { Slider} from '@material-ui/core';
+import { ProductContext } from './productContext';
 
 export default function SearchCheckPrice(props){
-  const [valuePrice, setValuePrice] = useState([20, 1500]);
-  useEffect(() => {
-    props.getValuePrice(valuePrice)
-  }, [valuePrice, props] )
-
-  const handleChangePrice = (event, newValue) => {
-    setValuePrice(newValue);
-  };
+  // useEffect(() => {
+  //   props.getValuePrice(valuePrice)
+  // }, [valuePrice, props] )
+  const { valuePrice, handleChangePrice } = useContext(ProductContext);
+  
   return(
     <div className='w-100 slide-price'>
       <Slider
