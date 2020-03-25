@@ -9,16 +9,16 @@ export default function SearchCheckSize(){
     <FormControl component="fieldset">
       <FormGroup>
         <FormControlLabel
-          control={<Checkbox checked={size.s} onChange={CheckSize('s')} value="s" />}
+          control={<Checkbox checked={size.s} onChange={CheckSize('s')}/>}
           label="S"
         />
         <FormControlLabel
-          control={<Checkbox checked={size.m} onChange={CheckSize('m')} value="m" />}
+          control={<Checkbox checked={size.m} onChange={CheckSize('m')}/>}
           label="M"
         />
         <FormControlLabel
           control={
-            <Checkbox checked={size.l} onChange={CheckSize('l')} value="l" />
+            <Checkbox checked={size.l} onChange={CheckSize('l')}/>
           }
           label="L"
         />
