@@ -65,11 +65,8 @@ export default function ProductsSetting(props){
     valid: true,
     errorMessage: ""
   });
-  const [images, setImages] = useState({
-    value: "",
-    valid: true,
-    errorMessage: ""
-  });
+  const [images, setImages] = useState([]);
+
   const [isLoading, setIsLoading] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [infoSnackbar, setInfoSnackbar] = useState('');
@@ -140,15 +137,19 @@ export default function ProductsSetting(props){
   }
   
   const onChangeImages = (event)=> {
-    let reader = new FileReader();
     let files = event.target.files;
-    reader.readAsDataURL(files[0]);
-    reader.onload = (e) =>{
-      files = e.target.result
-      setImages({ 
-        value: files,
-      });
+    for(let i = 0; i<files.length; i++){
+      let reader = new FileReader();
+      let file = files[i]
+      reader.readAsDataURL(file);
+      reader.onload = (e) =>{
+        file = e.target.result
+        setImages(prevState => (
+          [...prevState, file]
+        ));
+      }
     }
+    
   }
   const onSubmitRegister = (event)=> {
     event.preventDefault();
@@ -160,14 +161,14 @@ export default function ProductsSetting(props){
       size: size.value,
       breed: breed.value,
       gender: gender.value,
-      images: images.value
+      images: images
     }
     if (formValid(name.valid, description.valid,
       price.valid, size.valid, breed.valid,
       gender.valid, images.valid)
         && nullFormValid(name.value, description.value,
           price.value, size.value, breed.value,
-          gender.value, images.value)){
+          gender.value, images)){
       axios.post("/product/product", info)
       .then(res => {
         if(res.data==='ADDED_PRODUCT'){
@@ -179,7 +180,7 @@ export default function ProductsSetting(props){
           setDescription({value:''});
           setPrice({value:''});
           setBreed({value:''});
-          setImages({value:''});
+          setImages([]);
         }
         else{
           setOpenSnackbar(true);
@@ -294,14 +295,15 @@ export default function ProductsSetting(props){
                   type="file"
                   style={{ display: "none" }}
                   onChange={onChangeImages}
+                  multiple
                 />
               </Button>
-              {images.value ?
-                <img src={images.value} alt='s'
-                  style={{width:'200px', height:'150px'}}
+              {images.map((img, index)=>(
+                <img src={img} alt={index} key={index}
+                  style={{width:'100px', height:'150px'}}
                   className='ml-2'
-                />:''
-              }
+                /> 
+              ))}
             </div>
             <div className="text-center mb-3">
               <Button

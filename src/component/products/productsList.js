@@ -72,7 +72,7 @@ export default function ProductsList(){
                     Thêm vào giỏ hàng
                   </Button>
                 </div>
-                <img src={product.images} alt={product.name} className='product-img' style={{height:'270', width:'270'}}/>
+                <img src={product.images[0]} alt={product.name} className='product-img' style={{height:'270', width:'270'}}/>
               </div>
               <div className='product-info mt-2'>
                 <h3 className='product-name'>{product.name}</h3>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import '../../style/animate.min.css'
 import Carousel from './carousel/Carousel';
 import CarouselItem from './carousel/CarouselItem';
@@ -37,11 +37,20 @@ const items = [
     captionButton: 'Mua sắm ngay'
   }
 ];
-
 const CarouselPage = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
-
+  const [scroll, setScroll] = useState(0);
+  useEffect(() => {
+      window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    }
+  })
+  const handleScroll = () => {
+    let scrollTop = window.pageYOffset / 2.5
+    setScroll(scrollTop)
+  }
   const next = () => {
     if (animating) return;
     const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
@@ -65,14 +74,14 @@ const CarouselPage = () => {
         onExited={() => setAnimating(false)}
         key={item.src}
       >
-        <img src={item.src} alt={item.altText} />
+        <img src={item.src} alt={item.altText} style={{objectPosition:`center ${scroll}px`}}/>
         <CarouselCaption
           className="animated fadeInDown"
           captionText={item.captionText} 
           captionHeader3={item.captionHeader3}
           captionHeader1={item.captionHeader1}
           captionButton={item.captionButton}
-       />
+        />
       </CarouselItem>
     );
   });
@@ -82,9 +91,10 @@ const CarouselPage = () => {
       next={next}
       previous={previous}
       className='carousel carousel-fade'
+      onScroll={()=>console.log('ss')}
     >
       <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
-      {slides}
+        {slides}
       <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
       <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
     </Carousel>
