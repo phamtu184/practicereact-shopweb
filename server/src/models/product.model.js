@@ -31,25 +31,20 @@ const productSchema = new Schema({
     type: [String],
     required: true
   },
-  isSale:{
+  availability:{
     type: Boolean,
     required: true,
-    default: false
+    default: true
   },
   buyCounts: {
     type: Number,
-    required: false,
+    required: true,
     default: 0
   },
   viewCounts: {
     type: Number,
-    required: false,
+    required: true,
     default: 0
-  },
-  rating: {
-    byUser: String,
-    content: String,
-    star: Number
   },
   comment: {
     total: {

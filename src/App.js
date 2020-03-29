@@ -8,23 +8,26 @@ import Navbar from './component/navbarSection/navbar';
 import MagSetting from './pages/magSetting';
 import Home from './pages/home';
 import Products from './pages/products';
+import {CartProvider} from './context/cart';
 
 import VerifyEmail from './pages/verifiEmail';
 import VerifyToken from './component/verifyToken/verifyToken';
 
 function App() {
   return (
-    <Router>
-      <Navbar/>
-      <Toolbar id="back-to-top-anchor"/>
-      <Switch>
-        <Route path="/verifyemail" component={VerifyEmail}/>
-        <Route path="/verifytoken/:token" component={VerifyToken}/>
-        <Route path="/magsetting" component={MagSetting}/>
-        <Route path="/products" component={Products}/>
-        <Route path="/" component={Home}/>
-      </Switch>
-    </Router>
+    <CartProvider>
+      <Router>
+        <Navbar/>
+        <Toolbar id="back-to-top-anchor"/>
+        <Switch>
+          <Route path="/verifyemail" component={VerifyEmail}/>
+          <Route path="/verifytoken/:token" component={VerifyToken}/>
+          <Route path="/magsetting" component={MagSetting}/>
+          <Route path="/products" component={Products}/>
+          <Route path="/" component={Home}/>
+        </Switch>
+      </Router>
+    </CartProvider>
   );
 }
 

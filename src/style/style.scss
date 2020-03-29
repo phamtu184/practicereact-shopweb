@@ -7,7 +7,9 @@ $font: 'Dosis', sans-serif;
 @import url('https://fonts.googleapis.com/css?family=Dosis&display=swap');
 body{
   line-height:none;
-  font-family: $font !important;
+}
+.dois-font{
+  font-family: $font;
 }
 // ---------------Walking-Loader-----------------
 @mixin animation($str) {
@@ -389,7 +391,6 @@ $type: linear;
           transform: scale(1.2);
         }
       }
-      
       .product-info{
         .product-name{
           font-family: 'Dosis', sans-serif;
@@ -440,6 +441,49 @@ $type: linear;
       border-bottom: 1px solid rgba(0, 0, 0, .125);
       margin-bottom: -1px;
       background-color: rgba(0, 0, 0, .03)
+    }
+  }
+}
+.product-info{
+  .product-img-gallery{
+    .image-gallery{
+      .image-gallery-icon:hover{
+        color:$blue-500
+      }
+      .image-gallery-svg{
+        height: 60px;
+        width: 30px;
+      }
+      .image-gallery-thumbnails{
+        .image-gallery-thumbnail.active, 
+        .image-gallery-thumbnail:hover, 
+        .image-gallery-thumbnail:focus{
+          border: 1px solid $blue-500
+        }
+      }
+    }
+  }
+  .product-detail{
+    color: #444;
+    &-title{
+      margin-bottom: 20px;
+      margin: 0 0 7px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: bold;
+      font-size: 24px;
+      text-transform: uppercase;
+    }
+    &-price{
+      font-size: 20px;
+      font-weight: 720;
+      color: $blue-600;
+      margin-bottom: 13px;
+    }
+    &-desc{
+      margin-bottom: 25px;
+      line-height: 24px;
     }
   }
 }

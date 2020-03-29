@@ -6,8 +6,10 @@ import Rating from '@material-ui/lab/Rating';
 
 import WalkingLoader from './wakingLoader';
 import Pagination from './pagination';
+import ModalInfo from './modalInfo';
 import { SearchIcon, HeartIcon, SyncIcon } from '../../image/svglogo/svlogo';
 import { ProductContext } from './productContext';
+import { CartContext } from '../../context/cart';
 
 const labels = {
   0.5: 'Useless',
@@ -35,7 +37,17 @@ export default function ProductsList(){
   const [valueRating, setValueRating] = useState(4);
   const [hoverRating, setHoverRating] = useState(-1);
   const { products, loading } = useContext(ProductContext);
+  const { addToCart } = useContext(CartContext);
+  const [openModal, setOpenModal] = useState(false);
+  const [product, setProduct] = useState([]);
 
+  const handleOpenModal = (product) => {
+    setProduct(product)
+    setOpenModal(true);
+  };
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
   return(
     <>
       {loading? <WalkingLoader/>
@@ -57,7 +69,7 @@ export default function ProductsList(){
                       <EditTooltip title="Thông tin" arrow placement="top"
                         PopperProps={{disablePortal: true}}
                       >
-                        <IconButton ><Searchicon/></IconButton>
+                        <IconButton onClick={()=>handleOpenModal(product)}><Searchicon/></IconButton>
                       </EditTooltip>
                     </li>
                     <li>
@@ -68,7 +80,7 @@ export default function ProductsList(){
                       </EditTooltip>
                     </li>
                   </ul>
-                  <Button className='btn-addtocart'>
+                  <Button className='btn-addtocart' onClick={()=>addToCart(product._id)}>
                     Thêm vào giỏ hàng
                   </Button>
                 </div>
@@ -91,12 +103,12 @@ export default function ProductsList(){
                   />
                   {valueRating !== null && <Box ml={2}>{labels[hoverRating !== -1 ? hoverRating : valueRating]}</Box>}
                 </div>
-                <p className='product-desc'>{product.description}</p>
                 <span className='product-price'>£{product.price}</span>
               </div>
             </div>
           ))}
         </div>
+        <ModalInfo open={openModal} closeModal={handleCloseModal} product={product}/>
         <Pagination/>
         <div style={{height:'200px'}}></div>
       </>}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 
 import { AppBar, Toolbar, Button, IconButton, useScrollTrigger, Slide, Fab, Badge, SvgIcon } from '@material-ui/core';
 // icon
@@ -10,6 +10,7 @@ import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import { NavLink } from "react-router-dom";
 import Menuitemlogin from '../navbarSection/menuItemLogin';
 import ScrollTop from './backToTop';
+import { CartContext } from '../../context/cart';
 
 function HideOnScroll(props) {
   const { children, window } = props;
@@ -22,6 +23,7 @@ function HideOnScroll(props) {
 }
 
 export default function Topnav(props){
+  const { cartItems } = useContext(CartContext);
   return(
     <div className='top-nav'>
       <HideOnScroll {...props}>
@@ -54,7 +56,7 @@ export default function Topnav(props){
                 </IconButton>
               </li>
               <li>
-                <Badge badgeContent={4} color="primary">
+                <Badge badgeContent={cartItems.length} color="primary">
                   <IconButton edge="start" color="inherit">
                     <img src={CartIcon} alt='cart icon'/>
                   </IconButton>

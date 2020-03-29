@@ -1,31 +1,21 @@
-import React, { Component } from 'react';
+import React, { useState, createContext } from 'react';
 
-export const CartContext = React.createContext();
+export const CartContext = createContext();
 
-export class CartProvider extends Component{
-  constructor(props){
-    super(props);
+export function CartProvider(props){
+  const [cartItems, setCartItems] = useState([])
 
-    this.state = {
-      cartItems: []
-    }
-    this.addToCart = this.addToCart.bind(this);
-  }
-
-  addToCart(product){
-    this.setState({
-      cartItems: this.state.cartItems.concat(product)
-    })
-  }
-
-  render(){
-    return(
-      <CartContext.Provider value={{
-        cartItems: this.state.cartItems,
-        addToCart: this.addToCart
-      }}>
-        {this.props.children}
-      </CartContext.Provider>
+  const addToCart = (product) => {
+    setCartItems(
+      cartItems.concat(product)
     )
   }
+  return(
+    <CartContext.Provider value={{
+      cartItems: cartItems,
+      addToCart: addToCart
+    }}>
+      {props.children}
+    </CartContext.Provider>
+  )
 }

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import '../../style/animate.min.css'
-import Carousel from './carousel/Carousel';
-import CarouselItem from './carousel/CarouselItem';
-import CarouselControl from './carousel/CarouselControl';
-import CarouselIndicators from './carousel/CarouselIndicators';
-import CarouselCaption from './carousel/CarouselCaption';
+import Carousel from '../carousel/Carousel';
+import CarouselItem from '../carousel/CarouselItem';
+import CarouselControl from '../carousel/CarouselControl';
+import CarouselIndicators from '../carousel/CarouselIndicators';
+import CarouselCaption from '../carousel/CarouselCaption';
 
 import Background1 from '../../image/background.jpg';
 import Background2 from '../../image/background2.jpg';
@@ -91,10 +91,9 @@ const CarouselPage = () => {
       next={next}
       previous={previous}
       className='carousel carousel-fade'
-      onScroll={()=>console.log('ss')}
     >
       <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
-        {slides}
+      {slides}
       <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
       <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
     </Carousel>
