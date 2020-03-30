@@ -42,7 +42,7 @@ const userSchema = new Schema({
     required: false
   },
   cart: {
-    type: Object,
+    type: [String],
     required: false
   }
 },{

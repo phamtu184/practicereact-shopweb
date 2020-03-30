@@ -11,6 +11,9 @@ body{
 .dois-font{
   font-family: $font;
 }
+.color600{
+  color: $blue-600
+}
 // ---------------Walking-Loader-----------------
 @mixin animation($str) {
 	-webkit-animation: $str;
@@ -116,8 +119,27 @@ $type: linear;
     padding: 0;
     overflow: hidden;
   }
-  .nav-content-left{
+  .nav-content-right{
     margin-left: auto;
+  }
+}
+.item-cart{
+  display: table;
+  border-bottom: 1px solid #e5e5e5;
+  div{
+    vertical-align: middle;
+    display: table-cell;
+  }
+  .product-info{
+    padding: 0 15px;
+    .product-title{
+      margin: 0 0 7px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 16px;
+      font-weight: 400;
+    }
   }
 }
 
@@ -135,30 +157,59 @@ $type: linear;
     color: #fff !important;
   }
 }
-.toggle-icon{
+
+.unshow{
   display: none;
 }
-@media only screen and (max-width: 20000px){
-  .bottom-nav{
-    display: none;
+.show{
+  position: relative;
+  a{
+    float: none;
+    display: block;
+    text-align: left;
   }
 }
-@media only screen and (max-width: 800px) {
-  .clone-topnav{
-    height: 0px;
+.collapsed {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  overflow: hidden;
+  max-height: 0;
+  -moz-transition-duration: 0.4s;
+  -webkit-transition-duration: 0.4s;
+  -o-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  -moz-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  -o-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  a{
+    text-decoration: none;
   }
-  .toggle-icon{
-    display: none;
-  }
-  .bottom-nav{
-    display: block;
-  }
-  .top-nav{
-    display: none;
-  }
-  #back-to-top-anchor{
-    display: none;
-  }
+}
+.is-expanded {
+  overflow: hidden;
+  max-height: 500px; /* approximate max height */
+  -moz-transition-duration: 0.4s;
+  -webkit-transition-duration: 0.4s;
+  -o-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  -moz-transition-timing-function: ease-in;
+  -webkit-transition-timing-function: ease-in;
+  -o-transition-timing-function: ease-in;
+  transition-timing-function: ease-in;
+}
+// @media screen and (max-width: 20000px){
+//   .bottom-nav{
+//     display: none;
+//   }
+// }
+
+
+@media screen and (max-width: 800px) {
+  
 }
 /* ----------------home page-------------- */
 .slick-prev:before, .slick-next:before{

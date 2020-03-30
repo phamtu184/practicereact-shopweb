@@ -80,7 +80,7 @@ export default function ProductsList(){
                       </EditTooltip>
                     </li>
                   </ul>
-                  <Button className='btn-addtocart' onClick={()=>addToCart(product._id)}>
+                  <Button className='btn-addtocart' onClick={()=>addToCart(product)}>
                     Thêm vào giỏ hàng
                   </Button>
                 </div>

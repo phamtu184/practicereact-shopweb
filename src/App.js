@@ -4,7 +4,7 @@ import './style/style.scss';
 import { BrowserRouter as Router ,Switch, Route} from "react-router-dom";
 
 import { Toolbar } from '@material-ui/core';
-import Navbar from './component/navbarSection/navbar';
+import Navbar from './component/navbarSection/topnav';
 import MagSetting from './pages/magSetting';
 import Home from './pages/home';
 import Products from './pages/products';
