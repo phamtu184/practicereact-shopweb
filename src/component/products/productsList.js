@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
 import { Button, Box, IconButton, SvgIcon, Tooltip } from '@material-ui/core';
-import Rating from '@material-ui/lab/Rating';
+import { Rating } from '@material-ui/lab';
 
 import WalkingLoader from './wakingLoader';
 import Pagination from './pagination';
@@ -10,6 +10,7 @@ import ModalInfo from './modalInfo';
 import { SearchIcon, HeartIcon, SyncIcon } from '../../image/svglogo/svlogo';
 import { ProductContext } from './productContext';
 import { CartContext } from '../../context/cart';
+import SnackBar from '../snackBar/snackBar';
 
 const labels = {
   0.5: 'Useless',
@@ -37,7 +38,7 @@ export default function ProductsList(){
   const [valueRating, setValueRating] = useState(4);
   const [hoverRating, setHoverRating] = useState(-1);
   const { products, loading } = useContext(ProductContext);
-  const { addToCart } = useContext(CartContext);
+  const { addToCart, openSnackbar, infoSnackbar, typeSnackbar, closeSnackbar } = useContext(CartContext);
   const [openModal, setOpenModal] = useState(false);
   const [product, setProduct] = useState([]);
 
@@ -48,6 +49,7 @@ export default function ProductsList(){
   const handleCloseModal = () => {
     setOpenModal(false);
   };
+  
   return(
     <>
       {loading? <WalkingLoader/>
@@ -110,6 +112,14 @@ export default function ProductsList(){
         </div>
         <ModalInfo open={openModal} closeModal={handleCloseModal} product={product}/>
         <Pagination/>
+        <SnackBar 
+          openSnackbar={openSnackbar} 
+          closeSnackbar={closeSnackbar} 
+          vertical='top' 
+          horizontal='right' 
+          typeSnackbar={typeSnackbar} 
+          infoSnackbar={infoSnackbar}
+        />
         <div style={{height:'200px'}}></div>
       </>}
     </>

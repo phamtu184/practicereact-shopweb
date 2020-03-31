@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Snackbar } from '@material-ui/core';
-import MuiAlert from '@material-ui/lab/Alert';
+import SnackBar from '../component/snackBar/snackBar';
 import Carousel from '../component/homePages/carousel';
 import LayoutPromoBox from '../component/homePages/layoutPromoBox';
 import Features from '../component/homePages/features';
 import ProductList from '../component/homePages/newProductList';
-
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 export default function Home() {
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -37,16 +32,16 @@ export default function Home() {
     }
     setOpenSnackbar(false);
   };
-  const vertical = 'top';
-  const horizontal = 'right';
   return(
     <div>
-      <Snackbar open={openSnackbar} autoHideDuration={6000} 
-      onClose={closeSnackbar} anchorOrigin={{ vertical, horizontal }}>
-        <Alert onClose={closeSnackbar} severity={typeSnackbar}>
-          {infoSnackbar}
-        </Alert>
-      </Snackbar>
+      <SnackBar 
+        openSnackbar={openSnackbar} 
+        closeSnackbar={closeSnackbar} 
+        vertical='top' 
+        horizontal='right' 
+        typeSnackbar={typeSnackbar} 
+        infoSnackbar={infoSnackbar}
+      />
       <Carousel/>
       <LayoutPromoBox/>
       <Features/>

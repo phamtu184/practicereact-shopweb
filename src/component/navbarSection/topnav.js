@@ -1,6 +1,5 @@
-import React, {useContext,useState, useEffect} from 'react';
+import React, {useContext,useState} from 'react';
 
-import axios from 'axios';
 import { AppBar, Toolbar, Button, IconButton, useScrollTrigger, Slide, Fab, SvgIcon, useMediaQuery } from '@material-ui/core';
 // icon
 import MenuIcon from '../../image/svglogo/menu.svg';
@@ -26,10 +25,7 @@ function HideOnScroll(props) {
 }
 
 export default function Topnav(props){
-  const [isLogin, setLogin] = useState(false);
-  const [username, setUsername] = useState('');
-  const [role, setRole] = useState(2);
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, isLogin, username, role } = useContext(CartContext);
   const [isDrawer, setDrawer] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const openDrawer = () => {
@@ -38,16 +34,6 @@ export default function Topnav(props){
   const closeDrawer = () => {
     setDrawer(false)
   }
-  useEffect(()=>{
-    axios.get('/auth/islogin')
-    .then(res=>{
-      if(res.data!=='login:false'){
-        setLogin(true);
-        setUsername(res.data.username);
-        setRole(res.data.role);
-      }
-    })
-  },[]);
   const handleExpanded = () => {
     setIsExpanded(!isExpanded)
   }

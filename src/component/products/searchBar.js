@@ -4,9 +4,7 @@ import { ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Typograph
   SwipeableDrawer, useMediaQuery, IconButton } from '@material-ui/core';
 import MenuIcon from '../../image/svglogo/menu.svg';
 
-import SearchCheckSize from './searchCheckSize';
-import SearchCheckBreed from './searchCheckBreed';
-import SearchCheckPrice from './searchCheckPrice';
+import {SearchCheckSize, SearchCheckBreed, SearchCheckPrice} from './searchCheck';
 
 export default function SearchBar(){
   const [drawer, setDrawer] = useState(false);
