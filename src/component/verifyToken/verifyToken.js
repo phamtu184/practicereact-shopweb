@@ -11,25 +11,25 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function VerifyEmail(){
+export default function VerifyEmail() {
   let { token } = useParams();
-  useEffect(()=>{
-    axios.post('/auth/activeemail', {token:token})
-    .then(res=>{
-      if(res.data==='active success'){
-        localStorage.setItem("event", "ACTIVE_EMAIL");
-        window.location.assign('/');
-      }
-      else{
-        window.location.assign('/');
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
-  },[token]);
+  useEffect(() => {
+    axios.post('/auth/activeemail', { token: token })
+      .then(res => {
+        if (res.data === 'active success') {
+          localStorage.setItem("event", "ACTIVE_EMAIL");
+          window.location.assign('/');
+        }
+        else {
+          window.location.assign('/');
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+  }, [token]);
   const classes = useStyles();
-  return(
+  return (
     <Backdrop className={classes.backdrop} open={true}>
       <CircularProgress color="inherit" />
     </Backdrop>

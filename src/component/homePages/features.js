@@ -21,7 +21,7 @@ const FeaturesPage = () => {
         <div className='row'>
           <div className='col-md-4'>
             <Paper elevation={3} className="px-4 py-4 h-100 w-100">
-              <img src={PetsIconPug} alt='carticon' style={{width:'60px', height:'60px'}}></img>
+              <img src={PetsIconPug} alt='carticon' style={{ width: '60px', height: '60px' }}></img>
               <h5 className="font-weight-bold my-4">Analytics</h5>
               <p className="grey-text mb-md-0 mb-5">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -31,7 +31,7 @@ const FeaturesPage = () => {
           </div>
           <div className='col-md-4'>
             <Paper elevation={3} className="px-4 py-4 h-100 w-100">
-              <img src={PetsIconPug} alt='carticon' style={{width:'60px', height:'60px'}}></img>
+              <img src={PetsIconPug} alt='carticon' style={{ width: '60px', height: '60px' }}></img>
               <h5 className="font-weight-bold my-4">Analytics</h5>
               <p className="grey-text mb-md-0 mb-5">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -40,7 +40,7 @@ const FeaturesPage = () => {
           </div>
           <div className='col-md-4'>
             <Paper elevation={3} className="px-4 py-4 h-100 w-100">
-              <img src={PetsIconPug} alt='carticon' style={{width:'60px', height:'60px'}}></img>
+              <img src={PetsIconPug} alt='carticon' style={{ width: '60px', height: '60px' }}></img>
               <h5 className="font-weight-bold my-4">Analytics</h5>
               <p className="grey-text mb-md-0 mb-5">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.

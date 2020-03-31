@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 
-import { FormControlLabel, FormGroup, FormControl, Checkbox, TextField, Slider} from '@material-ui/core';
+import { FormControlLabel, FormGroup, FormControl, Checkbox, TextField, Slider } from '@material-ui/core';
 import { ProductContext } from './productContext';
-export function SearchCheckBreed(props){
+export function SearchCheckBreed(props) {
   const { breed, changeSearchBreed, CheckBreed } = useContext(ProductContext);
-  
-  return(
+
+  return (
     <FormControl component="fieldset">
       <FormGroup>
         <FormControlLabel
@@ -28,19 +28,19 @@ export function SearchCheckBreed(props){
           }
           label="Poodle"
         />
-        <TextField label="Giống" variant="filled" value={breed.search} onChange={changeSearchBreed}/>
+        <TextField label="Giống" variant="filled" value={breed.search} onChange={changeSearchBreed} />
       </FormGroup>
     </FormControl>
   )
 }
 
-export function SearchCheckPrice(props){
+export function SearchCheckPrice(props) {
   // useEffect(() => {
   //   props.getValuePrice(valuePrice)
   // }, [valuePrice, props] )
   const { valuePrice, handleChangePrice } = useContext(ProductContext);
-  
-  return(
+
+  return (
     <div className='w-100 slide-price'>
       <Slider
         value={valuePrice}
@@ -55,22 +55,22 @@ export function SearchCheckPrice(props){
 }
 
 
-export function SearchCheckSize(){
+export function SearchCheckSize() {
   const { size, CheckSize } = useContext(ProductContext);
-  return(
+  return (
     <FormControl component="fieldset">
       <FormGroup>
         <FormControlLabel
-          control={<Checkbox checked={size.s} onChange={CheckSize('s')}/>}
+          control={<Checkbox checked={size.s} onChange={CheckSize('s')} />}
           label="S"
         />
         <FormControlLabel
-          control={<Checkbox checked={size.m} onChange={CheckSize('m')}/>}
+          control={<Checkbox checked={size.m} onChange={CheckSize('m')} />}
           label="M"
         />
         <FormControlLabel
           control={
-            <Checkbox checked={size.l} onChange={CheckSize('l')}/>
+            <Checkbox checked={size.l} onChange={CheckSize('l')} />
           }
           label="L"
         />

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Button, Card, CardContent, CardActions, 
-  TextField, CircularProgress, Snackbar } from '@material-ui/core';
+import {
+  Button, Card, CardContent, CardActions,
+  TextField, CircularProgress, Snackbar
+} from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import axios from 'axios';
 
@@ -29,7 +31,7 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-export default function LoginDrawer(props){
+export default function LoginDrawer(props) {
   const [usernameLogin, setUsernameLogin] = useState('');
   const [passwordLogin, setPasswordLogin] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -38,10 +40,10 @@ export default function LoginDrawer(props){
   const [infoSnackbar, setInfoSnackbar] = useState('');
   const [typeSnackbar, setTypeSnackbar] = useState('');
 
-  const onChangeUsernameLogin = (e)=>{
+  const onChangeUsernameLogin = (e) => {
     setUsernameLogin(e.target.value)
   };
-  const onChangePasswordLogin = (e)=>{
+  const onChangePasswordLogin = (e) => {
     setPasswordLogin(e.target.value)
   }
   const closeSnackbar = (event, reason) => {
@@ -50,48 +52,48 @@ export default function LoginDrawer(props){
     }
     setOpenSnackbar(false);
   };
-  const onSubmitLogin= (e)=>{
+  const onSubmitLogin = (e) => {
     e.preventDefault();
     setIsLoading(true);
     let info = {
       username: usernameLogin,
       password: passwordLogin
     }
-    if(!info.username || !info.password){
+    if (!info.username || !info.password) {
       setOpenSnackbar(true);
       setInfoSnackbar('Vui lòng nhập đầy đủ các trường');
       setTypeSnackbar('warning');
       setIsLoading(false);
     }
-    else{
+    else {
       axios.post("/auth/login", info)
-      .then(res => {
-        if(res.data==="notuser"){
-          setOpenSnackbar(true);
-          setInfoSnackbar('Tài khoản không tồn tại');
-          setTypeSnackbar('error');
-          setIsLoading(false);
-        }
-        else if(res.data==="wrongpw"){
-          setOpenSnackbar(true);
-          setInfoSnackbar('Sai mật khẩu');
-          setTypeSnackbar('error');
-          setIsLoading(false);
-        }
-        else{
-          localStorage.setItem("event", "LOGIN_SUCCESS");
-          setIsLoading(false);
-          window.location.assign('/');
-        }
-      })
+        .then(res => {
+          if (res.data === "notuser") {
+            setOpenSnackbar(true);
+            setInfoSnackbar('Tài khoản không tồn tại');
+            setTypeSnackbar('error');
+            setIsLoading(false);
+          }
+          else if (res.data === "wrongpw") {
+            setOpenSnackbar(true);
+            setInfoSnackbar('Sai mật khẩu');
+            setTypeSnackbar('error');
+            setIsLoading(false);
+          }
+          else {
+            localStorage.setItem("event", "LOGIN_SUCCESS");
+            setIsLoading(false);
+            window.location.assign('/');
+          }
+        })
     }
   }
   const vertical = 'top';
   const horizontal = 'right';
-  return(
+  return (
     <>
-      <Snackbar open={openSnackbar} autoHideDuration={6000} 
-      onClose={closeSnackbar} anchorOrigin={{ vertical, horizontal }}>
+      <Snackbar open={openSnackbar} autoHideDuration={6000}
+        onClose={closeSnackbar} anchorOrigin={{ vertical, horizontal }}>
         <Alert onClose={closeSnackbar} severity={typeSnackbar}>
           {infoSnackbar}
         </Alert>
@@ -104,7 +106,7 @@ export default function LoginDrawer(props){
             </h3>
           </div>
           <form onSubmit={onSubmitLogin}>
-            <CssTextField 
+            <CssTextField
               variant="outlined"
               label="Tên đăng nhập"
               type="text"
@@ -128,11 +130,11 @@ export default function LoginDrawer(props){
                 className="btn-block z-depth-1a mt-4"
                 disabled={isLoading}
               >
-                { isLoading && <CircularProgress size={16} color="inherit" className="middle"/> }
-                <span className="ml-2">Login</span> 
-              </Button>                  
+                {isLoading && <CircularProgress size={16} color="inherit" className="middle" />}
+                <span className="ml-2">Login</span>
+              </Button>
             </div>
-          </form> 
+          </form>
         </CardContent>
         <CardActions className="mx-5 pt-3 mb-1">
           <p className="font-small d-flex justify-content-end align-items-center">

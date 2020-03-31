@@ -6,10 +6,10 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-export default function SnackBar(props){
-  const {vertical,horizontal} = props
-  return(
-    <Snackbar open={props.openSnackbar} autoHideDuration={props.hideDuration||6000} 
+export default function SnackBar(props) {
+  const { vertical, horizontal } = props
+  return (
+    <Snackbar open={props.openSnackbar} autoHideDuration={props.hideDuration || 6000}
       onClose={props.closeSnackbar} anchorOrigin={{ vertical, horizontal }}>
       <Alert onClose={props.closeSnackbar} severity={props.typeSnackbar}>
         {props.infoSnackbar}

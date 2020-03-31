@@ -3,11 +3,11 @@ import axios from 'axios';
 
 export const ProductContext = createContext();
 
-export function ProductProvider(props){
+export function ProductProvider(props) {
   const [products, setProducts] = useState([]);
   const [productsTemp, setProductsTemp] = useState([]);
   const [loading, setLoading] = useState(true);
-  useEffect(()=>{
+  useEffect(() => {
     const getProducts = async () => {
       const res = await axios.get('/product/product')
       setProducts(res.data);
@@ -15,29 +15,29 @@ export function ProductProvider(props){
       setLoading(false)
     }
     getProducts()
-  },[])
+  }, [])
   //get current posts
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostPerPage] = useState(9);
   const indexLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexLastPost - postPerPage;
   const currentPosts = products.slice(indexOfFirstPost, indexLastPost);
-  const numberOfPage = Math.ceil(products.length/postPerPage) ;
+  const numberOfPage = Math.ceil(products.length / postPerPage);
   const onChangeCurrentPage = (event, value) => {
     setCurrentPage(value);
   };
   // -------handle sort---------
   const [sort, setSort] = useState('popular');
-  const onChangeSort = (event)=> {
+  const onChangeSort = (event) => {
     setSort(event.target.value);
     let productsClone = []
-    if(event.target.value==='price lower'){
-      productsClone= products.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+    if (event.target.value === 'price lower') {
+      productsClone = products.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
     }
-    else if(event.target.value==='price higher'){
-      productsClone=products.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+    else if (event.target.value === 'price higher') {
+      productsClone = products.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
     }
-    else{
+    else {
       productsClone = products
     }
     setProducts(productsClone)
@@ -48,9 +48,9 @@ export function ProductProvider(props){
     husky: false,
     chowchow: false,
     poodle: false,
-    search:''
+    search: ''
   });
-  const changeSearchBreed = (event) =>{
+  const changeSearchBreed = (event) => {
     setBreed({
       pug: false,
       husky: false,
@@ -69,9 +69,9 @@ export function ProductProvider(props){
     l: false
   });
   const CheckSize = (name) => event => {
-    setSize({ ...size , [name]: event.target.checked});
+    setSize({ ...size, [name]: event.target.checked });
   };
-  const {s,m,l} = size
+  const { s, m, l } = size
   const filterS = productsTemp.filter(product => {
     return product.size === 'Nhỏ'
   })
@@ -87,32 +87,32 @@ export function ProductProvider(props){
     filterSearch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [valuePrice, size])
-  const filterSearch = () =>{
+  const filterSearch = () => {
     let productsClone = [...productsTemp];
     let productsRs = [];
     const productPrice = productsClone.filter(product => {
-      return product.price>valuePrice[0] && product.price<valuePrice[1]
+      return product.price > valuePrice[0] && product.price < valuePrice[1]
     })
-    if((s===false&&m===false&&l===false)||(s===true&&m===true&&l===true)){
+    if ((s === false && m === false && l === false) || (s === true && m === true && l === true)) {
       productsRs = productPrice;
     }
-    else{
-      if(s===true){
+    else {
+      if (s === true) {
         productsRs = filterS.filter(x => productPrice.includes(x))
       }
-      if(m===true){
+      if (m === true) {
         productsRs = filterM.filter(x => productPrice.includes(x))
       }
-      if(l===true){
+      if (l === true) {
         productsRs = filterL.filter(x => productPrice.includes(x))
       }
-      if(s===true && l===true){
+      if (s === true && l === true) {
         productsRs = filterS.concat(filterL).filter(x => productPrice.includes(x))
       }
-      if(s===true && m===true){
+      if (s === true && m === true) {
         productsRs = filterS.concat(filterM).filter(x => productPrice.includes(x))
       }
-      if(m===true && l===true){
+      if (m === true && l === true) {
         productsRs = filterM.concat(filterL).filter(x => productPrice.includes(x))
       }
     }
@@ -121,7 +121,7 @@ export function ProductProvider(props){
   const handleChangePrice = (event, newValue) => {
     setValuePrice(newValue);
   };
-  return(
+  return (
     <ProductContext.Provider
       value={{
         products: currentPosts,

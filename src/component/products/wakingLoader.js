@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default function WalkingLoader(){
+export default function WalkingLoader() {
 
-  return(
+  return (
     <>
       <div className='spinning'>
         <div className='ball'>

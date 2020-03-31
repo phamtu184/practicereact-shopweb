@@ -1,4 +1,4 @@
-import React, {useContext,useState} from 'react';
+import React, { useContext, useState } from 'react';
 
 import { AppBar, Toolbar, Button, IconButton, useScrollTrigger, Slide, Fab, SvgIcon, useMediaQuery } from '@material-ui/core';
 // icon
@@ -24,7 +24,7 @@ function HideOnScroll(props) {
   );
 }
 
-export default function Topnav(props){
+export default function Topnav(props) {
   const { cartItems, isLogin, username, role } = useContext(CartContext);
   const [isDrawer, setDrawer] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -38,57 +38,57 @@ export default function Topnav(props){
     setIsExpanded(!isExpanded)
   }
   const matches = useMediaQuery('(max-width:800px)');
-  return(
+  return (
     <>
       <div className='top-nav'>
         <HideOnScroll {...props}>
-          <AppBar color="default" position='fixed' style={{zIndex:'1201'}}>
+          <AppBar color="default" position='fixed' style={{ zIndex: '1201' }}>
             <Toolbar className='container'>
               <strong className="white-text mr-2">Navbar</strong>
               {matches
-              ?<>
-                <div className='expanded-icon'>
-                  <IconButton onClick={handleExpanded}><img src={MenuIcon} alt='MenuIcon'/></IconButton>
-                </div>
-              </>
-              :<NavbarLeft role={role}/>
+                ? <>
+                  <div className='expanded-icon'>
+                    <IconButton onClick={handleExpanded}><img src={MenuIcon} alt='MenuIcon' /></IconButton>
+                  </div>
+                </>
+                : <NavbarLeft role={role} />
               }
               <ul className='nav-content-right'>
                 <li>
                   <IconButton edge="start" color="inherit">
-                    <Searchicon/>
+                    <Searchicon />
                   </IconButton>
                 </li>
                 <li>
-                  <CartItems cartItems={cartItems}/>
+                  <CartItems cartItems={cartItems} />
                 </li>
-                { isLogin
-                  ?<li><Menuitemlogin username={username}/></li>
-                  :<li><IconButton edge="start" color="inherit" onClick={openDrawer} >
-                    <img src={LoginIcon} alt='login icon'/>
+                {isLogin
+                  ? <li><Menuitemlogin username={username} /></li>
+                  : <li><IconButton edge="start" color="inherit" onClick={openDrawer} >
+                    <img src={LoginIcon} alt='login icon' />
                   </IconButton></li>
                 }
               </ul>
             </Toolbar>
             {matches
-              ?<>
-                <div className={isExpanded?'collapsed is-expanded':'collapsed'}>
+              ? <>
+                <div className={isExpanded ? 'collapsed is-expanded' : 'collapsed'}>
                   <NavLink activeClassName="nav-item-active" to="/" exact={true}>
                     <Button>Trang chủ</Button>
                   </NavLink>
                   <NavLink activeClassName="nav-item-active" to="/products">
                     <Button>Sản phẩm</Button>
                   </NavLink>
-                  { props.role === 1 && 
+                  {props.role === 1 &&
                     <NavLink activeClassName="nav-item-active" to="/magsetting">
                       <Button>Quản lý</Button>
                     </NavLink>
                   }
                 </div>
               </>
-              :''
-              }
-            
+              : ''
+            }
+
           </AppBar>
         </HideOnScroll>
         <ScrollTop {...props}>
@@ -97,13 +97,13 @@ export default function Topnav(props){
           </Fab>
         </ScrollTop>
       </div>
-      <DrawerForm isDrawer={isDrawer} closeDrawer={closeDrawer} openDrawer={openDrawer}/>
+      <DrawerForm isDrawer={isDrawer} closeDrawer={closeDrawer} openDrawer={openDrawer} />
     </>
   )
 }
 
-function NavbarLeft(props){
-  return(
+function NavbarLeft(props) {
+  return (
     <ul className='nav-content-left'>
       <li>
         <NavLink activeClassName="nav-item-active" to="/" exact={true}>
@@ -115,7 +115,7 @@ function NavbarLeft(props){
           <Button>Sản phẩm</Button>
         </NavLink>
       </li>
-      { props.role === 1 && 
+      {props.role === 1 &&
         <><li>
           <NavLink activeClassName="nav-item-active" to="/magsetting">
             <Button>Quản lý</Button>
@@ -126,9 +126,9 @@ function NavbarLeft(props){
   )
 }
 
-function Searchicon(props){
-  return(
-    <SvgIcon {...props} viewBox="0 -28 512.001 512" xmlns="http://www.w3.org/2000/svg"><path d={SearchIcon}/>
+function Searchicon(props) {
+  return (
+    <SvgIcon {...props} viewBox="0 -28 512.001 512" xmlns="http://www.w3.org/2000/svg"><path d={SearchIcon} />
     </SvgIcon>
   )
 }

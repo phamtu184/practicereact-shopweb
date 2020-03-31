@@ -1,4 +1,4 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import ProductSetting from '../component/magSetting/productsSetting';
 import ProductsList from '../component/magSetting/productsList';
 import UsersList from '../component/magSetting/usersList';
@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function MagSetting(){
+export default function MagSetting() {
   const classes = useStyles();
   const [openProduct, setOpenProduct] = useState(true);
   const [openUser, setOpenUser] = useState(false);
@@ -38,13 +38,13 @@ export default function MagSetting(){
     setOpenUser(!openUser);
     setOpenProduct(!openProduct);
   };
-  return(
+  return (
     <div className='row'>
       <div className='col-sm-2'>
         <List
-        component="nav"
-        aria-labelledby="nested-list-subheader"
-        className={classes.root}
+          component="nav"
+          aria-labelledby="nested-list-subheader"
+          className={classes.root}
         >
           <ListItem button onClick={handleClickOpenProduct}>
             <ListItemIcon>
@@ -89,8 +89,8 @@ export default function MagSetting(){
                   scrollButtons="auto"
                   orientation="vertical"
                 >
-                  <Tab style={{display:'none'}} {...a11yProps(0)} />
-                  <Tab style={{display:'none'}} {...a11yProps(1)} />
+                  <Tab style={{ display: 'none' }} {...a11yProps(0)} />
+                  <Tab style={{ display: 'none' }} {...a11yProps(1)} />
                   <Tab label="Danh sách tài khoản" {...a11yProps(2)} />
                   <Tab label="Item 4" {...a11yProps(3)} />
                 </Tabs>
@@ -101,13 +101,13 @@ export default function MagSetting(){
       </div>
       <div className='col-sm-10'>
         <TabPanel value={value} index={0}>
-          <ProductSetting/>
+          <ProductSetting />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <ProductsList/>
+          <ProductsList />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <UsersList/>
+          <UsersList />
         </TabPanel>
         <TabPanel value={value} index={3}>
           Item 4

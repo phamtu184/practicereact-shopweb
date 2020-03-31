@@ -10,7 +10,7 @@ export default function Home() {
   const [infoSnackbar, setInfoSnackbar] = useState('');
   const [typeSnackbar, setTypeSnackbar] = useState('');
   useEffect(() => {
-    switch(localStorage.event){
+    switch (localStorage.event) {
       case 'LOGIN_SUCCESS':
         setOpenSnackbar(true);
         setInfoSnackbar('Đăng nhập thành công');
@@ -25,27 +25,27 @@ export default function Home() {
         break;
       default:
     }
-  },[])
+  }, [])
   const closeSnackbar = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
     setOpenSnackbar(false);
   };
-  return(
+  return (
     <div>
-      <SnackBar 
-        openSnackbar={openSnackbar} 
-        closeSnackbar={closeSnackbar} 
-        vertical='top' 
-        horizontal='right' 
-        typeSnackbar={typeSnackbar} 
+      <SnackBar
+        openSnackbar={openSnackbar}
+        closeSnackbar={closeSnackbar}
+        vertical='top'
+        horizontal='right'
+        typeSnackbar={typeSnackbar}
         infoSnackbar={infoSnackbar}
       />
-      <Carousel/>
-      <LayoutPromoBox/>
-      <Features/>
-      <ProductList/>
+      <Carousel />
+      <LayoutPromoBox />
+      <Features />
+      <ProductList />
     </div>
   )
 }

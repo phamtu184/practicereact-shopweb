@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axiost from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
@@ -12,19 +12,19 @@ const useStyles = makeStyles({
   },
 });
 
-export default function UsersSetting(){
+export default function UsersSetting() {
   const [users, setUsers] = useState([]);
-  useEffect(()=>{
+  useEffect(() => {
     axiost.get('/user/userslist')
-    .then((res)=>setUsers(res.data))
-  },[])
+      .then((res) => setUsers(res.data))
+  }, [])
 
   const classes = useStyles();
-  return(
+  return (
     <div>
       <h2>Danh sách tài khoản</h2>
       <div className='row'>
-        {users.map((user, index)=>(
+        {users.map((user, index) => (
           <div className='col-md-3' key={index}>
             <Card className={classes.root} >
               <CardActionArea>

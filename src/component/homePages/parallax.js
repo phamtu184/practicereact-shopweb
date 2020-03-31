@@ -7,10 +7,10 @@ export default function Parallax(props) {
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundAttachment: 'fixed',
-    height:  props.height || '500px',
+    height: props.height || '500px',
     width: '100%',
   }
-  return(
+  return (
     <div style={setting}>
       {props.children || null}
     </div>

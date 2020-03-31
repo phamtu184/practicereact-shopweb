@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axiost from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
@@ -12,30 +12,30 @@ const useStyles = makeStyles({
   },
 });
 
-export default function UsersSetting(){
+export default function UsersSetting() {
   const [products, setProducts] = useState([]);
-  useEffect(()=>{
+  useEffect(() => {
     axiost.get('/product/product')
-    .then((res)=>setProducts(res.data))
-  },[]);
+      .then((res) => setProducts(res.data))
+  }, []);
 
-  const deleteProduct = (product)=> {
+  const deleteProduct = (product) => {
     const index = products.indexOf(product);
-    axiost.delete('/product/product', {data:{_id: product._id}})
-    .then(()=>setProducts(
-      [
-        ...products.slice(0, index),
-        ...products.slice(index + 1)
-      ]
-    ))
+    axiost.delete('/product/product', { data: { _id: product._id } })
+      .then(() => setProducts(
+        [
+          ...products.slice(0, index),
+          ...products.slice(index + 1)
+        ]
+      ))
   }
 
   const classes = useStyles();
-  return(
+  return (
     <div>
       <h2>Danh sách sản phẩm</h2>
       <div className='row'>
-        {products.map((product, index)=>(
+        {products.map((product, index) => (
           <div className='col-md-3 mt-4' key={index}>
             <Card className={classes.root} >
               <CardActionArea>
@@ -66,7 +66,7 @@ export default function UsersSetting(){
                 </CardContent>
               </CardActionArea>
               <CardActions>
-                <Button size="small" color="primary" onClick={()=>deleteProduct(product)}>
+                <Button size="small" color="primary" onClick={() => deleteProduct(product)}>
                   Xóa
                 </Button>
               </CardActions>

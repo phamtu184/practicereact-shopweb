@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 export const DrawerContext = React.createContext();
 
-export function DrawerProvider(props){
+export function DrawerProvider(props) {
   const [isDrawer, setDrawer] = useState(false);
   const openDrawer = () => {
     setDrawer(true)
@@ -10,14 +10,14 @@ export function DrawerProvider(props){
   const closeDrawer = () => {
     setDrawer(false)
   }
-  return(
+  return (
     <DrawerContext.Provider
       value={{
         isDrawer: isDrawer,
         openDrawer: openDrawer,
-        closeDrawer:closeDrawer
+        closeDrawer: closeDrawer
       }}>
-        {props.children}
+      {props.children}
     </DrawerContext.Provider>
   )
 }

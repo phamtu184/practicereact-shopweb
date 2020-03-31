@@ -17,22 +17,22 @@ const useInputStyles = makeStyles({
   }
 });
 
-export default function SortTopBar(){
+export default function SortTopBar() {
   const { postPerPage, setPostPerPage, sort, onChangeSort } = useContext(ProductContext);
 
-  const onChangePage = (event)=> {
+  const onChangePage = (event) => {
     setPostPerPage(event.target.value);
   }
   const inputClasses = useInputStyles();
-  return(
+  return (
     <div className='search-top-bar ml-3'>
       <h2 className='mr-auto'>Shop</h2>
       <FormControl size='small'>
         <InputLabel >
           Sắp xếp
         </InputLabel>
-        <Select 
-        native
+        <Select
+          native
           value={sort}
           onChange={onChangeSort}
           autoWidth={true}
@@ -48,7 +48,7 @@ export default function SortTopBar(){
         <InputLabel >
           Trang
         </InputLabel>
-        <Select 
+        <Select
           native
           value={postPerPage}
           onChange={onChangePage}

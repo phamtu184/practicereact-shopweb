@@ -12,11 +12,11 @@ export default function Menuitemloginbotnav(props) {
     setAnchorEl(null);
   };
   const handleLogout = () => {
-    try{
-    axios.post('/auth/islogin')
-    .then(window.location.assign('/'))
+    try {
+      axios.post('/auth/islogin')
+        .then(window.location.assign('/'))
     }
-    catch(e){
+    catch (e) {
       console.log(e)
     }
   }

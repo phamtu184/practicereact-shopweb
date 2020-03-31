@@ -12,17 +12,17 @@ import { NavLink } from "react-router-dom";
 import Menuitemloginbotnav from '../navbarSection/menuItemLoginBotNav';
 
 const useStyles = makeStyles(theme => ({
-  appBar:{
+  appBar: {
     top: 'auto',
     bottom: 0,
-    zIndex:1201
+    zIndex: 1201
   }
 }));
 
-export default function Botnav(props){
+export default function Botnav(props) {
   const [value, setValue] = useState(0);
   const classes = useStyles();
-  return(
+  return (
     <nav className='bottom-nav' >
       <AppBar position="fixed" className={classes.appBar}>
         <BottomNavigation
@@ -31,28 +31,28 @@ export default function Botnav(props){
             setValue(newValue);
           }}
         >
-          <BottomNavigationAction 
-            label="Trang chủ" 
-            icon={<HomeRoundedIcon />} 
-            component={NavLink} to="/" 
+          <BottomNavigationAction
+            label="Trang chủ"
+            icon={<HomeRoundedIcon />}
+            component={NavLink} to="/"
           />
-          <BottomNavigationAction 
-            label="Products" 
-            icon={<ShoppingBasketRoundedIcon />} 
+          <BottomNavigationAction
+            label="Products"
+            icon={<ShoppingBasketRoundedIcon />}
             component={NavLink} to="/products"
           />
-          {props.role === 1 && 
-            <BottomNavigationAction 
-              label="Quản lý" 
-              icon={<SettingsRoundedIcon />} 
-              component={NavLink} to="/magsetting" 
+          {props.role === 1 &&
+            <BottomNavigationAction
+              label="Quản lý"
+              icon={<SettingsRoundedIcon />}
+              component={NavLink} to="/magsetting"
             />
           }
           {props.isLogin
-            ?<Menuitemloginbotnav username={props.username}/>
-            :<BottomNavigationAction 
-              label="Đăng Nhập" 
-              icon={<AccountCircleRoundedIcon />} 
+            ? <Menuitemloginbotnav username={props.username} />
+            : <BottomNavigationAction
+              label="Đăng Nhập"
+              icon={<AccountCircleRoundedIcon />}
               onClick={props.openDrawer}
             />
           }

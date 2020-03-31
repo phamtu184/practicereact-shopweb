@@ -42,7 +42,7 @@ const CarouselPage = () => {
   const [animating, setAnimating] = useState(false);
   const [scroll, setScroll] = useState(0);
   useEffect(() => {
-      window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     }
@@ -74,10 +74,10 @@ const CarouselPage = () => {
         onExited={() => setAnimating(false)}
         key={item.src}
       >
-        <img src={item.src} alt={item.altText} style={{objectPosition:`center ${scroll}px`}}/>
+        <img src={item.src} alt={item.altText} style={{ objectPosition: `center ${scroll}px` }} />
         <CarouselCaption
           className="animated fadeInDown"
-          captionText={item.captionText} 
+          captionText={item.captionText}
           captionHeader3={item.captionHeader3}
           captionHeader1={item.captionHeader1}
           captionButton={item.captionButton}

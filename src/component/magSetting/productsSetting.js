@@ -21,10 +21,10 @@ const CssTextField = withStyles({
         borderColor: '#4285F4',
       },
     },
-    '& .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline' : {
+    '& .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline': {
       borderColor: '#ff6565'
     },
-    '& .MuiFormHelperText-root.Mui-error' : {
+    '& .MuiFormHelperText-root.Mui-error': {
       color: '#ff6565'
     }
   },
@@ -34,7 +34,7 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-export default function ProductsSetting(props){
+export default function ProductsSetting(props) {
   const [name, setName] = useState({
     value: "",
     valid: true,
@@ -77,17 +77,17 @@ export default function ProductsSetting(props){
     }
     setOpenSnackbar(false);
   };
-  const onChangeName = (event)=> {
+  const onChangeName = (event) => {
     setName({
       value: event.target.value,
     })
   }
-  const onChangeDescription = (event)=> {
+  const onChangeDescription = (event) => {
     setDescription({
       value: event.target.value,
     })
   }
-  const onChangePrice = (event)=> {
+  const onChangePrice = (event) => {
     const regexp = /^[0-9]+$/;
     const checkingResult = regexp.exec(event.target.value);
     setPrice({
@@ -96,62 +96,62 @@ export default function ProductsSetting(props){
       errorMessage: price.valid ? "" : "Giá chỉ chứa số"
     })
   }
-  const onChangeSize = (event)=> {
-    setSize({ 
+  const onChangeSize = (event) => {
+    setSize({
       value: event.target.value,
     });
   }
-  const onChangeBreed = (event)=> {
-    setBreed({ 
+  const onChangeBreed = (event) => {
+    setBreed({
       value: event.target.value,
     });
   }
-  const onChangeGender = (event)=> {
-    setGender({ 
+  const onChangeGender = (event) => {
+    setGender({
       value: event.target.value,
     });
   }
-  
-  function formValid(arr1, arr2, arr3, arr4, arr5, arr6, arr7){
+
+  function formValid(arr1, arr2, arr3, arr4, arr5, arr6, arr7) {
     let arrs = [arr1, arr2, arr3, arr4, arr5, arr6, arr7]
     let valid = true;
-    for(let i = 0; i<arrs.length; i++){
-      if(arrs[i]===false){
+    for (let i = 0; i < arrs.length; i++) {
+      if (arrs[i] === false) {
         valid = false;
         break
       }
     }
     return valid
   }
-  
-  function nullFormValid(arr1, arr2, arr3, arr4, arr5, arr6, arr7){
+
+  function nullFormValid(arr1, arr2, arr3, arr4, arr5, arr6, arr7) {
     let arrs = [arr1, arr2, arr3, arr4, arr5, arr6, arr7]
     let valid = true;
-    for(let i = 0; i<arrs.length; i++){
-      if(arrs[i]===''){
+    for (let i = 0; i < arrs.length; i++) {
+      if (arrs[i] === '') {
         valid = false;
         break
       }
     }
     return valid
   }
-  
-  const onChangeImages = (event)=> {
+
+  const onChangeImages = (event) => {
     let files = event.target.files;
-    for(let i = 0; i<files.length; i++){
+    for (let i = 0; i < files.length; i++) {
       let reader = new FileReader();
       let file = files[i]
       reader.readAsDataURL(file);
-      reader.onload = (e) =>{
+      reader.onload = (e) => {
         file = e.target.result
         setImages(prevState => (
           [...prevState, file]
         ));
       }
     }
-    
+
   }
-  const onSubmitRegister = (event)=> {
+  const onSubmitRegister = (event) => {
     event.preventDefault();
     setIsLoading(true);
     const info = {
@@ -166,32 +166,32 @@ export default function ProductsSetting(props){
     if (formValid(name.valid, description.valid,
       price.valid, size.valid, breed.valid,
       gender.valid, images.valid)
-        && nullFormValid(name.value, description.value,
-          price.value, size.value, breed.value,
-          gender.value, images)){
+      && nullFormValid(name.value, description.value,
+        price.value, size.value, breed.value,
+        gender.value, images)) {
       axios.post("/product/product", info)
-      .then(res => {
-        if(res.data==='ADDED_PRODUCT'){
-          setOpenSnackbar(true);
-          setInfoSnackbar('Nhập sản phẩm thành công');
-          setTypeSnackbar('success');
-          setIsLoading(false);
-          setName({value:''});
-          setDescription({value:''});
-          setPrice({value:''});
-          setBreed({value:''});
-          setImages([]);
-        }
-        else{
-          setOpenSnackbar(true);
-          setInfoSnackbar('Nhập sản phẩm tb');
-          setTypeSnackbar('error');
-          setIsLoading(false);
-        }
-        
-      })
+        .then(res => {
+          if (res.data === 'ADDED_PRODUCT') {
+            setOpenSnackbar(true);
+            setInfoSnackbar('Nhập sản phẩm thành công');
+            setTypeSnackbar('success');
+            setIsLoading(false);
+            setName({ value: '' });
+            setDescription({ value: '' });
+            setPrice({ value: '' });
+            setBreed({ value: '' });
+            setImages([]);
+          }
+          else {
+            setOpenSnackbar(true);
+            setInfoSnackbar('Nhập sản phẩm tb');
+            setTypeSnackbar('error');
+            setIsLoading(false);
+          }
+
+        })
     }
-    else{
+    else {
       setOpenSnackbar(true);
       setInfoSnackbar('Vui lòng nhập đầy đủ các trường');
       setTypeSnackbar('warning');
@@ -200,10 +200,10 @@ export default function ProductsSetting(props){
   }
   const vertical = 'top';
   const horizontal = 'right';
-  return(
+  return (
     <>
-      <Snackbar open={openSnackbar} autoHideDuration={6000} 
-      onClose={closeSnackbar} anchorOrigin={{ vertical, horizontal }}>
+      <Snackbar open={openSnackbar} autoHideDuration={6000}
+        onClose={closeSnackbar} anchorOrigin={{ vertical, horizontal }}>
         <Alert onClose={closeSnackbar} severity={typeSnackbar}>
           {infoSnackbar}
         </Alert>
@@ -216,7 +216,7 @@ export default function ProductsSetting(props){
             </h3>
           </div>
           <form onSubmit={onSubmitRegister} autoComplete='nope'>
-            <CssTextField 
+            <CssTextField
               autoComplete='off'
               variant="outlined"
               label="Tên"
@@ -224,8 +224,8 @@ export default function ProductsSetting(props){
               onChange={onChangeName}
               value={name.value}
               fullWidth
-              error={name.valid===false}
-              helperText={name.valid===false ? name.errorMessage:''}
+              error={name.valid === false}
+              helperText={name.valid === false ? name.errorMessage : ''}
             />
             <CssTextField
               variant="outlined"
@@ -235,8 +235,8 @@ export default function ProductsSetting(props){
               value={description.value}
               fullWidth
               className='mt-3'
-              error={description.valid===false}
-              helperText={description.valid===false ? description.errorMessage:''}
+              error={description.valid === false}
+              helperText={description.valid === false ? description.errorMessage : ''}
             />
             <CssTextField
               variant="outlined"
@@ -246,8 +246,8 @@ export default function ProductsSetting(props){
               value={price.value}
               fullWidth
               className='mt-3'
-              error={price.valid===false}
-              helperText={price.valid===false ? price.errorMessage:''}
+              error={price.valid === false}
+              helperText={price.valid === false ? price.errorMessage : ''}
             />
             <CssTextField
               variant="outlined"
@@ -257,9 +257,9 @@ export default function ProductsSetting(props){
               value={breed.value}
               fullWidth
               className='mt-3'
-              error={breed.valid===false}
-              helperText={breed.valid===false ? breed.errorMessage:''}
-            />   
+              error={breed.valid === false}
+              helperText={breed.valid === false ? breed.errorMessage : ''}
+            />
             <FormControl variant="outlined" className='mt-3' fullWidth>
               <InputLabel >
                 Kích thước
@@ -275,7 +275,7 @@ export default function ProductsSetting(props){
             </FormControl>
             <FormControl variant="outlined" className='mt-3' fullWidth>
               <InputLabel>
-              Giới tính
+                Giới tính
               </InputLabel>
               <Select
                 value={gender.value}
@@ -285,7 +285,7 @@ export default function ProductsSetting(props){
                 <MenuItem value='Cái'>Cái</MenuItem>
               </Select>
             </FormControl>
-            <div className='mt-3'> 
+            <div className='mt-3'>
               <Button
                 variant="contained"
                 component="label"
@@ -298,11 +298,11 @@ export default function ProductsSetting(props){
                   multiple
                 />
               </Button>
-              {images.map((img, index)=>(
+              {images.map((img, index) => (
                 <img src={img} alt={index} key={index}
-                  style={{width:'100px', height:'150px'}}
+                  style={{ width: '100px', height: '150px' }}
                   className='ml-2'
-                /> 
+                />
               ))}
             </div>
             <div className="text-center mb-3">
@@ -313,11 +313,11 @@ export default function ProductsSetting(props){
                 disabled={isLoading}
                 color='primary'
               >
-                { isLoading && <CircularProgress size={16} color="inherit" className="middle"/> }
-                <span className="ml-2">Click</span> 
-              </Button> 
+                {isLoading && <CircularProgress size={16} color="inherit" className="middle" />}
+                <span className="ml-2">Click</span>
+              </Button>
             </div>
-          </form> 
+          </form>
         </CardContent>
       </Card>
     </>

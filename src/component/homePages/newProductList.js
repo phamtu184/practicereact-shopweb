@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
 
 const MultiCarouselPage = () => {
   const [products, setProducts] = useState([]);
-  useEffect(()=>{
+  useEffect(() => {
     setProducts([{
       id: {
         $oid: "5e4f4f1efc13ae1f0a000008"
@@ -63,7 +63,7 @@ const MultiCarouselPage = () => {
       img: "http://dummyimage.com/171x169.bmp/5fa2dd/ffffff",
       title: "Let Me In",
       intro: "Traum subdr hem w LOC w dth d/t oth cause bef reg consc,subs"
-    },{
+    }, {
       id: {
         $oid: "5e4f4f1efc13ae1f0a00000c"
       },
@@ -92,9 +92,9 @@ const MultiCarouselPage = () => {
       title: "Let Me In",
       intro: "Traum subdr hem w LOC w dth d/t oth cause bef reg consc,subs"
     }
-  ])
-  },[])
-  
+    ])
+  }, [])
+
   const settings = {
     dots: true,
     infinite: true,
@@ -136,37 +136,37 @@ const MultiCarouselPage = () => {
       <div>
         <h2> Responsive </h2>
         <Slider {...settings}>
-            {products.map((product, index) => (
-              <div className="px-2 py-2" key={index}>
-                <Card className="w-100" style={{height:'280px'}} >
-                  <CardActionArea >
-                    <CardMedia
-                      component="img"
-                      alt={index}
-                      height="140"
-                      image={product.img}
-                      title={product.title}
-                    />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        {products.title}
-                      </Typography>
-                      <Typography variant="body2" color="textSecondary" component="p">
-                        {product.intro}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                  <CardActions>
-                    <Button size="small" color="primary">
-                      Share
+          {products.map((product, index) => (
+            <div className="px-2 py-2" key={index}>
+              <Card className="w-100" style={{ height: '280px' }} >
+                <CardActionArea >
+                  <CardMedia
+                    component="img"
+                    alt={index}
+                    height="140"
+                    image={product.img}
+                    title={product.title}
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {products.title}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                      {product.intro}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <CardActions>
+                  <Button size="small" color="primary">
+                    Share
                     </Button>
-                    <Button size="small" color="primary">
-                      Learn More
+                  <Button size="small" color="primary">
+                    Learn More
                     </Button>
-                  </CardActions>
-                </Card>
-              </div>
-            ))}
+                </CardActions>
+              </Card>
+            </div>
+          ))}
         </Slider>
       </div>
     </div>
