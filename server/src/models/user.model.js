@@ -26,11 +26,13 @@ const userSchema = new Schema({
   },
   role: {
     type: Number,
-    required: true
+    required: true,
+    default: 2
   },
   address: {
     type: String,
-    required: false
+    required: false,
+    default: ''
   },
   isAuthenticated: {
     type: Boolean,
@@ -43,7 +45,8 @@ const userSchema = new Schema({
   },
   cart: {
     type: [String],
-    required: false
+    required: false,
+    default: []
   }
 }, {
   timestamps: true

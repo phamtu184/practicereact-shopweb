@@ -25,7 +25,7 @@ function HideOnScroll(props) {
 }
 
 export default function Topnav(props) {
-  const { cartItems, isLogin, username, role } = useContext(CartContext);
+  const { cartItems, userInfo, deleteCart } = useContext(CartContext);
   const [isDrawer, setDrawer] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const openDrawer = () => {
@@ -38,6 +38,7 @@ export default function Topnav(props) {
     setIsExpanded(!isExpanded)
   }
   const matches = useMediaQuery('(max-width:800px)');
+  const { isLogin, username, role } = userInfo
   return (
     <>
       <div className='top-nav'>
@@ -60,7 +61,7 @@ export default function Topnav(props) {
                   </IconButton>
                 </li>
                 <li>
-                  <CartItems cartItems={cartItems} />
+                  <CartItems cartItems={cartItems} deleteCart={deleteCart} />
                 </li>
                 {isLogin
                   ? <li><Menuitemlogin username={username} /></li>

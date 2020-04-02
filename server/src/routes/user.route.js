@@ -7,4 +7,8 @@ const auth = require('../middleware/authMiddleware');
 
 router.get('/userslist', auth, controller.userlist);
 
+router.put('/cart', controller.postToCart);
+
+router.post('/cart', controller.getCart);
+
 module.exports = router;
