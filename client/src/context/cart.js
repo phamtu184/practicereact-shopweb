@@ -14,7 +14,8 @@ export function CartProvider(props) {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [infoSnackbar, setInfoSnackbar] = useState('');
   const [typeSnackbar, setTypeSnackbar] = useState('');
-  const [isPutData, setIsPutData] = useState(false)
+  const [isPutData, setIsPutData] = useState(false);
+
   useEffect(() => {
     axios.get('/auth/islogin')
       .then(res => {
@@ -40,7 +41,6 @@ export function CartProvider(props) {
         .catch(e => console.log(e))
       setIsPutData(false)
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartItems]);
 

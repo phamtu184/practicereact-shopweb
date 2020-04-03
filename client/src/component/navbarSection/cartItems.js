@@ -75,7 +75,7 @@ export default function CartItems(props) {
         </div>
         <div className='check-cart'>
           <Link to='/cart'>
-            <Button>
+            <Button onClick={handleClose}>
               Xem giỏ hàng
             </Button>
           </Link>

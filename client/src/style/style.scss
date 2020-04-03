@@ -1,4 +1,3 @@
-
 $blue-500: #2196f3;
 $blue-600: #1e88e5;
 $blue-700: #1976d2;
@@ -7,6 +6,8 @@ $font: 'Dosis', sans-serif;
 @import url('https://fonts.googleapis.com/css?family=Dosis&display=swap');
 body{
   line-height:none;
+  color: #333;
+  font-family: 'Open Sans', sans-serif;
 }
 .dois-font{
   font-family: $font;
@@ -16,6 +17,12 @@ body{
 }
 .title18 {
   font-size: 18px;
+}
+.MuiFormLabel-root.Mui-focused{
+  color: $blue-600 !important;
+}
+.MuiBadge-colorPrimary{
+  background-color: $blue-700 !important;
 }
 // ---------------Walking-Loader-----------------
 @mixin animation($str) {
@@ -466,12 +473,6 @@ $type: linear;
         .product-desc{
           margin-bottom: 0.25rem;
         }
-        .product-price{
-          font-family: dosis;
-          font-weight: 700;
-          font-size: 18px;
-          color: $blue-600;
-        }
       }
     }
     .MuiPagination-root{
@@ -480,6 +481,12 @@ $type: linear;
       }
     }
   }
+}
+.product-price{
+  font-family: dosis;
+  font-weight: 700;
+  font-size: 18px;
+  color: $blue-600;
 }
 .MuiDrawer-root{
   .MuiDrawer-paper{
@@ -562,5 +569,68 @@ $type: linear;
   button{
     width: 100%;
     color: white;
+  }
+}
+.pay-section{
+  .table-cart{
+    padding: 0;
+    border-collapse: collapse;
+    border: 1px solid rgba(0,0,0,.1);
+    margin: 0 -1px 24px 0;
+    text-align: left;
+    width: 100%;
+    border-radius: 5px;
+    .product-remove{
+      max-width: 30px;
+    }
+    th{
+      vertical-align: middle;
+      font-weight: 700;
+      padding: 9px 12px;
+      line-height: 1.5em;
+    }
+    td{
+      padding: 9px 12px;
+      vertical-align: middle;
+      line-height: 1.5em;
+    }
+    .product-thumbnail{
+      max-width: 54px;
+      text-align: center;
+      min-width: 30px;
+      img{
+        width: 70px;
+      }
+    }
+    .coupon{
+      display: flex;
+      align-items: center;
+      button{
+        color: white;
+        background-color: #333;
+        vertical-align: baseline
+      }
+      button:hover{
+        background-color: $blue-700;
+      }
+    }
+  }
+  table, th, td{
+    border: 1px solid #e5e5e5;
+  }
+  .cart-collaterals{
+    width: 100%;
+    .cart_totals{
+      float: right;
+      width: 48%;
+    }
+    button{
+      color: white;
+      background-color: #333;
+      vertical-align: baseline
+    }
+    button:hover{
+      background-color: $blue-700;
+    }
   }
 }
