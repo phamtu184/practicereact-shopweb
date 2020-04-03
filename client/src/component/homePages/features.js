@@ -2,7 +2,7 @@ import React from "react";
 import { Paper } from '@material-ui/core';
 import PetsIconPug from '../../image/svglogo/pug.svg';
 import Parallax from '../homePages/parallax';
-import urlimg from '../../image/girl.jpg';
+import urlimg from '../../image/background/girl.jpg';
 
 const FeaturesPage = () => {
   return (

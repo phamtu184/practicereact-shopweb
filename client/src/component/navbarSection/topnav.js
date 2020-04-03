@@ -4,8 +4,8 @@ import { AppBar, Toolbar, Button, IconButton, useScrollTrigger, Slide, Fab, SvgI
 // icon
 import MenuIcon from '../../image/svglogo/menu.svg';
 import LoginIcon from '../../image/svglogo/user.svg';
-import { SearchIcon } from '../../image/svglogo/svlogo'
-import KeyboardArrowUpIcon from "../../image/svglogo/KeyboardArrowUp";
+import { SearchIcon } from '../../image/jslogo/svlogo';
+import KeyboardArrowUpIcon from "../../image/jslogo/KeyboardArrowUp";
 
 import { NavLink } from "react-router-dom";
 import Menuitemlogin from '../navbarSection/menuItemLogin';

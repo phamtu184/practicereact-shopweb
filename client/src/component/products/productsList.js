@@ -7,7 +7,7 @@ import { Rating } from '@material-ui/lab';
 import WalkingLoader from './wakingLoader';
 import Pagination from './pagination';
 import ModalInfo from './modalInfo';
-import { SearchIcon, HeartIcon, SyncIcon } from '../../image/svglogo/svlogo';
+import { SearchIcon, HeartIcon, SyncIcon } from '../../image/jslogo/svlogo';
 import { ProductContext } from './productContext';
 import { CartContext } from '../../context/cart';
 import SnackBar from '../snackBar/snackBar';

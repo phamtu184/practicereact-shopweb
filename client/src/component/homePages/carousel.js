@@ -6,9 +6,9 @@ import CarouselControl from '../carousel/CarouselControl';
 import CarouselIndicators from '../carousel/CarouselIndicators';
 import CarouselCaption from '../carousel/CarouselCaption';
 
-import Background1 from '../../image/background.jpg';
-import Background2 from '../../image/background2.jpg';
-import Background3 from '../../image/background3.jpg';
+import Background1 from '../../image/background/background.jpg';
+import Background2 from '../../image/background/background2.jpg';
+import Background3 from '../../image/background/background3.jpg';
 //import { Button } from '@material-ui/core';
 
 const items = [

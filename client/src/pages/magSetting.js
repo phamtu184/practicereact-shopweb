@@ -6,9 +6,9 @@ import UsersList from '../component/magSetting/usersList';
 import { makeStyles } from '@material-ui/core/styles';
 import { Collapse, ListItemText, ListItemIcon, ListItem, List, Tab, Tabs, Box, Typography } from '@material-ui/core';
 
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
+import InboxIcon from '../image/jslogo/MoveToInbox';
+import ExpandLess from '../image/jslogo/ExpandLess';
+import ExpandMore from '../image/jslogo/ExpandMore';
 
 const useStyles = makeStyles(theme => ({
   root: {
