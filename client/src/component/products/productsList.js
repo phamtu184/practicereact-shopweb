@@ -56,7 +56,7 @@ export default function ProductsList() {
         : <>
           <div className='product-list mt-3'>
             {products.map((product, index) => (
-              <div className='col-md-6 col-lg-4 mb-4' key={index}>
+              <div className='col-sm-6 col-lg-4 mb-4' key={index}>
                 <div className='product-thumb'>
                   <div className='product-extra-link'>
                     <ul>

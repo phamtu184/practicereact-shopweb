@@ -44,18 +44,18 @@ export function ProductProvider(props) {
   }
   // -------handle search breed--------
   const [breed, setBreed] = useState({
+    labrador: false,
     pug: false,
-    husky: false,
-    chowchow: false,
-    poodle: false,
+    corgi: false,
+    bloodhound: false,
     search: ''
   });
   const changeSearchBreed = (event) => {
     setBreed({
+      labrador: false,
       pug: false,
-      husky: false,
-      chowchow: false,
-      poodle: false,
+      corgi: false,
+      bloodhound: false,
       search: event.target.value
     })
   }

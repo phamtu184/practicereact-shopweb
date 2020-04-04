@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 
-import {
-  ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Typography,
-  SwipeableDrawer, useMediaQuery, IconButton
-} from '@material-ui/core';
+import { SwipeableDrawer, useMediaQuery, IconButton, Paper } from '@material-ui/core';
 import MenuIcon from '../../image/svglogo/menu.svg';
 
 import { SearchCheckSize, SearchCheckBreed, SearchCheckPrice } from './searchCheck';
@@ -36,49 +33,20 @@ export default function SearchBar() {
 }
 
 function Expanded() {
-  const [expanded, setExpanded] = useState({
-    size: true,
-    breed: true,
-    price: true
-  });
-
-  const ChangeExpandedSize = () => {
-    setExpanded({ ...expanded, size: !expanded.size });
-  };
-  const ChangeExpandedBreed = () => {
-    setExpanded({ ...expanded, breed: !expanded.breed });
-  };
-  const ChangeExpandedPrice = () => {
-    setExpanded({ ...expanded, price: !expanded.price });
-  };
   return (
-    <>
-      <ExpansionPanel square expanded={expanded.size} onChange={ChangeExpandedSize}>
-        <ExpansionPanelSummary>
-          <Typography>Lọc theo kích thước</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <SearchCheckSize />
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-
-      <ExpansionPanel square expanded={expanded.breed} onChange={ChangeExpandedBreed}>
-        <ExpansionPanelSummary>
-          <Typography>Lọc theo giống</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <SearchCheckBreed />
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-
-      <ExpansionPanel square expanded={expanded.price} onChange={ChangeExpandedPrice}>
-        <ExpansionPanelSummary>
-          <Typography >Lọc theo giá</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <SearchCheckPrice />
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-    </>
+    <Paper className='search-bar-paper'>
+      <div className='mb-2'>
+        <h5>Lọc theo kích thước</h5>
+        <SearchCheckSize />
+      </div>
+      <div className='mb-4'>
+        <h5>Lọc theo giống</h5>
+        <SearchCheckBreed />
+      </div>
+      <div>
+        <h5>Lọc theo giá</h5>
+        <SearchCheckPrice />
+      </div>
+    </Paper>
   )
 }

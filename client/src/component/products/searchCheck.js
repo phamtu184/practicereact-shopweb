@@ -1,45 +1,54 @@
 import React, { useContext } from 'react';
 
-import { FormControlLabel, FormGroup, FormControl, Checkbox, TextField, Slider } from '@material-ui/core';
+import { Checkbox, TextField, Slider, Chip } from '@material-ui/core';
 import { ProductContext } from './productContext';
-export function SearchCheckBreed(props) {
+export function SearchCheckBreed() {
   const { breed, changeSearchBreed, CheckBreed } = useContext(ProductContext);
-
+  const items = [
+    {
+      breed: breed.labrador,
+      onChange: CheckBreed('labrador'),
+      value: 'labrador',
+      label: 'Basic'
+    },
+    {
+      breed: breed.pug,
+      onChange: CheckBreed('pug'),
+      value: 'pug',
+      label: 'Basic'
+    },
+    {
+      breed: breed.corgi,
+      onChange: CheckBreed('corgi'),
+      value: 'corgi',
+      label: 'Basic'
+    },
+    {
+      breed: breed.bloodhound,
+      onChange: CheckBreed('bloodhound'),
+      value: 'bloodhound',
+      label: 'Basic'
+    }
+  ]
   return (
-    <FormControl component="fieldset">
-      <FormGroup>
-        <FormControlLabel
-          control={<Checkbox checked={breed.pug} onChange={CheckBreed('pug')} value="pug" />}
-          label="Pug"
-        />
-        <FormControlLabel
-          control={<Checkbox checked={breed.husky} onChange={CheckBreed('husky')} value="husky" />}
-          label="Husky"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox checked={breed.chowchow} onChange={CheckBreed('chowchow')} value="chowchow" />
-          }
-          label="Chow Chow"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox checked={breed.poodle} onChange={CheckBreed('poodle')} value="poodle" />
-          }
-          label="Poodle"
-        />
-        <TextField label="Giống" variant="filled" value={breed.search} onChange={changeSearchBreed} />
-      </FormGroup>
-    </FormControl>
+    <>
+      {items.map((item, index) => (
+        <label className='search-bar-label' key={index}>
+          <Checkbox checked={item.breed} onChange={item.onChange} value={item.value} />
+          <span className='color-span'>{item.value}</span>
+          <Chip size="small" label={item.label} className='chip-nums' />
+        </label>
+      ))}
+      <TextField label="Giống" variant="filled" value={breed.search} onChange={changeSearchBreed} size='small' />
+    </>
   )
 }
 
-export function SearchCheckPrice(props) {
+export function SearchCheckPrice() {
   // useEffect(() => {
   //   props.getValuePrice(valuePrice)
   // }, [valuePrice, props] )
   const { valuePrice, handleChangePrice } = useContext(ProductContext);
-
   return (
     <div className='w-100 slide-price'>
       <Slider
@@ -54,27 +63,37 @@ export function SearchCheckPrice(props) {
   )
 }
 
-
 export function SearchCheckSize() {
   const { size, CheckSize } = useContext(ProductContext);
+  const items = [
+    {
+      size: size.s,
+      onChange: CheckSize('s'),
+      value: 's',
+      label: 'basic'
+    },
+    {
+      size: size.m,
+      onChange: CheckSize('m'),
+      value: 'm',
+      label: 'basic'
+    },
+    {
+      size: size.l,
+      onChange: CheckSize('l'),
+      value: 'l',
+      label: 'basic'
+    }
+  ]
   return (
-    <FormControl component="fieldset">
-      <FormGroup>
-        <FormControlLabel
-          control={<Checkbox checked={size.s} onChange={CheckSize('s')} />}
-          label="S"
-        />
-        <FormControlLabel
-          control={<Checkbox checked={size.m} onChange={CheckSize('m')} />}
-          label="M"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox checked={size.l} onChange={CheckSize('l')} />
-          }
-          label="L"
-        />
-      </FormGroup>
-    </FormControl>
+    <div>
+      {items.map((item, index) => (
+        <label className='search-bar-label' key={index}>
+          <Checkbox checked={item.size} onChange={item.onChange} />
+          <span className='color-span'>{item.value}</span>
+          <Chip size="small" label={item.label} className='chip-nums' />
+        </label>
+      ))}
+    </div>
   )
 }
