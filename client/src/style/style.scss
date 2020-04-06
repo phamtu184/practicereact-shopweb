@@ -56,8 +56,7 @@ $type: linear;
 }
 .ajax-loader{
 	position: absolute;
-	top: 25%;
-	left: 65%;
+	left: 70%;
 	transform-origin: 50% 50%;
 	transform: rotate(90deg) translate(-50%, 0%);
 	font-size: 50px;
@@ -256,14 +255,18 @@ $type: linear;
       font-size: 5rem;
     }
     h3{
-      font-size: 2.5rem;
+      font-size: 2.5rem;    
+    }
+    h3, h1, p{
+      text-shadow: 1px 1px 2px #333;
     }
     .MuiButton-text{
       padding: 6px 18px;
+      text-shadow: 1px 1px 2px #333;
     }
     .MuiButton-root{
       color: white;
-      background-color: $blue-600
+      background-color: $blue-700
     }
     .MuiButton-root:hover{
       background-color: $blue-800
@@ -271,10 +274,10 @@ $type: linear;
   }
   img{
     width: 100%;
-    height: 90vh;
+    height: 80vh;
   }
   .animated{
-    animation-delay: 0.4s; animation-duration: 1s
+    animation-delay: 0.2s; animation-duration: 1s
   }
 }
 @media screen and (max-width: 800px) {
@@ -485,6 +488,9 @@ $type: linear;
         width: 30px;
       }
       .image-gallery-thumbnails{
+        button{
+          width: 70px;
+        }
         .image-gallery-thumbnail.active, 
         .image-gallery-thumbnail:hover, 
         .image-gallery-thumbnail:focus{

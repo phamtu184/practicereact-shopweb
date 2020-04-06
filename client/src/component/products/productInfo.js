@@ -16,22 +16,18 @@ export default function ProductInfo(props) {
                 {
                   original: product.images[0],
                   thumbnail: product.images[0],
-                  originalClass: 'image-product'
                 },
                 {
                   original: product.images[1],
                   thumbnail: product.images[1],
-                  originalClass: 'image-product'
                 },
                 {
                   original: product.images[2],
                   thumbnail: product.images[2],
-                  originalClass: 'image-product'
                 },
                 {
                   original: product.images[3],
                   thumbnail: product.images[3],
-                  originalClass: 'image-product'
                 }
               ]}
               showPlayButton={false}
@@ -47,6 +43,10 @@ export default function ProductInfo(props) {
                 <p>{product.description}</p>
               </div>
               <div className='product-detail-chip'>
+                <div>
+                  <label className='mr-2'>Lượt xem:</label>
+                  <Chip size="small" label={product.viewCounts} variant="outlined" />
+                </div>
                 <div>
                   <label className='mr-2'>Khả dụng:</label>
                   <Chip size="small" label='Còn hàng' variant="outlined" />

@@ -8,7 +8,7 @@ module.exports.getProducts = function (req, res) {
 
 module.exports.getProduct = function (req, res) {
   const productId = req.params.productId
-  Product.findById(productId)
+  Product.findByIdAndUpdate(productId, { $inc: { 'viewCounts': 1 } }).exec()
     .then((products) => res.json(products))
     .catch((err) => res.json('GET_PRODUCT_ERROR'))
 }
@@ -17,7 +17,7 @@ module.exports.postProduct = function (req, res) {
   const { name, description, price, size, breed, gender, images } = req.body;
   const newProduct = new Product({ name, description, price, size, breed, gender, images });
   newProduct.save()
-    .then((product) => res.json('ADDED_PRODUCT'))
+    .then(() => res.json('ADDED_PRODUCT'))
     .catch((err) => console.log(err))
 }
 

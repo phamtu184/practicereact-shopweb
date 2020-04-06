@@ -53,9 +53,7 @@ export function CartProvider(props) {
       }
       else {
         const getProducts = async () => {
-          setCartItems(
-            cartItems.concat(product)
-          )
+          setCartItems(cartItems.concat(product))
           setOpenSnackbar(true);
           setInfoSnackbar('Thêm sản phẩm thành công');
           setTypeSnackbar('success');
