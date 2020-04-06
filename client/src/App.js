@@ -10,6 +10,7 @@ import Home from './pages/home';
 import Products from './pages/products';
 import Cart from './pages/cart';
 import { CartProvider } from './context/cart';
+import Product from './pages/product';
 
 import VerifyEmail from './pages/verifiEmail';
 import VerifyToken from './component/verifyToken/verifyToken';
@@ -21,6 +22,7 @@ function App() {
         <Navbar />
         <Toolbar id="back-to-top-anchor" />
         <Switch>
+          <Route path="/product/:productId" component={Product} />
           <Route path="/verifyemail" component={VerifyEmail} />
           <Route path="/verifytoken/:token" component={VerifyToken} />
           <Route path="/cart" component={Cart} />

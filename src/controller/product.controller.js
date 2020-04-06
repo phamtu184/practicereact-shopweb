@@ -1,9 +1,16 @@
 let Product = require('../models/product.model');
 
-module.exports.getProduct = function (req, res) {
+module.exports.getProducts = function (req, res) {
   Product.find()
     .then((products) => res.json(products))
     .catch((err) => console.log(err))
+}
+
+module.exports.getProduct = function (req, res) {
+  const productId = req.params.productId
+  Product.findById(productId)
+    .then((products) => res.json(products))
+    .catch((err) => res.json('GET_PRODUCT_ERROR'))
 }
 
 module.exports.postProduct = function (req, res) {

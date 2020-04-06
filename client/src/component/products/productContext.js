@@ -9,7 +9,7 @@ export function ProductProvider(props) {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const getProducts = async () => {
-      const res = await axios.get('/product/product')
+      const res = await axios.get('/product/products')
       setProducts(res.data);
       setProductsTemp(res.data);
       setLoading(false)

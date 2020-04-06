@@ -12,6 +12,8 @@ import { ProductContext } from './productContext';
 import { CartContext } from '../../context/cart';
 import SnackBar from '../snackBar/snackBar';
 
+import { Link } from 'react-router-dom'
+
 const labels = {
   0.5: 'Useless',
   1: 'Useless+',
@@ -24,7 +26,6 @@ const labels = {
   4.5: 'Excellent',
   5: 'Excellent+',
 };
-
 const EditTooltip = withStyles(theme => ({
   tooltip: {
     backgroundColor: '#03a9f4',
@@ -49,7 +50,6 @@ export default function ProductsList() {
   const handleCloseModal = () => {
     setOpenModal(false);
   };
-
   return (
     <>
       {loading ? <WalkingLoader />
@@ -75,10 +75,12 @@ export default function ProductsList() {
                         </EditTooltip>
                       </li>
                       <li>
-                        <EditTooltip title="Compare" arrow placement="top"
+                        <EditTooltip title="Chi tiết" arrow placement="top"
                           PopperProps={{ disablePortal: true }}
                         >
-                          <IconButton ><Syncicon /></IconButton>
+                          <Link to={'/product/' + product._id}>
+                            <IconButton ><Syncicon /></IconButton>
+                          </Link>
                         </EditTooltip>
                       </li>
                     </ul>
@@ -110,7 +112,7 @@ export default function ProductsList() {
               </div>
             ))}
           </div>
-          <ModalInfo open={openModal} closeModal={handleCloseModal} product={product} />
+          <ModalInfo product={product} openModal={openModal} handleCloseModal={handleCloseModal} />
           <Pagination />
           <SnackBar
             openSnackbar={openSnackbar}

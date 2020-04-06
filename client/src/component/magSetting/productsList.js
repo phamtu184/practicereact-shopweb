@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 export default function UsersSetting() {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    axiost.get('/product/product')
+    axiost.get('/product/products')
       .then((res) => setProducts(res.data))
   }, []);
 
