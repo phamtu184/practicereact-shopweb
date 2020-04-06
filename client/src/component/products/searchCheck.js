@@ -3,38 +3,75 @@ import React, { useContext } from 'react';
 import { Checkbox, TextField, Slider, Chip } from '@material-ui/core';
 import { ProductContext } from './productContext';
 export function SearchCheckBreed() {
-  const { breed, changeSearchBreed, CheckBreed } = useContext(ProductContext);
+  const { breed, setBreed, productsTemp } = useContext(ProductContext);
+  const labrador = productsTemp.filter(e => e.breed === 'labrador');
+  const pug = productsTemp.filter(e => e.breed === 'pug');
+  const corgi = productsTemp.filter(e => e.breed === 'corgi');
+  const bloodhound = productsTemp.filter(e => e.breed === 'bloodhound');
+  const changeSearchBreed = (event) => {
+    setBreed({
+      labrador: false,
+      pug: false,
+      corgi: false,
+      bloodhound: false,
+      search: event.target.value
+    })
+  }
+  const checkBreedLabrador = () => {
+    setBreed({ labrador: !breed.labrador, pug: false, corgi: false, bloodhound: false, search: '' });
+  };
+  const checkBreedPug = () => {
+    setBreed({ labrador: false, pug: !breed.pug, corgi: false, bloodhound: false, search: '' });
+  };
+  const checkBreedCorgi = () => {
+    setBreed({ labrador: false, pug: false, corgi: !breed.corgi, bloodhound: false, search: '' });
+  };
+  const checkBreedBloodhound = () => {
+    setBreed({ labrador: false, pug: false, corgi: false, bloodhound: !breed.bloodhound, search: '' });
+  };
+  // const changeSearchBreed = (event) => {
+  //   setBreed({
+  //     labrador: false,
+  //     pug: false,
+  //     corgi: false,
+  //     bloodhound: false,
+  //     search: event.target.value
+  //   })
+  // }
+  // const CheckBreed = name => event => {
+  //   setBreed({ ...breed, [name]: event.target.checked, search: '' });
+  // };
   const items = [
     {
       breed: breed.labrador,
-      onChange: CheckBreed('labrador'),
+      onChange: checkBreedLabrador,
       value: 'labrador',
-      label: 'Basic'
+      label: labrador.length
     },
     {
       breed: breed.pug,
-      onChange: CheckBreed('pug'),
+      onChange: checkBreedPug,
       value: 'pug',
-      label: 'Basic'
+      label: pug.length
     },
     {
       breed: breed.corgi,
-      onChange: CheckBreed('corgi'),
+      onChange: checkBreedCorgi,
       value: 'corgi',
-      label: 'Basic'
+      label: corgi.length
     },
     {
       breed: breed.bloodhound,
-      onChange: CheckBreed('bloodhound'),
+      onChange: checkBreedBloodhound,
       value: 'bloodhound',
-      label: 'Basic'
+      label: bloodhound.length
     }
   ]
   return (
     <>
       {items.map((item, index) => (
         <label className='search-bar-label' key={index}>
-          <Checkbox checked={item.breed} onChange={item.onChange} value={item.value} />
+          <Checkbox checked={item.breed} onChange={item.onChange} />
           <span className='color-span'>{item.value}</span>
           <Chip size="small" label={item.label} className='chip-nums' />
         </label>
@@ -43,7 +80,58 @@ export function SearchCheckBreed() {
     </>
   )
 }
-
+export function SearchCheckSize() {
+  const { size, setSize, productsTemp } = useContext(ProductContext);
+  const checkSizeS = () => {
+    setSize({
+      s: !size.s, m: false, l: false
+    })
+  }
+  const checkSizeM = () => {
+    setSize({
+      s: false, m: !size.m, l: false
+    })
+  }
+  const checkSizeL = () => {
+    setSize({
+      s: false, m: false, l: !size.l
+    })
+  }
+  const sNumber = productsTemp.filter(e => e.size === 'nhỏ');
+  const mNumber = productsTemp.filter(e => e.size === 'vừa');
+  const lNumber = productsTemp.filter(e => e.size === 'lớn');
+  const items = [
+    {
+      size: size.s,
+      onChange: checkSizeS,
+      value: 's',
+      label: sNumber.length
+    },
+    {
+      size: size.m,
+      onChange: checkSizeM,
+      value: 'm',
+      label: mNumber.length
+    },
+    {
+      size: size.l,
+      onChange: checkSizeL,
+      value: 'l',
+      label: lNumber.length
+    }
+  ]
+  return (
+    <div>
+      {items.map((item, index) => (
+        <label className='search-bar-label' key={index}>
+          <Checkbox checked={item.size} onChange={item.onChange} />
+          <span className='color-span'>{item.value}</span>
+          <Chip size="small" label={item.label} className='chip-nums' />
+        </label>
+      ))}
+    </div>
+  )
+}
 export function SearchCheckPrice() {
   // useEffect(() => {
   //   props.getValuePrice(valuePrice)
@@ -59,41 +147,6 @@ export function SearchCheckPrice() {
         max={1500}
       />
       <span>£{valuePrice[0]}-£{valuePrice[1]}</span>
-    </div>
-  )
-}
-
-export function SearchCheckSize() {
-  const { size, CheckSize } = useContext(ProductContext);
-  const items = [
-    {
-      size: size.s,
-      onChange: CheckSize('s'),
-      value: 's',
-      label: 'basic'
-    },
-    {
-      size: size.m,
-      onChange: CheckSize('m'),
-      value: 'm',
-      label: 'basic'
-    },
-    {
-      size: size.l,
-      onChange: CheckSize('l'),
-      value: 'l',
-      label: 'basic'
-    }
-  ]
-  return (
-    <div>
-      {items.map((item, index) => (
-        <label className='search-bar-label' key={index}>
-          <Checkbox checked={item.size} onChange={item.onChange} />
-          <span className='color-span'>{item.value}</span>
-          <Chip size="small" label={item.label} className='chip-nums' />
-        </label>
-      ))}
     </div>
   )
 }

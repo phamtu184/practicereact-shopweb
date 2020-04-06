@@ -155,12 +155,12 @@ export default function ProductsSetting(props) {
     event.preventDefault();
     setIsLoading(true);
     const info = {
-      name: name.value,
-      description: description.value,
+      name: name.value.toLowerCase(),
+      description: description.value.toLowerCase(),
       price: price.value,
-      size: size.value,
-      breed: breed.value,
-      gender: gender.value,
+      size: size.value.toLowerCase(),
+      breed: breed.value.toLowerCase(),
+      gender: gender.value.toLowerCase(),
       images: images
     }
     if (formValid(name.valid, description.valid,

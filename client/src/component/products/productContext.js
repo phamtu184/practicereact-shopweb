@@ -50,70 +50,80 @@ export function ProductProvider(props) {
     bloodhound: false,
     search: ''
   });
-  const changeSearchBreed = (event) => {
-    setBreed({
-      labrador: false,
-      pug: false,
-      corgi: false,
-      bloodhound: false,
-      search: event.target.value
-    })
-  }
-  const CheckBreed = name => event => {
-    setBreed({ ...breed, [name]: event.target.checked, search: '' });
-  };
+
+  const filterLabrador = productsTemp.filter(product => {
+    return product.breed === 'labrador'
+  })
+  const filterPug = productsTemp.filter(product => {
+    return product.breed === 'pug'
+  })
+  const filterCorgi = productsTemp.filter(product => {
+    return product.breed === 'corgi'
+  })
+  const filterBloodHound = productsTemp.filter(product => {
+    return product.breed === 'bloodhound'
+  })
   // -------handle search size--------
   const [size, setSize] = useState({
     s: false,
     m: false,
     l: false
   });
-  const CheckSize = (name) => event => {
-    setSize({ ...size, [name]: event.target.checked });
-  };
-  const { s, m, l } = size
   const filterS = productsTemp.filter(product => {
-    return product.size === 'Nhỏ'
+    return product.size === 'nhỏ'
   })
   const filterM = productsTemp.filter(product => {
-    return product.size === 'Vừa'
+    return product.size === 'vừa'
   })
   const filterL = productsTemp.filter(product => {
-    return product.size === 'Lớn'
+    return product.size === 'lớn'
   })
   // -------handle search price--------
   const [valuePrice, setValuePrice] = useState([20, 1500]);
   useEffect(() => {
     filterSearch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [valuePrice, size])
+  }, [valuePrice, size, breed])
   const filterSearch = () => {
     let productsClone = [...productsTemp];
     let productsRs = [];
+    const { s, m, l } = size
+    const { labrador, pug, corgi, bloodhound } = breed;
     const productPrice = productsClone.filter(product => {
       return product.price > valuePrice[0] && product.price < valuePrice[1]
     })
-    if ((s === false && m === false && l === false) || (s === true && m === true && l === true)) {
+    if ((!s && !m && !l) && (!labrador && !pug && !corgi && !bloodhound)) {
       productsRs = productPrice;
     }
     else {
-      if (s === true) {
-        productsRs = filterS.filter(x => productPrice.includes(x))
+      if (labrador) {
+        if (s) { productsRs = filterS.filter(x => productPrice.includes(x)).filter(x => filterLabrador.includes(x)) }
+        else if (m) { productsRs = filterM.filter(x => productPrice.includes(x)).filter(x => filterLabrador.includes(x)) }
+        else if (l) { productsRs = filterL.filter(x => productPrice.includes(x)).filter(x => filterLabrador.includes(x)) }
+        else { productsRs = filterLabrador.filter(x => productPrice.includes(x)) }
       }
-      if (m === true) {
-        productsRs = filterM.filter(x => productPrice.includes(x))
+      else if (pug) {
+        if (s) { productsRs = filterS.filter(x => productPrice.includes(x)).filter(x => filterPug.includes(x)) }
+        else if (m) { productsRs = filterM.filter(x => productPrice.includes(x)).filter(x => filterPug.includes(x)) }
+        else if (l) { productsRs = filterL.filter(x => productPrice.includes(x)).filter(x => filterPug.includes(x)) }
+        else { productsRs = filterPug.filter(x => productPrice.includes(x)) }
       }
-      if (l === true) {
-        productsRs = filterL.filter(x => productPrice.includes(x))
+      else if (corgi) {
+        if (s) { productsRs = filterS.filter(x => productPrice.includes(x)).filter(x => filterCorgi.includes(x)) }
+        else if (m) { productsRs = filterM.filter(x => productPrice.includes(x)).filter(x => filterCorgi.includes(x)) }
+        else if (l) { productsRs = filterL.filter(x => productPrice.includes(x)).filter(x => filterCorgi.includes(x)) }
+        else { productsRs = filterCorgi.filter(x => productPrice.includes(x)) }
       }
-      if (s === true && l === true) {
-        productsRs = filterS.concat(filterL).filter(x => productPrice.includes(x))
+      else if (bloodhound) {
+        if (s) { productsRs = filterS.filter(x => productPrice.includes(x)).filter(x => filterBloodHound.includes(x)) }
+        else if (m) { productsRs = filterM.filter(x => productPrice.includes(x)).filter(x => filterBloodHound.includes(x)) }
+        else if (l) { productsRs = filterL.filter(x => productPrice.includes(x)).filter(x => filterBloodHound.includes(x)) }
+        else { productsRs = filterBloodHound.filter(x => productPrice.includes(x)) }
       }
-      if (s === true && m === true) {
-        productsRs = filterS.concat(filterM).filter(x => productPrice.includes(x))
-      }
-      if (m === true && l === true) {
-        productsRs = filterM.concat(filterL).filter(x => productPrice.includes(x))
+      else {
+        if (s) { productsRs = filterS.filter(x => productPrice.includes(x)) }
+        if (m) { productsRs = filterM.filter(x => productPrice.includes(x)) }
+        if (l) { productsRs = filterL.filter(x => productPrice.includes(x)) }
       }
     }
     setProducts(productsRs)
@@ -125,6 +135,7 @@ export function ProductProvider(props) {
     <ProductContext.Provider
       value={{
         products: currentPosts,
+        productsTemp: productsTemp,
         loading: loading,
         // sort
         sort: sort,
@@ -137,10 +148,9 @@ export function ProductProvider(props) {
         onChangeCurrentPage: onChangeCurrentPage,
         // search form
         breed: breed,
-        changeSearchBreed: changeSearchBreed,
-        CheckBreed: CheckBreed,
+        setBreed: setBreed,
         size: size,
-        CheckSize: CheckSize,
+        setSize: setSize,
         valuePrice: valuePrice,
         handleChangePrice: handleChangePrice
       }}
