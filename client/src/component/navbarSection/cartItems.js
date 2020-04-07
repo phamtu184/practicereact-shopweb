@@ -11,7 +11,7 @@ export default function CartItems(props) {
   const [totalPrice, setTotalPrice] = useState(0)
   useEffect(() => {
     if (cartItems.length) {
-      const rs = cartItems.reduce((a, b) => (a + b.price), 0)
+      const rs = cartItems.reduce((a, b) => ((a + b.price) * b.quantity), 0)
       setTotalPrice(rs)
     }
     else {
@@ -57,7 +57,10 @@ export default function CartItems(props) {
                 <div className='product-info pl-2 pr-2'>
                   <h3 className='product-title'>{cart.name}</h3>
                   <div className='mini-cart-qty'>
-                    <span><span>1 x </span><span className='color600'>£{cart.price}</span></span>
+                    <span>
+                      <span>{cart.quantity} x </span>
+                      <span className='color600'>£{cart.price}</span>
+                    </span>
                   </div>
                 </div>
                 <div className='product-delete text-right pl-2 pr-2'>

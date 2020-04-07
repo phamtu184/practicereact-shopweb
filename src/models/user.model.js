@@ -44,9 +44,9 @@ const userSchema = new Schema({
     required: false
   },
   cart: {
-    type: [String],
+    type: Object,
     required: false,
-    default: []
+    default: {}
   }
 }, {
   timestamps: true

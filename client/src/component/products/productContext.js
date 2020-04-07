@@ -10,7 +10,7 @@ export function ProductProvider(props) {
   useEffect(() => {
     const getProducts = async () => {
       const res = await axios.get('/product/products')
-      setProducts(res.data);
+      setProducts(res.data.sort((a, b) => parseFloat(b.viewCounts) - parseFloat(a.viewCounts)));
       setProductsTemp(res.data);
       setLoading(false)
     }
@@ -38,7 +38,7 @@ export function ProductProvider(props) {
       productsClone = products.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
     }
     else {
-      productsClone = products
+      productsClone = products.sort((a, b) => b.viewCounts - a.viewCounts);
     }
     setProducts(productsClone)
   }

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import axios from 'axios';
+import { ProductProvider } from '../component/products/productContext';
 import ProductInfo from '../component/products/productInfo';
 import CarouselCus from '../component/carousel/CarouselCus';
+import SideBarRight from '../component/product/sideBarRight';
 
 import Background1 from '../image/background/slide1.jpg';
 import Background2 from '../image/background/slide2.jpg';
@@ -49,7 +51,7 @@ export default function ProductPage() {
     getProduct()
   }, [productId])
   return (
-    <>
+    <ProductProvider>
       <CarouselCus items={items} animatedClass='animated rollIn' />
       <div className='container mt-4'>
         <div className='row'>
@@ -57,10 +59,10 @@ export default function ProductPage() {
             <ProductInfo product={product} />
           </div>
           <div className='col-md-3'>
-            sadsad
+            <SideBarRight />
           </div>
         </div>
       </div>
-    </>
+    </ProductProvider>
   )
 }

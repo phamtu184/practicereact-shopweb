@@ -6,7 +6,7 @@ export default function TableProducts(props) {
   const { cartItems } = props;
   useEffect(() => {
     if (cartItems.length) {
-      const rs = cartItems.reduce((a, b) => (a + b.price), 0)
+      const rs = cartItems.reduce((a, b) => ((a + b.price) * b.quantity), 0)
       setTotalPrice(rs)
     }
     else {

@@ -27,19 +27,16 @@ export function CartProvider(props) {
             id: res.data.id
           })
           axios.post('/user/cart', { userId: res.data.id })
-            .then(carts => {
-              setCartItems(carts.data)
-            })
+            .then(carts => setCartItems(carts.data.map(e => ({ ...e, quantity: 1 }))))
         }
       })
   }, []);
   useEffect(() => {
     if (isPutData) {
-      const rs = cartItems.map(a => a._id)
+      const rs = cartItems.map(item => item._id)
       axios.put('/user/cart', { userId: userInfo.id, cart: rs })
-        .then()
+        .then(setIsPutData(false))
         .catch(e => console.log(e))
-      setIsPutData(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartItems]);
@@ -53,7 +50,7 @@ export function CartProvider(props) {
       }
       else {
         const getProducts = async () => {
-          setCartItems(cartItems.concat(product))
+          setCartItems(cartItems.concat(product).map(e => ({ ...e, quantity: 1 })))
           setOpenSnackbar(true);
           setInfoSnackbar('Thêm sản phẩm thành công');
           setTypeSnackbar('success');
@@ -82,6 +79,24 @@ export function CartProvider(props) {
       ...cartItems.slice(index + 1)
     ])
   }
+  const increQty = (item) => {
+    const rs = cartItems.map((element, index) => {
+      if (element._id === item._id && item.quantity < 10) {
+        cartItems[index].quantity = item.quantity + 1;
+      }
+      return element
+    });
+    setCartItems(rs)
+  }
+  const decreQty = (item) => {
+    const rs = cartItems.map((element, index) => {
+      if (element._id === item._id && item.quantity > 0) {
+        cartItems[index].quantity = item.quantity - 1;
+      }
+      return element
+    });
+    setCartItems(rs)
+  }
 
   return (
     <CartContext.Provider
@@ -90,6 +105,8 @@ export function CartProvider(props) {
         addToCart: addToCart,
         userInfo: userInfo,
         deleteCart: deleteCart,
+        increQty: increQty,
+        decreQty: decreQty,
         // snackbar
         openSnackbar: openSnackbar,
         infoSnackbar: infoSnackbar,

@@ -83,19 +83,13 @@ export function SearchCheckBreed() {
 export function SearchCheckSize() {
   const { size, setSize, productsTemp } = useContext(ProductContext);
   const checkSizeS = () => {
-    setSize({
-      s: !size.s, m: false, l: false
-    })
+    setSize({ s: !size.s, m: false, l: false })
   }
   const checkSizeM = () => {
-    setSize({
-      s: false, m: !size.m, l: false
-    })
+    setSize({ s: false, m: !size.m, l: false })
   }
   const checkSizeL = () => {
-    setSize({
-      s: false, m: false, l: !size.l
-    })
+    setSize({ s: false, m: false, l: !size.l })
   }
   const sNumber = productsTemp.filter(e => e.size === 'nhỏ');
   const mNumber = productsTemp.filter(e => e.size === 'vừa');
