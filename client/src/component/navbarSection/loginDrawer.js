@@ -1,11 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import {
-  Button, Card, CardContent, CardActions,
-  TextField, CircularProgress, Snackbar
-} from '@material-ui/core';
-import MuiAlert from '@material-ui/lab/Alert';
-import axios from 'axios';
+import { Button, Card, CardContent, CardActions, TextField, CircularProgress } from '@material-ui/core';
 
 const CssTextField = withStyles({
   root: {
@@ -27,124 +22,55 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
-
 export default function LoginDrawer(props) {
-  const [usernameLogin, setUsernameLogin] = useState('');
-  const [passwordLogin, setPasswordLogin] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [infoSnackbar, setInfoSnackbar] = useState('');
-  const [typeSnackbar, setTypeSnackbar] = useState('');
-
-  const onChangeUsernameLogin = (e) => {
-    setUsernameLogin(e.target.value)
-  };
-  const onChangePasswordLogin = (e) => {
-    setPasswordLogin(e.target.value)
-  }
-  const closeSnackbar = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setOpenSnackbar(false);
-  };
-  const onSubmitLogin = (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    let info = {
-      username: usernameLogin,
-      password: passwordLogin
-    }
-    if (!info.username || !info.password) {
-      setOpenSnackbar(true);
-      setInfoSnackbar('Vui lòng nhập đầy đủ các trường');
-      setTypeSnackbar('warning');
-      setIsLoading(false);
-    }
-    else {
-      axios.post("/auth/login", info)
-        .then(res => {
-          if (res.data === "notuser") {
-            setOpenSnackbar(true);
-            setInfoSnackbar('Tài khoản không tồn tại');
-            setTypeSnackbar('error');
-            setIsLoading(false);
-          }
-          else if (res.data === "wrongpw") {
-            setOpenSnackbar(true);
-            setInfoSnackbar('Sai mật khẩu');
-            setTypeSnackbar('error');
-            setIsLoading(false);
-          }
-          else {
-            localStorage.setItem("event", "LOGIN_SUCCESS");
-            setIsLoading(false);
-            window.location.assign('/');
-          }
-        })
-    }
-  }
-  const vertical = 'top';
-  const horizontal = 'right';
+  const { onSubmitLogin, onChangeUsernameLogin, usernameLogin, onChangePasswordLogin, passwordLogin, isLoading, toRegister } = props;
   return (
-    <>
-      <Snackbar open={openSnackbar} autoHideDuration={6000}
-        onClose={closeSnackbar} anchorOrigin={{ vertical, horizontal }}>
-        <Alert onClose={closeSnackbar} severity={typeSnackbar}>
-          {infoSnackbar}
-        </Alert>
-      </Snackbar>
-      <Card className='card-login'>
-        <CardContent className="mx-4">
-          <div className="text-center">
-            <h3 className="mb-5">
-              <strong>Đăng nhập</strong>
-            </h3>
-          </div>
-          <form onSubmit={onSubmitLogin}>
-            <CssTextField
-              variant="outlined"
-              label="Tên đăng nhập"
-              type="text"
-              onChange={onChangeUsernameLogin}
-              value={usernameLogin}
-              fullWidth
-            />
-            <CssTextField
-              variant="outlined"
-              label="Mật khẩu"
-              type="password"
-              onChange={onChangePasswordLogin}
-              value={passwordLogin}
-              fullWidth
-              className='mt-3'
-            />
-            <div className="text-center mb-3">
-              <Button
-                type="submit"
-                gradient="blue"
-                className="btn-block z-depth-1a mt-4"
-                disabled={isLoading}
-              >
-                {isLoading && <CircularProgress size={16} color="inherit" className="middle" />}
-                <span className="ml-2">Login</span>
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-        <CardActions className="mx-5 pt-3 mb-1">
-          <p className="font-small d-flex justify-content-end align-items-center">
-            Chưa có tài khoản?
-            <Button onClick={props.toRegister} className="ml-1">
-              Đăng kí
+    <Card className='card-login'>
+      <CardContent className="mx-4">
+        <div className="text-center">
+          <h3 className="mb-5">
+            <strong>Đăng nhập</strong>
+          </h3>
+        </div>
+        <form onSubmit={onSubmitLogin}>
+          <CssTextField
+            variant="outlined"
+            label="Tên đăng nhập"
+            type="text"
+            onChange={onChangeUsernameLogin}
+            value={usernameLogin}
+            fullWidth
+          />
+          <CssTextField
+            variant="outlined"
+            label="Mật khẩu"
+            type="password"
+            onChange={onChangePasswordLogin}
+            value={passwordLogin}
+            fullWidth
+            className='mt-3'
+          />
+          <div className="text-center mb-3">
+            <Button
+              type="submit"
+              gradient="blue"
+              className="btn-block z-depth-1a mt-4"
+              disabled={isLoading}
+            >
+              {isLoading && <CircularProgress size={16} color="inherit" className="middle" />}
+              <span className="ml-2">Login</span>
             </Button>
-          </p>
-        </CardActions>
-      </Card>
-    </>
+          </div>
+        </form>
+      </CardContent>
+      <CardActions className="mx-5 pt-3 mb-1">
+        <p className="font-small d-flex justify-content-end align-items-center">
+          Chưa có tài khoản?
+          <button onClick={toRegister} className="ml-1" style={{ backgroundColr: 'white', color: '#1e88e5', border: 'none' }}>
+            Đăng kí
+          </button>
+        </p>
+      </CardActions>
+    </Card>
   )
 }

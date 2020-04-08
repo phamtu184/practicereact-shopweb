@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Toolbar } from '@material-ui/core';
 
 import Navbar from './component/navbarSection/topnav';
+import Footer from './component/footer/footer'
 import MagSetting from './pages/magSetting';
 import Home from './pages/home';
 import Products from './pages/products';
@@ -29,6 +30,7 @@ function App() {
           <Route path="/products" component={Products} />
           <Route path="/" component={Home} />
         </Switch>
+        <Footer />
       </Router>
     </CartProvider>
   );

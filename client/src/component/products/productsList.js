@@ -122,7 +122,6 @@ export default function ProductsList() {
             typeSnackbar={typeSnackbar}
             infoSnackbar={infoSnackbar}
           />
-          <div style={{ height: '200px' }}></div>
         </>}
     </>
   )
