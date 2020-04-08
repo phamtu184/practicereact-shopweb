@@ -16,7 +16,7 @@ export default function VerifyEmail() {
   useEffect(() => {
     axios.post('/auth/activeemail', { token: token })
       .then(res => {
-        if (res.data === 'active success') {
+        if (res.data.title === 'active success') {
           localStorage.setItem("event", "ACTIVE_EMAIL");
           window.location.assign('/');
         }

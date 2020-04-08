@@ -38,7 +38,7 @@ export default function Topnav(props) {
     setIsExpanded(!isExpanded)
   }
   const matches = useMediaQuery('(max-width:800px)');
-  const { isLogin, username, role } = userInfo
+  const { isLogin, username, role, isAuthenticated } = userInfo
   return (
     <>
       <div className='top-nav'>
@@ -64,7 +64,7 @@ export default function Topnav(props) {
                   <CartItems cartItems={cartItems} deleteCart={deleteCart} />
                 </li>
                 {isLogin
-                  ? <li><Menuitemlogin username={username} /></li>
+                  ? <li><Menuitemlogin username={username} isAuthenticated={isAuthenticated} /></li>
                   : <li><IconButton edge="start" color="inherit" onClick={openDrawer} >
                     <img src={LoginIcon} alt='login icon' />
                   </IconButton></li>
@@ -89,7 +89,6 @@ export default function Topnav(props) {
               </>
               : ''
             }
-
           </AppBar>
         </HideOnScroll>
         <ScrollTop {...props}>

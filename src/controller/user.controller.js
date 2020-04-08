@@ -15,6 +15,8 @@ module.exports.postToCart = function (req, res) {
 module.exports.getCart = async function (req, res) {
   const { userId } = req.body
   const productId = await User.findById(userId, 'cart')
-  const records = await Product.find().where('_id').in(productId.cart).exec();
-  res.json(records)
+  if (productId.cart) {
+    const records = await Product.find().where('_id').in(productId.cart).exec();
+    res.json(records)
+  }
 }

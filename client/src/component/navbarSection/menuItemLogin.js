@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Menu, MenuItem } from '@material-ui/core';
+import { Link } from 'react-router-dom'
 import axios from 'axios';
 
 export default function Menuitemlogin(props) {
@@ -15,7 +16,7 @@ export default function Menuitemlogin(props) {
 
   const handleLogout = () => {
     try {
-      axios.post('/auth/islogin')
+      axios.post('/auth/islogin', {}, { withCredentials: true })
         .then(window.location.assign('/'))
     }
     catch (e) {
@@ -36,6 +37,9 @@ export default function Menuitemlogin(props) {
         onClose={handleClose}
       >
         <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
+        {props.isAuthenticated
+          ? null
+          : <Link to='/verifyemail'><MenuItem>Kích hoạt tài khoản</MenuItem></Link>}
       </Menu>
     </>
   );

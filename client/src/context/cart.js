@@ -8,6 +8,7 @@ export function CartProvider(props) {
     isLogin: false,
     username: '',
     role: 2,
+    isAuthenticated: false,
     id: ''
   });
   const [cartItems, setCartItems] = useState([])
@@ -24,7 +25,8 @@ export function CartProvider(props) {
             isLogin: true,
             username: res.data.username,
             role: res.data.role,
-            id: res.data.id
+            id: res.data.id,
+            isAuthenticated: res.data.isAuthenticated
           })
           axios.post('/user/cart', { userId: res.data.id })
             .then(carts => setCartItems(carts.data.map(e => ({ ...e, quantity: 1 }))))
@@ -90,12 +92,24 @@ export function CartProvider(props) {
   }
   const decreQty = (item) => {
     const rs = cartItems.map((element, index) => {
-      if (element._id === item._id && item.quantity > 0) {
+      if (element._id === item._id && item.quantity > 1) {
         cartItems[index].quantity = item.quantity - 1;
       }
       return element
     });
     setCartItems(rs)
+  }
+  const checkOutCart = () => {
+    if (!userInfo.isAuthenticated) {
+      setOpenSnackbar(true);
+      setInfoSnackbar('Vui lòng kích hoạt tài khoản để thanh toán!');
+      setTypeSnackbar('warning');
+    }
+    else {
+      setOpenSnackbar(true);
+      setInfoSnackbar('Thanh toán thành công!');
+      setTypeSnackbar('success');
+    }
   }
 
   return (
@@ -107,6 +121,7 @@ export function CartProvider(props) {
         deleteCart: deleteCart,
         increQty: increQty,
         decreQty: decreQty,
+        checkOutCart: checkOutCart,
         // snackbar
         openSnackbar: openSnackbar,
         infoSnackbar: infoSnackbar,

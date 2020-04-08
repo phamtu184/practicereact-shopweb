@@ -21,11 +21,11 @@ function App() {
         <Navbar />
         <Toolbar id="back-to-top-anchor" />
         <Switch>
-          <Route path="/product/:productId" component={Product} />
           <Route path="/verifyemail" component={VerifyEmail} />
           <Route path="/verifytoken/:token" component={VerifyToken} />
-          <Route path="/cart" component={Cart} />
           <Route path="/magsetting" component={MagSetting} />
+          <Route path="/product/:productId" component={Product} />
+          <Route path="/cart" component={Cart} />
           <Route path="/products" component={Products} />
           <Route path="/" component={Home} />
         </Switch>

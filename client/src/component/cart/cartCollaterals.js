@@ -3,7 +3,7 @@ import { Button } from '@material-ui/core';
 
 export default function TableProducts(props) {
   const [totalPrice, setTotalPrice] = useState(0);
-  const { cartItems } = props;
+  const { cartItems, checkOutCart } = props;
   useEffect(() => {
     if (cartItems.length) {
       const rs = cartItems.reduce((a, b) => ((a + b.price) * b.quantity), 0)
@@ -34,7 +34,7 @@ export default function TableProducts(props) {
             </tr>
           </tbody>
         </table>
-        <Button>Thanh toán</Button>
+        <Button onClick={checkOutCart}>Thanh toán</Button>
       </div>
     </div>
   )

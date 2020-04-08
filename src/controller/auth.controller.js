@@ -19,24 +19,29 @@ module.exports.postLogin = function (req, res) {
             return res.json('wrongpw');
           }
           jwt.sign(
-            { id: user.id, username: user.username, role: user.role, email: user.email },
+            {
+              id: user.id, username: user.username, role: user.role,
+              email: user.email, isAuthenticated: user.isAuthenticated
+            },
             process.env.JWTSECRET,
             { expiresIn: 1000 * 60 * 60 * 24 },
             (err, token) => {
               if (err) throw err;
               res.cookie('xauthtoken', token, { maxAge: 1000 * 60 * 60 * 24, httpOnly: true });
-              User.findByIdAndUpdate(user.id, { token: token }).then();
-              res.json({
-                token,
-                user: {
-                  id: user.id,
-                  username: user.username
-                }
-              });
+              User.findByIdAndUpdate(user.id, { token: token }).then(
+                res.json({
+                  token,
+                  user: {
+                    id: user.id,
+                    username: user.username
+                  }
+                })
+              );
             }
           )
         })
     })
+    .catch(e => console.log(e))
 }
 module.exports.register = async function (req, res, next) {
   const { username, phone, email, password } = req.body;
@@ -54,20 +59,24 @@ module.exports.register = async function (req, res, next) {
     newUser.save()
       .then(user => {
         jwt.sign(
-          { id: user.id, username: user.username, role: user.role, email: user.email },
+          {
+            id: user.id, username: user.username, role: user.role,
+            email: user.email, isAuthenticated: user.isAuthenticated
+          },
           process.env.JWTSECRET,
           { expiresIn: 1000 * 60 * 60 * 24 },
           (err, token) => {
             if (err) throw err;
             res.cookie('xauthtoken', token, { maxAge: 1000 * 60 * 60 * 24, httpOnly: true });
-            User.findByIdAndUpdate(user.id, { token: token }).then();
-            res.json({
-              token,
-              user: {
-                id: user.id,
-                username: user.username
-              }
-            });
+            User.findByIdAndUpdate(user.id, { token: token }).then(
+              res.json({
+                token,
+                user: {
+                  id: user.id,
+                  username: user.username
+                }
+              })
+            );
           }
         )
       })
@@ -125,20 +134,41 @@ module.exports.sendMail = async function (req, res) {
   const options = {
     from: process.env.NAMEEMAIL,
     to: email,
-    subject: 'Kích hoạt Email',
+    subject: 'KÍCH HOẠT EMAIL DOGSHOP',
     html: `Kích vào đường dẫn để kích hoạt email của bạn: <a href="${url}">${url}</a>`,
   }
   transporter.sendMail(options)
 }
 
-module.exports.confirmEmail = async function (req, res) {
-  const user = jwt.verify(req.body.token, process.env.EMAILJWT);
-  try {
-    await User.findByIdAndUpdate(user.id, { isAuthenticated: true });
-    res.json('active success')
-  }
-  catch (e) {
-    console.log(e)
-    res.json('active failed')
-  }
+module.exports.confirmEmail = function (req, res) {
+  const users = jwt.verify(req.body.token, process.env.EMAILJWT);
+  User.findByIdAndUpdate(users.id, { isAuthenticated: true })
+    .then(() => {
+      User.findById(users.id).then(user => {
+        if (user) {
+          jwt.sign(
+            {
+              id: user.id, username: user.username, role: user.role,
+              email: user.email, isAuthenticated: user.isAuthenticated
+            },
+            process.env.JWTSECRET,
+            { expiresIn: 1000 * 60 * 60 * 24 },
+            (err, token) => {
+              if (err) throw err;
+              res.cookie('xauthtoken', token, { maxAge: 1000 * 60 * 60 * 24, httpOnly: true });
+              User.findByIdAndUpdate(user.id, { token: token }).then(
+                res.json({
+                  token,
+                  title: 'active success'
+                })
+              );
+            }
+          )
+        }
+        else {
+          res.json('active faile')
+        }
+      })
+    })
+    .catch(e => console.log(e))
 }
