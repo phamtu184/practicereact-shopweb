@@ -11,7 +11,6 @@ import { SearchIcon, HeartIcon, SyncIcon } from '../../image/jslogo/svlogo';
 import { ProductContext } from './productContext';
 import { CartContext } from '../../context/cart';
 import SnackBar from '../snackBar/snackBar';
-
 import { Link } from 'react-router-dom'
 
 const labels = {
@@ -36,8 +35,6 @@ const EditTooltip = withStyles(theme => ({
 }))(Tooltip);
 
 export default function ProductsList() {
-  const [valueRating, setValueRating] = useState(4);
-  const [hoverRating, setHoverRating] = useState(-1);
   const { products, loading } = useContext(ProductContext);
   const { addToCart, openSnackbar, infoSnackbar, typeSnackbar, closeSnackbar } = useContext(CartContext);
   const [openModal, setOpenModal] = useState(false);
@@ -93,19 +90,8 @@ export default function ProductsList() {
                 <div className='product-info mt-2'>
                   <h3 className='product-name'>{product.name}</h3>
                   <div className='product-rating'>
-                    <Rating
-                      name="hover-feedback"
-                      size="small"
-                      value={valueRating}
-                      precision={0.5}
-                      onChange={(event, newValue) => {
-                        setValueRating(newValue);
-                      }}
-                      onChangeActive={(event, newHover) => {
-                        setHoverRating(newHover);
-                      }}
-                    />
-                    {valueRating !== null && <Box ml={2}>{labels[hoverRating !== -1 ? hoverRating : valueRating]}</Box>}
+                    <Rating name="read-only" value={5} readOnly size='small' />
+                    <Box ml={2}>{labels[5]}</Box>
                   </div>
                   <span className='product-price'>£{product.price}</span>
                 </div>

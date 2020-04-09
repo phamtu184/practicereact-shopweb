@@ -5,6 +5,7 @@ import { ProductProvider } from '../component/products/productContext';
 import ProductInfo from '../component/products/productInfo';
 import CarouselCus from '../component/carousel/CarouselCus';
 import SideBarRight from '../component/product/sideBarRight';
+import DetaiTabs from '../component/product/detailTabs';
 
 import Background1 from '../image/background/slide1.jpg';
 import Background2 from '../image/background/slide2.jpg';
@@ -55,10 +56,11 @@ export default function ProductPage() {
       <CarouselCus items={items} animatedClass='animated rollIn' />
       <div className='container mt-4'>
         <div className='row'>
-          <div className='col-md-9'>
+          <div className='col-lg-9 col-md-8 col-sm-12'>
             <ProductInfo product={product} />
+            <DetaiTabs />
           </div>
-          <div className='col-md-3'>
+          <div className='col-lg-3 col-md-4 col-sm-12'>
             <SideBarRight />
           </div>
         </div>

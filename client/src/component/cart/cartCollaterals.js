@@ -16,7 +16,7 @@ export default function TableProducts(props) {
   const pricePay = totalPrice - 0
   return (
     <div className='cart-collaterals'>
-      <div className='cart_totals'>
+      <div className='cart_totals ml-auto'>
         <h2>Thanh toán</h2>
         <table cellSpacing="0" className='table-cart'>
           <tbody>

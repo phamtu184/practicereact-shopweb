@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Paper } from '@material-ui/core';
+import { Rating } from '@material-ui/lab';
 import { ProductContext } from '../products/productContext';
 import { Link } from 'react-router-dom';
 
@@ -18,11 +19,16 @@ export default function SideBarRight() {
               </Link>
             </div>
             <div className='product-info'>
-              <h3 className='title18 text-uppercase product-title dosis-font font-bold'>{item.name}</h3>
+              <h3>{item.name}</h3>
+              <div className='product-rating'>
+                <Rating name="read-only" value={5} readOnly size='small' />
+              </div>
+              <div className='product-price'>
+                <span>£{item.price}</span>
+              </div>
             </div>
           </div>
         ))
-
         }
       </div>
     </Paper>

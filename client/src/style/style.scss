@@ -32,6 +32,16 @@ body{
     display: table-cell;
   }
 }
+.container{
+  max-width: 1200px;
+  position: relative;
+  width: 100%;
+}
+.list-none {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 // ---------------Walking-Loader-----------------
 @mixin animation($str) {
 	-webkit-animation: $str;
@@ -575,9 +585,124 @@ $type: linear;
   }
 }
 // -------------product------------
-.product-top{
-  
+.search-bar-paper{
+  .product-thumb{
+    width: 90px;
+    border: 1px solid #e5e5e5;
+  }
+  .product-info{
+    padding: 0px 0 0 20px;
+    vertical-align: middle;
+    h3{
+      overflow: inherit;
+      text-overflow: inherit;
+      white-space: normal;
+      font-weight: normal;
+      margin: 0 0 7px;
+      font-family: 'Dosis', sans-serif;
+      font-size: 18px;
+      text-transform: uppercase;
+    }
+    .product-price{
+      font-weight: 700;
+      font-size: 18px;
+      font-family: dosis;
+      color: $blue-600;
+    }
+    .product-rating{
+      width: 200;
+      display: flex;
+      align-items: flex-start;
+      label{
+        display: block;
+      }
+    }
+  }
 }
+.detail-tab{
+  display: flex;
+  display: -ms-flex;
+  display: -webkit-flex;
+  &-title{
+    min-width: 200px;
+    .list-tag-detail{
+      font-weight: 700;
+      a{
+        display: block;
+        position: relative;
+        padding: 12px 25px;
+        border-bottom: 1px solid #e5e5e5;
+        text-decoration: none;
+        outline: none;
+        color: #555;
+      }
+      a:hover{
+        color: $blue-500;
+        transition: 0.5s;
+      }
+      .a-active{
+        border-right: none;
+        border-left: 2px solid $blue-600;
+      }
+    }
+  }
+  &-content{
+    padding: 30px;
+    width: 100%;
+    border: 1px solid #e5e5e5;
+    .review-product{
+      label{
+        display: block;
+        max-width: 100%;
+        margin-bottom: 5px;
+        font-weight: 700
+      }
+    }
+    .detail-tab-desc{
+      p{
+        color: #555;
+      }
+      ul{
+        color: #999;
+      }
+      line-height: 24px;
+      font-size: 14px;
+    }
+    img{
+      height: auto;
+      max-width: 100%;
+      vertical-align: top;
+    }
+  }
+}
+@media (max-width: 900px){
+  .detail-tab {
+    display: inline-block;
+    width: 100%;
+    .detail-tab-title{
+      .a-active{
+        border-left: 1px solid #e5e5e5;
+        border-bottom: 2px solid $blue-600;
+        border-right: 1px solid #e5e5e5;
+      }
+      ul{
+        border-top: 1px solid #e5e5e5;
+        border-left: 1px solid #e5e5e5;
+        border-right: 1px solid #e5e5e5;
+        li{
+          display: inline-block;
+          border-left: 1px solid #e5e5e5;
+          border-right: 1px solid #e5e5e5;
+          a{
+            border-bottom: none;
+          }
+        }
+      }
+    }
+    
+  }
+}
+
 // --------------Cart----------
 .total-price{
   height: 40px;
@@ -694,8 +819,7 @@ $type: linear;
   .cart-collaterals{
     width: 100%;
     .cart_totals{
-      float: right;
-      width: 48%;
+      width: 50%;
     }
     button{
       color: white;
