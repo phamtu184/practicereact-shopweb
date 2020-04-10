@@ -27,3 +27,22 @@ module.exports.deleteProduct = function (req, res) {
     .then(() => res.json('DELETE_PRODUCT'))
     .catch((err) => console.log(err))
 }
+
+module.exports.putReviewProduct = function (req, res) {
+  const { star, content, productId, username } = req.body;
+  Product.findOne({ _id: productId })
+    .then((product) => {
+      var today = new Date();
+      product.comment.items.push({
+        content: content,
+        name: username,
+        date: today,
+        star: star
+      });
+      product.comment.total++;
+      product.save();
+      res.json('REVIEW_SUCCESS')
+    })
+    .catch(e => console.log(e))
+
+}

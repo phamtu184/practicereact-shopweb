@@ -39,6 +39,7 @@ const items = [
 export default function ProductPage() {
   let { productId } = useParams();
   const [product, setProduct] = useState([]);
+  const [isSubmit, setIsSubmit] = useState(true)
   useEffect(() => {
     const getProduct = async () => {
       const res = await axios.get(`/product/product/${productId}`)
@@ -49,8 +50,11 @@ export default function ProductPage() {
         window.history.back();
       }
     }
-    getProduct()
-  }, [productId])
+    if (isSubmit) {
+      getProduct()
+      setIsSubmit(false)
+    }
+  }, [productId, isSubmit])
   return (
     <ProductProvider>
       <CarouselCus items={items} animatedClass='animated rollIn' />
@@ -58,7 +62,7 @@ export default function ProductPage() {
         <div className='row'>
           <div className='col-lg-9 col-md-8 col-sm-12'>
             <ProductInfo product={product} />
-            <DetaiTabs />
+            <DetaiTabs product={product} setIsSubmit={setIsSubmit} />
           </div>
           <div className='col-lg-3 col-md-4 col-sm-12'>
             <SideBarRight />
