@@ -7,7 +7,7 @@ import SnackBar from '../snackBar/snackBar';
 import axios from 'axios';
 
 export default function DetailTab(props) {
-  const { product, setIsSubmit } = props;
+  const { product, setIsSubmit, quatityReviews } = props;
   const [tabActive, setTabActive] = useState('description')
   const [reviewValue, setReviewValue] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -66,7 +66,7 @@ export default function DetailTab(props) {
             <a href='#listdetail' onClick={() => clickActive('description')}>Miêu tả</a>
           </li>
           <li className={tabActive === 'review' ? 'a-active' : ''}>
-            <a href='#listdetail' onClick={() => clickActive('review')}>Đánh giá()</a>
+            <a href='#listdetail' onClick={() => clickActive('review')}>Đánh giá({quatityReviews})</a>
           </li>
         </ul>
       </div>

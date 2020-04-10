@@ -21,7 +21,11 @@ export default function SideBarRight() {
             <div className='product-info'>
               <h3>{item.name}</h3>
               <div className='product-rating'>
-                <Rating name="read-only" value={5} readOnly size='small' />
+                <Rating
+                  name="read-only"
+                  value={item.comment.items.reduce((total, next) => total + next.star, 0) / item.comment.total}
+                  readOnly size='small'
+                />
               </div>
               <div className='product-price'>
                 <span>£{item.price}</span>

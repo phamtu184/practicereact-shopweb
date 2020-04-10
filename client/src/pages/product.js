@@ -40,11 +40,13 @@ export default function ProductPage() {
   let { productId } = useParams();
   const [product, setProduct] = useState([]);
   const [isSubmit, setIsSubmit] = useState(true)
+  const [quatityReviews, setQuatityReviews] = useState('');
   useEffect(() => {
     const getProduct = async () => {
       const res = await axios.get(`/product/product/${productId}`)
       if (res.data !== 'GET_PRODUCT_ERROR') {
         setProduct(res.data);
+        setQuatityReviews(res.data.comment.total)
       }
       else {
         window.history.back();
@@ -62,7 +64,7 @@ export default function ProductPage() {
         <div className='row'>
           <div className='col-lg-9 col-md-8 col-sm-12'>
             <ProductInfo product={product} />
-            <DetaiTabs product={product} setIsSubmit={setIsSubmit} />
+            <DetaiTabs product={product} setIsSubmit={setIsSubmit} quatityReviews={quatityReviews} />
           </div>
           <div className='col-lg-3 col-md-4 col-sm-12'>
             <SideBarRight />
