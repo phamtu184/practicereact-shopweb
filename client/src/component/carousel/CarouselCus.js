@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import '../../style/animate.min.css'
 import Carousel from './Carousel';
 import CarouselItem from './CarouselItem';
 import CarouselControl from './CarouselControl';

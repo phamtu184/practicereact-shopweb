@@ -13,7 +13,7 @@ body{
   font-family: $font;
 }
 .color600{
-  color: $blue-600
+  color: $blue-600;
 }
 .title18 {
   font-size: 18px;
@@ -314,41 +314,7 @@ $type: linear;
     }
   }
 }
-/* ----------------Layout-Promo-Box-------------- */
-.promobox-layout{
-  img{
-    width: 100%;
-    height: auto;
-    margin-top: 20px;
-  }
-  .col-sm-6, .col-md-6, .col-sm-12{
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-  a{
-    position: relative;
-    .tt-background{
-      position: absolute;
-      top: 50%;
-      padding: 0 50px;
-      left: 50%;
-      transform: translateX(-50%);
-      -webkit-transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 5px;
-      color: black;
-      line-height: 50px;
-    }
-  }
-  a:hover{
-    .tt-background{
-      background: rgba(25, 118, 210, 0.9);
-      border-radius: 5px;
-      color: white;
-      transition: 0.2s linear;
-    }
-  }
-}
+
 /* ----------------products-------------- */
 .parent {
   display: grid;
@@ -674,6 +640,11 @@ $type: linear;
       vertical-align: top;
     }
     .review-product{
+      .product-rating{
+        width: 200;
+        display: flex;
+        align-items: flex-start;
+      }
       button{
         color: white;
         background-color: $blue-500;

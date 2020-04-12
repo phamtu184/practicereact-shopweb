@@ -25,10 +25,11 @@ export default function SideBarRight() {
                   name="read-only"
                   value={item.comment.items.reduce((total, next) => total + next.star, 0) / item.comment.total}
                   readOnly size='small'
+                  precision={0.5}
                 />
               </div>
               <div className='product-price'>
-                <span>£{item.price}</span>
+                <span>{new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(item.price)}</span>
               </div>
             </div>
           </div>

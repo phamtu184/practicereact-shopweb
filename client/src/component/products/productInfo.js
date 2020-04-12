@@ -37,7 +37,7 @@ export default function ProductInfo(props) {
           <div className='col-sm-7'>
             <div className='product-detail'>
               <h1 className='product-detail-title dois-font'>{product.name}</h1>
-              <span className='dois-font product-detail-price'>£{product.price}</span>
+              <span className='dois-font product-detail-price'>{new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(product.price)}</span>
               <hr />
               <div className='product-detail-desc'>
                 <p>{product.description}</p>

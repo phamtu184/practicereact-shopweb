@@ -1,6 +1,7 @@
 import React from 'react';
 import './style/bootstrap.min.css';
 import './style/style.scss';
+import './style/animate.min.css';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Toolbar } from '@material-ui/core';
 

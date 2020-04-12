@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
+
+import ScrollAnimation from 'react-animate-on-scroll';
 import SnackBar from '../component/snackBar/snackBar';
 import Carousel from '../component/homePages/carousel';
-import LayoutPromoBox from '../component/homePages/layoutPromoBox';
-import Features from '../component/homePages/features';
-import ProductList from '../component/homePages/newProductList';
+import GetAccess from '../component/homePages/getAccess';
+import Contact from '../component/homePages/contact';
+import Parallax from '../component/homePages/parallax';
+import MeetTheDogs from '../component/homePages/meetTheDogs';
 
 export default function Home() {
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -43,9 +46,12 @@ export default function Home() {
         infoSnackbar={infoSnackbar}
       />
       <Carousel />
-      <LayoutPromoBox />
-      <Features />
-      <ProductList />
+      <ScrollAnimation animateIn='fadeIn'>
+        <GetAccess />
+      </ScrollAnimation>
+      <Contact />
+      <Parallax />
+      <MeetTheDogs />
     </div>
   )
 }

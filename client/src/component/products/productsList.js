@@ -7,7 +7,8 @@ import { Rating } from '@material-ui/lab';
 import WalkingLoader from './wakingLoader';
 import Pagination from './pagination';
 import ModalInfo from './modalInfo';
-import { SearchIcon, HeartIcon, SyncIcon } from '../../image/jslogo/svlogo';
+import { SearchIcon, HeartIcon } from '../../image/jslogo/svlogo';
+import SyncIcon from '../../image/jslogo/Sync';
 import { ProductContext } from './productContext';
 import { CartContext } from '../../context/cart';
 import SnackBar from '../snackBar/snackBar';
@@ -71,7 +72,7 @@ export default function ProductsList() {
                           PopperProps={{ disablePortal: true }}
                         >
                           <Link to={'/product/' + item._id}>
-                            <IconButton ><Syncicon /></IconButton>
+                            <IconButton ><SyncIcon /></IconButton>
                           </Link>
                         </EditTooltip>
                       </li>
@@ -96,10 +97,11 @@ export default function ProductsList() {
                       value={item.comment.items.reduce((total, next) => total + next.star, 0) / item.comment.total}
                       readOnly
                       size='small'
+                      precision={0.5}
                     />
-                    <Box ml={2}>{labels[item.comment.items.reduce((total, next) => total + next.star, 0) / item.comment.total]}</Box>
+                    <Box ml={2}>{labels[(item.comment.items.reduce((total, next) => total + next.star, 0) / item.comment.total).toFixed(0)]}</Box>
                   </div>
-                  <span className='product-price'>£{item.price}</span>
+                  <span className='product-price'>{new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(item.price)}</span>
                 </div>
               </div>
             ))}
@@ -127,12 +129,6 @@ function Hearticon(props) {
 function Searchicon(props) {
   return (
     <SvgIcon {...props} viewBox="0 -28 512.001 512" xmlns="http://www.w3.org/2000/svg"><path d={SearchIcon} />
-    </SvgIcon>
-  )
-}
-function Syncicon(props) {
-  return (
-    <SvgIcon {...props} viewBox="0 -28 512.001 512" xmlns="http://www.w3.org/2000/svg"><path d={SyncIcon} />
     </SvgIcon>
   )
 }

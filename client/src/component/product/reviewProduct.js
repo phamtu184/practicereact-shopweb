@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
-import { TextField, Button, Avatar } from '@material-ui/core';
+import { TextField, Button, Avatar, Box } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 
 const CssTextField = withStyles({
@@ -23,22 +23,35 @@ const CssTextField = withStyles({
     },
   },
 })(TextField);
-
+const labels = {
+  1: 'Tệ',
+  2: 'Kém',
+  3: 'Ổn',
+  4: 'Tốt',
+  5: 'Xuất sắc',
+};
 export default function ReviewProduct(props) {
   const [value, setValue] = useState(5);
+  const [hover, setHover] = useState(-1);
   const { submitReview, reviewValue, handleChangeReviewValue, product } = props;
 
   return (
     <div className='review-product'>
       <div className=''>
         <label>Đánh giá của bạn</label>
-        <Rating
-          name="size-small"
-          defaultValue={value}
-          size="small"
-          onChange={(event, newValue) => { setValue(newValue); }}
-          className='mb-3'
-        />
+        <div className='product-rating'>
+          <Rating
+            name="size-small"
+            defaultValue={value}
+            size="small"
+            onChange={(event, newValue) => { setValue(newValue); }}
+            className='mb-3'
+            onChangeActive={(event, newHover) => {
+              setHover(newHover);
+            }}
+          />
+          {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
+        </div>
         <CssTextField
           label="Đánh giá"
           multiline
