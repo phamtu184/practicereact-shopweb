@@ -107,6 +107,10 @@ export default function RegisterDrawer(props) {
                 gradient="blue"
                 className="btn-block z-depth-1a mt-4"
                 disabled={isLoading}
+                style={{
+                  color: 'white',
+                  backgroundColor: '#1e88e5'
+                }}
               >
                 {isLoading && <CircularProgress size={16} color="inherit" className="middle" />}
                 <span className="ml-2">Đăng kí</span>

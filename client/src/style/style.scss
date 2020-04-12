@@ -42,134 +42,6 @@ body{
   margin: 0;
   padding: 0;
 }
-// ---------------Walking-Loader-----------------
-@mixin animation($str) {
-	-webkit-animation: $str;
-  -moz-animation: $str;
-  animation: $str;
-}
-$size: 1em;
-$duration: 2000ms;
-$type: linear;
-.spinning {
-	width: $size * 6;
-	margin: $size * 2 auto;
-	text-align: center;
-	span {
-		display: block;
-		margin: $size / 2 0 0 0;
-		color: $blue-800;
-		text-transform: uppercase;
-		font-family: 'Roboto', sans-serif;
-		@include animation(pulse $duration $type infinite);
-	}
-}
-@-webkit-keyframes pulse {
-	0%, 100% { opacity: 1; }
-	50% { opacity: 0.25; }
-}
-@keyframes pulse {
-	0%, 100% { opacity: 1; }
-	50% { opacity: 0.25; }
-}
-.ajax-loader{
-	position: absolute;
-	left: 70%;
-	transform-origin: 50% 50%;
-	transform: rotate(90deg) translate(-50%, 0%);
-	font-size: 50px;
-	width: 1em;
-	height: 3em;
-	color: $blue-800;
-	.paw{
-		width: 1em;
-		height: 1em;
-		animation: 2050ms pawAnimation ease-in-out infinite;
-		opacity: 0;
-		svg{
-			width: 100%;
-			height: 100%;
-		}
-		.icon{
-			fill: currentColor;
-		}
-		&:nth-child(odd){
-			transform: rotate(-10deg);
-		}
-		&:nth-child(even){
-			transform: rotate(10deg) translate(125%, 0);
-		}
-    @for $i from 1 through 12{
-      &:nth-child(#{$i}){
-        animation-delay: #{ (($i * -1)+6)*0.25 }s;
-      }
-    }
-    .no-cssanimations &{
-      opacity: 1;
-    }
-	}
-}
-@keyframes pawAnimation {
-	0%{
-		opacity: 1;
-	}
-	50%{
-		opacity: 0;
-	}
-	100%{
-		opacity: 0;
-	}
-}
-/* -----------Nav bar---------- ----------*/
-.top-nav{
-  li{
-    float: left;
-    display: block;
-    text-align: center;
-    padding: 8px 4px;
-    text-decoration: none;
-    a:hover{
-      text-decoration: none;
-    }
-    button{
-      font-weight: 550;
-    }
-    img{
-      height: 18px;
-      width: 18px;
-      margin-right: 5px;
-    }
-  }
-  .nav-content-right, .nav-content-left{
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-  }
-  .nav-content-right{
-    margin-left: auto;
-  }
-}
-.item-cart{
-  display: table;
-  border-bottom: 1px solid #e5e5e5;
-  div{
-    vertical-align: middle;
-    display: table-cell;
-  }
-  .product-info{
-    padding: 0 15px;
-    .product-title{
-      margin: 0 0 7px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      font-size: 16px;
-      font-weight: 400;
-    }
-  }
-}
-
 .smaller{
   height: 10px;
 }
@@ -184,7 +56,6 @@ $type: linear;
     color: #fff !important;
   }
 }
-
 .unshow{
   display: none;
 }
@@ -228,12 +99,6 @@ $type: linear;
   -o-transition-timing-function: ease-in;
   transition-timing-function: ease-in;
 }
-// @media screen and (max-width: 20000px){
-//   .bottom-nav{
-//     display: none;
-//   }
-// }
-
 
 @media screen and (max-width: 800px) {
   

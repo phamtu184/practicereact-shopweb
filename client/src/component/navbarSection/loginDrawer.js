@@ -19,11 +19,13 @@ const CssTextField = withStyles({
         borderColor: '#4285F4',
       },
     },
-  },
+  }
 })(TextField);
 
 export default function LoginDrawer(props) {
-  const { onSubmitLogin, onChangeUsernameLogin, usernameLogin, onChangePasswordLogin, passwordLogin, isLoading, toRegister } = props;
+  const { onSubmitLogin, onChangeUsernameLogin,
+    usernameLogin, onChangePasswordLogin, passwordLogin,
+    isLoading, toRegister } = props;
   return (
     <Card className='card-login'>
       <CardContent className="mx-4">
@@ -56,6 +58,10 @@ export default function LoginDrawer(props) {
               gradient="blue"
               className="btn-block z-depth-1a mt-4"
               disabled={isLoading}
+              style={{
+                color: 'white',
+                backgroundColor: '#1e88e5'
+              }}
             >
               {isLoading && <CircularProgress size={16} color="inherit" className="middle" />}
               <span className="ml-2">Login</span>

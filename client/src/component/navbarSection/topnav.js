@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-
+import styled from 'styled-components';
 import { AppBar, Toolbar, Button, IconButton, useScrollTrigger, Slide, Fab, SvgIcon, useMediaQuery } from '@material-ui/core';
 // icon
 import MenuIcon from '../../image/svglogo/menu.svg';
@@ -14,16 +14,27 @@ import { CartContext } from '../../context/cart';
 import DrawerForm from './drawer';
 import CartItems from './cartItems';
 
-function HideOnScroll(props) {
-  const { children, window } = props;
-  const trigger = useScrollTrigger({ target: window ? window() : undefined });
-  return (
-    <Slide appear={false} direction="down" in={!trigger}>
-      {children}
-    </Slide>
-  );
-}
-
+const LiIcon = styled.li`
+  float: left;
+  display: block;
+  text-align: center;
+  padding: 8px 4px;
+  text-decoration: none;
+  button{
+    font-weight: 550;
+  };
+  img{
+    height: 18px;
+    width: 18px;
+    margin-right: 5px;
+  };
+`
+const UlNavcontent = styled.ul`
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+`
 export default function Topnav(props) {
   const { cartItems, userInfo, deleteCart } = useContext(CartContext);
   const [isDrawer, setDrawer] = useState(false);
@@ -41,7 +52,7 @@ export default function Topnav(props) {
   const { isLogin, username, role, isAuthenticated } = userInfo
   return (
     <>
-      <div className='top-nav'>
+      <div>
         <HideOnScroll {...props}>
           <AppBar color="default" position='fixed' style={{ zIndex: '1201' }}>
             <Toolbar className='container'>
@@ -54,22 +65,22 @@ export default function Topnav(props) {
                 </>
                 : <NavbarLeft role={role} />
               }
-              <ul className='nav-content-right'>
-                <li>
+              <UlNavcontent style={{ marginLeft: 'auto' }}>
+                <LiIcon>
                   <IconButton edge="start" color="inherit">
                     <Searchicon />
                   </IconButton>
-                </li>
-                <li>
+                </LiIcon>
+                <LiIcon>
                   <CartItems cartItems={cartItems} deleteCart={deleteCart} />
-                </li>
+                </LiIcon>
                 {isLogin
-                  ? <li><Menuitemlogin username={username} isAuthenticated={isAuthenticated} /></li>
-                  : <li><IconButton edge="start" color="inherit" onClick={openDrawer} >
+                  ? <LiIcon><Menuitemlogin username={username} isAuthenticated={isAuthenticated} /></LiIcon>
+                  : <LiIcon><IconButton edge="start" color="inherit" onClick={openDrawer} >
                     <img src={LoginIcon} alt='login icon' />
-                  </IconButton></li>
+                  </IconButton></LiIcon>
                 }
-              </ul>
+              </UlNavcontent>
             </Toolbar>
             {matches
               ? <>
@@ -104,28 +115,36 @@ export default function Topnav(props) {
 
 function NavbarLeft(props) {
   return (
-    <ul className='nav-content-left'>
-      <li>
+    <UlNavcontent>
+      <LiIcon>
         <NavLink activeClassName="nav-item-active" to="/" exact={true}>
           <Button>Trang chủ</Button>
         </NavLink>
-      </li>
-      <li>
+      </LiIcon>
+      <LiIcon>
         <NavLink activeClassName="nav-item-active" to="/products">
           <Button>Sản phẩm</Button>
         </NavLink>
-      </li>
+      </LiIcon>
       {props.role === 1 &&
-        <><li>
+        <><LiIcon>
           <NavLink activeClassName="nav-item-active" to="/magsetting">
             <Button>Quản lý</Button>
           </NavLink>
-        </li></>
+        </LiIcon></>
       }
-    </ul>
+    </UlNavcontent>
   )
 }
-
+function HideOnScroll(props) {
+  const { children, window } = props;
+  const trigger = useScrollTrigger({ target: window ? window() : undefined });
+  return (
+    <Slide appear={false} direction="down" in={!trigger}>
+      {children}
+    </Slide>
+  );
+}
 function Searchicon(props) {
   return (
     <SvgIcon {...props} viewBox="0 -28 512.001 512" xmlns="http://www.w3.org/2000/svg"><path d={SearchIcon} />

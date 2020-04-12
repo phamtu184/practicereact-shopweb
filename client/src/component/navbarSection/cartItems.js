@@ -1,10 +1,26 @@
 import React, { useState, useEffect } from 'react';
-
+import styled from 'styled-components';
 import CartIcon from '../../image/svglogo/supermarket.svg';
 import BinIcon from '../../image/svglogo/bin.svg';
 import { IconButton, Badge, Popover, Button } from '@material-ui/core';
 import { Link } from "react-router-dom";
 
+const DivItemsCart = styled.div`
+  display: table;
+  border-bottom: 1px solid #e5e5e5;
+  div{
+    vertical-align: middle;
+    display: table-cell;
+  };
+`
+const H3Title = styled.h3`
+  margin: 0 0 7px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 16px;
+  font-weight: 400;
+`
 export default function CartItems(props) {
   const { cartItems, deleteCart } = props;
   const [anchorEl, setAnchorEl] = useState(null);
@@ -50,12 +66,12 @@ export default function CartItems(props) {
         {cartItems.length
           ? <>
             {cartItems.map((cart, index) => (
-              <div key={index} className='item-cart'>
+              <DivItemsCart key={index}>
                 <div className='product-thumb'>
                   <img src={cart.images[0]} style={{ width: '90px' }} alt={cart.name} />
                 </div>
-                <div className='product-info pl-2 pr-2'>
-                  <h3 className='product-title'>{cart.name}</h3>
+                <div className='pl-2 pr-2' style={{ padding: '0 15px' }}>
+                  <H3Title className='product-title'>{cart.name}</H3Title>
                   <div className='mini-cart-qty'>
                     <span>
                       <span>{cart.quantity} x </span>
@@ -68,7 +84,7 @@ export default function CartItems(props) {
                     <img src={BinIcon} style={{ width: '14px' }} alt='BinIcon' />
                   </IconButton>
                 </div>
-              </div>
+              </DivItemsCart>
             ))}
           </>
           : null}
