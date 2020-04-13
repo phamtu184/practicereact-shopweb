@@ -26,7 +26,7 @@ export default function SortTopBar() {
   const inputClasses = useInputStyles();
   return (
     <div className='search-top-bar ml-3'>
-      <h2 className='mr-auto'>Shop</h2>
+      <h2 className='mr-auto dois-font'>Shop</h2>
       <FormControl size='small'>
         <InputLabel >
           Sắp xếp

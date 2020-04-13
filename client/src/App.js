@@ -1,7 +1,9 @@
 import React from 'react';
 import './style/bootstrap.min.css';
-import './style/style.scss';
+import './style/style.css';
 import './style/animate.min.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Toolbar } from '@material-ui/core';
 

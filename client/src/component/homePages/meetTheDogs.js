@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import DogBoneImg from '../../image/background/dog-bon.png'
+import { Button } from '@material-ui/core';
+import ProductList from './productSlick';
+import axios from 'axios';
 
 const H2Title = styled.h2`
   margin-bottom: 10px;
@@ -30,7 +33,35 @@ const ImgDogBone = styled.img`
   vertical-align: middle;
   border: 0;
 `
+const UlTitleTab = styled.ul`
+  padding: 0;
+  list-style: none;
+  font-weight: 700;
+  button{
+    color: #1e88e5;
+    background-color: white;
+    padding: 8px 16px;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    font-weight: 700;
+    &:hover{
+      color: #1e88e5;
+      background-color: white;
+    }
+  }
+`
+const LiTab = styled.li`
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 3px;
+`
 export default function MeetTheDogs() {
+  const [tabProduct, setTabProduct] = useState('new');
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    axios.get('/product/slickproducts')
+      .then((res) => setProducts(res.data))
+  }, [])
   return (
     <div style={{ backgroundColor: 'white' }}>
       <div className='container' >
@@ -39,6 +70,33 @@ export default function MeetTheDogs() {
             Những Chú chó tiêu biểu
             <ImgDogBone src={DogBoneImg} alt='DogBoneImg' />
           </H2Title>
+        </div>
+        <div style={{ marginBottom: '35px' }}>
+          <UlTitleTab className='text-right text-uppercase'>
+            <LiTab>
+              <Button
+                className={tabProduct === 'new' ? 'active-tab' : ''}
+                onClick={() => setTabProduct('new')}
+              >NEW</Button>
+            </LiTab>
+            <LiTab>
+              <Button
+                className={tabProduct === 'topview' ? 'active-tab' : ''}
+                onClick={() => setTabProduct('topview')}
+              >TOP VIEW</Button>
+            </LiTab>
+            <LiTab>
+              <Button
+                className={tabProduct === 'toprating' ? 'active-tab' : ''}
+                onClick={() => setTabProduct('toprating')}
+              >TOP RATING</Button>
+            </LiTab>
+          </UlTitleTab>
+        </div>
+        <div>
+          {products.map((item, index) => (
+            <div>{item.viewCounts}</div>
+          ))}
         </div>
       </div>
     </div>

@@ -1,11 +1,113 @@
 import React, { useState, useContext } from 'react';
-
+import styled from 'styled-components';
 import DescriptionProduct from './descriptionProduct';
 import ReviewProduct from './reviewProduct';
 import { CartContext } from '../../context/cart';
 import SnackBar from '../snackBar/snackBar';
 import axios from 'axios';
 
+const DivDetailTab = styled.div`
+  display: flex;
+  display: -ms-flex;
+  display: -webkit-flex;
+  .detail-tab-title{
+    min-width: 200px;
+    .list-tag-detail{
+      font-weight: 700;
+      a{
+        display: block;
+        position: relative;
+        padding: 12px 25px;
+        border-bottom: 1px solid #e5e5e5;
+        text-decoration: none;
+        outline: none;
+        color: #555;
+      }
+      a:hover{
+        color: #2196f3;
+        transition: 0.5s;
+      }
+      .a-active{
+        border-right: none;
+        border-left: 2px solid #1e88e5;
+      }
+    }
+  }
+  .detail-tab-content{
+    padding: 30px;
+    width: 100%;
+    border: 1px solid #e5e5e5;
+    .review-product{
+      label{
+        display: block;
+        max-width: 100%;
+        margin-bottom: 5px;
+        font-weight: 700
+      }
+    }
+    .detail-tab-desc{
+      p{
+        color: #555;
+      }
+      ul{
+        color: #999;
+      }
+      line-height: 24px;
+      font-size: 14px;
+    }
+    img{
+      height: auto;
+      max-width: 100%;
+      vertical-align: top;
+    }
+    .review-product{
+      .product-rating{
+        width: 200;
+        display: flex;
+        align-items: flex-start;
+      }
+      button{
+        color: white;
+        background-color: #2196f3;
+      }
+      .user-review{
+        .avatar{
+          float: left;
+        }
+        .comment-text{
+          margin: 0 0 0 50px;
+          border: 1px solid #e4e1e3;
+          border-radius: 4px;
+          padding: 1em 1em 0;
+        }
+      }
+    }
+  }
+  @media (max-width: 900px){
+    display: inline-block;
+    width: 100%;
+    .detail-tab-title{
+      .a-active{
+        border-left: 1px solid #e5e5e5 !importan;
+        border-bottom: 2px solid #1e88e5;
+        border-right: 1px solid #e5e5e5;
+      }
+      ul{
+        border-top: 1px solid #e5e5e5;
+        border-left: 1px solid #e5e5e5;
+        border-right: 1px solid #e5e5e5;
+        li{
+          display: inline-block;
+          border-left: 1px solid #e5e5e5;
+          border-right: 1px solid #e5e5e5;
+          a{
+            border-bottom: none;
+          }
+        }
+      }
+    }
+  }
+`
 export default function DetailTab(props) {
   const { product, setIsSubmit, quatityReviews } = props;
   const [tabActive, setTabActive] = useState('description')
@@ -59,7 +161,7 @@ export default function DetailTab(props) {
     }
   }
   return (
-    <div className='detail-tab mt-4'>
+    <DivDetailTab className='mt-4'>
       <div className='detail-tab-title'>
         <ul className='list-tag-detail list-none text-uppercase'>
           <li className={tabActive === 'description' ? 'a-active' : ''} style={{ borderTop: '1px solid #e5e5e5' }}>
@@ -89,6 +191,6 @@ export default function DetailTab(props) {
         vertical='top'
         horizontal='right'
       />
-    </div>
+    </DivDetailTab>
   )
 }

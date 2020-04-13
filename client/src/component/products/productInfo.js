@@ -1,9 +1,32 @@
 import React from 'react';
-
+import styled from 'styled-components';
 import "react-image-gallery/styles/scss/image-gallery.scss";
 import { Chip } from '@material-ui/core';
 import ImageGallery from 'react-image-gallery';
 
+const DivProDetail = styled.div`
+  color: #444;
+  .product-detail-title{
+    margin-bottom: 20px;
+    margin: 0 0 7px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: bold;
+    font-size: 24px;
+    text-transform: uppercase;
+  }
+  .product-detail-price{
+    font-size: 20px;
+    font-weight: 720;
+    color: #1e88e5;
+    margin-bottom: 13px;
+  }
+  .product-detail-desc{
+    margin-bottom: 25px;
+    line-height: 24px;
+  }
+`
 export default function ProductInfo(props) {
   const { product } = props;
   return (
@@ -35,7 +58,7 @@ export default function ProductInfo(props) {
             />
           </div>
           <div className='col-sm-7'>
-            <div className='product-detail'>
+            <DivProDetail>
               <h1 className='product-detail-title dois-font'>{product.name}</h1>
               <span className='dois-font product-detail-price'>{new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(product.price)}</span>
               <hr />
@@ -57,7 +80,7 @@ export default function ProductInfo(props) {
                   <Chip size="small" label={product.gender} variant="outlined" />
                 </div>
               </div>
-            </div>
+            </DivProDetail>
           </div>
         </div>
         : null

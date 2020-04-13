@@ -21,6 +21,17 @@ const H3Title = styled.h3`
   font-size: 16px;
   font-weight: 400;
 `
+const DivCheckCart = styled.div`
+background-color: #1e88e5;
+  a{
+    text-decoration: none;
+    width: 100%;
+  }
+  button{
+    width: 100%;
+    color: white;
+  }
+`
 export default function CartItems(props) {
   const { cartItems, deleteCart } = props;
   const [anchorEl, setAnchorEl] = useState(null);
@@ -92,13 +103,13 @@ export default function CartItems(props) {
           <span className='ml-2 text-uppercase title18'>tổng</span>
           <span className='mr-2 color600 title18 font-weight-bold'>£{totalPrice}</span>
         </div>
-        <div className='check-cart'>
+        <DivCheckCart>
           <Link to='/cart'>
             <Button onClick={handleClose}>
               Xem giỏ hàng
             </Button>
           </Link>
-        </div>
+        </DivCheckCart>
       </Popover>
     </>
   )

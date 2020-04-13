@@ -46,6 +46,10 @@ const productSchema = new Schema({
     required: true,
     default: 0
   },
+  createAt: {
+    type: Date,
+    default: Date.now()
+  },
   comment: {
     total: {
       type: Number,

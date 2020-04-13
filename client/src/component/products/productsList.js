@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-
+import styled from 'styled-components';
 import { withStyles } from '@material-ui/core/styles';
 import { Button, Box, IconButton, SvgIcon, Tooltip } from '@material-ui/core';
 import { Rating } from '@material-ui/lab';
@@ -14,6 +14,46 @@ import { CartContext } from '../../context/cart';
 import SnackBar from '../snackBar/snackBar';
 import { Link } from 'react-router-dom'
 
+const DivProInfo = styled.div`
+.product-img-gallery{
+  .image-gallery{
+    .image-gallery-icon:hover{
+      color:#2196f3
+    }
+    .image-gallery-svg{
+      height: 60px;
+      width: 30px;
+    }
+    .image-gallery-thumbnails{
+      button{
+        width: 70px;
+      }
+      .image-gallery-thumbnail.active, 
+      .image-gallery-thumbnail:hover, 
+      .image-gallery-thumbnail:focus{
+        border: 1px solid #2196f3
+      }
+    }
+  }
+}
+h3{
+  margin-bottom: 20px;
+  margin: 0 0 7px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: bold;
+  font-size: 24px;
+  text-transform: uppercase;
+  color: #1e88e5
+}
+.product-price{
+  font-size: 20px;
+  font-weight: 720;
+  color: #1e88e5;
+  margin-bottom: 13px;
+}
+`
 const labels = {
   1: 'Tệ',
   2: 'Kém',
@@ -90,19 +130,19 @@ export default function ProductsList() {
                     />
                   </Link>
                 </div>
-                <div className='product-info mt-2'>
-                  <h3 className='product-name'>{item.name}</h3>
-                  <div className='product-rating'>
+                <DivProInfo className='mt-2'>
+                  <h3 className='product-name dois-font'>{item.name}</h3>
+                  <div className='product-rating' style={{ display: 'flex' }}>
                     <Rating name="read-only"
                       value={item.comment.items.reduce((total, next) => total + next.star, 0) / item.comment.total}
                       readOnly
                       size='small'
                       precision={0.5}
                     />
-                    <Box ml={2}>{labels[(item.comment.items.reduce((total, next) => total + next.star, 0) / item.comment.total).toFixed(0)]}</Box>
+                    <Box ml={2} >{labels[(item.comment.items.reduce((total, next) => total + next.star, 0) / item.comment.total).toFixed(0)]}</Box>
                   </div>
                   <span className='product-price'>{new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(item.price)}</span>
-                </div>
+                </DivProInfo>
               </div>
             ))}
           </div>

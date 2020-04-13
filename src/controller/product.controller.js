@@ -44,5 +44,10 @@ module.exports.putReviewProduct = function (req, res) {
       res.json('REVIEW_SUCCESS')
     })
     .catch(e => console.log(e))
+}
 
+module.exports.getSlickProduct = async function (req, res) {
+  //const productsNew = await Product.find({}).sort({ createAt: -1 }).limit(8);
+  const productView = await Product.find({}).sort({ viewCounts: -1 }).limit(8);
+  res.json(productView)
 }

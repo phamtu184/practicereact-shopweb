@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import { SwipeableDrawer, IconButton } from '@material-ui/core';
 import BackIcon from '../../image/svglogo/back.svg'
 import RegisterForm from './registerDrawer';
@@ -6,6 +7,17 @@ import LoginForm from './loginDrawer';
 import axios from 'axios';
 import SnackBar from '../snackBar/snackBar';
 
+const DivFormDrawer = styled.div`
+  .card-login, .card-register{
+    .MuiButton-root{
+      color: white;
+      background-color: $blue-600
+    }
+    .MuiButton-root:hover{
+      background-color: $blue-800
+    }
+  }
+`
 export default function LoginDrawer(props) {
   const [loginForm, setLoginForm] = useState(true);
   // login
@@ -209,25 +221,27 @@ export default function LoginDrawer(props) {
       <IconButton onClick={props.closeDrawer} style={{ width: '64px', height: '64px' }}>
         <img src={BackIcon} alt='login icon' style={{ width: '32px', height: '32px' }} />
       </IconButton>
-      {loginForm
-        ? <LoginForm
-          toRegister={changeLoginForm}
-          onSubmitLogin={onSubmitLogin}
-          onChangeUsernameLogin={onChangeUsernameLogin}
-          usernameLogin={usernameLogin}
-          onChangePasswordLogin={onChangePasswordLogin}
-          passwordLogin={passwordLogin}
-          isLoading={isLoading}
-        />
-        : <RegisterForm toLogin={changeLoginForm} onSubmitRegister={onSubmitRegister}
-          onChangeUsername={onChangeUsername}
-          username={username} onChangePhone={onChangePhone}
-          phone={phone} onChangeEmail={onChangeEmail}
-          email={email} onChangePassword={onChangePassword}
-          password={password} onChangePasswordCf={onChangePasswordCf}
-          passwordCf={passwordCf} isLoading={isLoading2}
-        />
-      }
+      <DivFormDrawer>
+        {loginForm
+          ? <LoginForm
+            toRegister={changeLoginForm}
+            onSubmitLogin={onSubmitLogin}
+            onChangeUsernameLogin={onChangeUsernameLogin}
+            usernameLogin={usernameLogin}
+            onChangePasswordLogin={onChangePasswordLogin}
+            passwordLogin={passwordLogin}
+            isLoading={isLoading}
+          />
+          : <RegisterForm toLogin={changeLoginForm} onSubmitRegister={onSubmitRegister}
+            onChangeUsername={onChangeUsername}
+            username={username} onChangePhone={onChangePhone}
+            phone={phone} onChangeEmail={onChangeEmail}
+            email={email} onChangePassword={onChangePassword}
+            password={password} onChangePasswordCf={onChangePasswordCf}
+            passwordCf={passwordCf} isLoading={isLoading2}
+          />
+        }
+      </DivFormDrawer>
       <SnackBar
         openSnackbar={openSnackbar}
         closeSnackbar={closeSnackbar}
