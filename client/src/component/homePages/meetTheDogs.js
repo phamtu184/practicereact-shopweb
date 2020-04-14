@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import DogBoneImg from '../../image/background/dog-bon.png'
 import { Button } from '@material-ui/core';
-import ProductList from './productSlick';
+//import ProductList from './productSlick';
 import axios from 'axios';
 
 const H2Title = styled.h2`
@@ -13,7 +13,7 @@ const H2Title = styled.h2`
   -webkit-align-items: center;
   position: relative;
   font-weight: 300;
-  font-size: 60px;
+  font-size: 40px;
   text-transform: capitalize;
   &::after{
     background-color: #1e88e5;
@@ -59,45 +59,43 @@ export default function MeetTheDogs() {
   const [tabProduct, setTabProduct] = useState('new');
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    axios.get('/product/slickproducts')
+    axios.get('/product/toprateproducts')
       .then((res) => setProducts(res.data))
   }, [])
   return (
-    <div style={{ backgroundColor: 'white' }}>
-      <div className='container' >
-        <div>
-          <H2Title className='dois-font'>
-            Những Chú chó tiêu biểu
+    <div className='container' style={{ backgroundColor: 'white', borderRadius: '10px' }}>
+      <div>
+        <H2Title className='dois-font'>
+          Những Chú chó tiêu biểu
             <ImgDogBone src={DogBoneImg} alt='DogBoneImg' />
-          </H2Title>
-        </div>
-        <div style={{ marginBottom: '35px' }}>
-          <UlTitleTab className='text-right text-uppercase'>
-            <LiTab>
-              <Button
-                className={tabProduct === 'new' ? 'active-tab' : ''}
-                onClick={() => setTabProduct('new')}
-              >NEW</Button>
-            </LiTab>
-            <LiTab>
-              <Button
-                className={tabProduct === 'topview' ? 'active-tab' : ''}
-                onClick={() => setTabProduct('topview')}
-              >TOP VIEW</Button>
-            </LiTab>
-            <LiTab>
-              <Button
-                className={tabProduct === 'toprating' ? 'active-tab' : ''}
-                onClick={() => setTabProduct('toprating')}
-              >TOP RATING</Button>
-            </LiTab>
-          </UlTitleTab>
-        </div>
-        <div>
-          {products.map((item, index) => (
-            <div>{item.viewCounts}</div>
-          ))}
-        </div>
+        </H2Title>
+      </div>
+      <div style={{ marginBottom: '35px' }}>
+        <UlTitleTab className='text-right text-uppercase'>
+          <LiTab>
+            <Button
+              className={tabProduct === 'new' ? 'active-tab' : ''}
+              onClick={() => setTabProduct('new')}
+            >NEW</Button>
+          </LiTab>
+          <LiTab>
+            <Button
+              className={tabProduct === 'topview' ? 'active-tab' : ''}
+              onClick={() => setTabProduct('topview')}
+            >TOP VIEW</Button>
+          </LiTab>
+          <LiTab>
+            <Button
+              className={tabProduct === 'toprating' ? 'active-tab' : ''}
+              onClick={() => setTabProduct('toprating')}
+            >TOP RATING</Button>
+          </LiTab>
+        </UlTitleTab>
+      </div>
+      <div>
+        {products.map((item, index) => (
+          <div>{item.viewCounts}</div>
+        ))}
       </div>
     </div>
 

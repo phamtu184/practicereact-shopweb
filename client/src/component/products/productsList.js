@@ -134,12 +134,12 @@ export default function ProductsList() {
                   <h3 className='product-name dois-font'>{item.name}</h3>
                   <div className='product-rating' style={{ display: 'flex' }}>
                     <Rating name="read-only"
-                      value={item.comment.items.reduce((total, next) => total + next.star, 0) / item.comment.total}
+                      value={item.rates}
                       readOnly
                       size='small'
                       precision={0.5}
                     />
-                    <Box ml={2} >{labels[(item.comment.items.reduce((total, next) => total + next.star, 0) / item.comment.total).toFixed(0)]}</Box>
+                    <Box ml={2} >{labels[(item.rates).toFixed(0)]}</Box>
                   </div>
                   <span className='product-price'>{new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(item.price)}</span>
                 </DivProInfo>

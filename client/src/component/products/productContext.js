@@ -37,6 +37,9 @@ export function ProductProvider(props) {
     else if (event.target.value === 'price higher') {
       productsClone = products.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
     }
+    else if (event.target.value === 'rating') {
+      productsClone = products.sort((a, b) => parseFloat(b.rates) - parseFloat(a.rates));
+    }
     else {
       productsClone = products.sort((a, b) => b.viewCounts - a.viewCounts);
     }

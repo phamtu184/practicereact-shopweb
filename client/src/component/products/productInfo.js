@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import "react-image-gallery/styles/scss/image-gallery.scss";
 import { Chip } from '@material-ui/core';
 import ImageGallery from 'react-image-gallery';
 
@@ -27,13 +26,34 @@ const DivProDetail = styled.div`
     line-height: 24px;
   }
 `
+const DivImgGallery = styled.div`
+.image-gallery{
+  button{
+    svg{
+      height: 60px;
+      width: 30px;
+      &:hover{
+        color: #1e88e5
+      }
+    }
+  }
+  .image-gallery-thumbnail.active, .image-gallery-thumbnail:hover, .image-gallery-thumbnail:focus{
+    border: 2px solid #1e88e5;
+  }
+  .image-gallery-thumbnails{
+    button{
+      width: 70px;
+    }
+  }
+}
+`
 export default function ProductInfo(props) {
   const { product } = props;
   return (
     <>
       {product.images
         ? <div className='row product-info'>
-          <div className='col-sm-5 product-img-gallery'>
+          <DivImgGallery className='col-sm-5'>
             <ImageGallery
               items={[
                 {
@@ -56,7 +76,7 @@ export default function ProductInfo(props) {
               showPlayButton={false}
               showFullscreenButton={false}
             />
-          </div>
+          </DivImgGallery>
           <div className='col-sm-7'>
             <DivProDetail>
               <h1 className='product-detail-title dois-font'>{product.name}</h1>

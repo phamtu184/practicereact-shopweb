@@ -50,6 +50,11 @@ const productSchema = new Schema({
     type: Date,
     default: Date.now()
   },
+  rates: {
+    type: Number,
+    require: false,
+    default: 0
+  },
   comment: {
     total: {
       type: Number,

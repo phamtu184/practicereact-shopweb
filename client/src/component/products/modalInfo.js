@@ -1,6 +1,5 @@
 import React from 'react';
 
-import "react-image-gallery/styles/scss/image-gallery.scss";
 import { makeStyles } from '@material-ui/core/styles';
 import { Fade, Modal, Backdrop } from '@material-ui/core';
 import ProductInfo from './productInfo';

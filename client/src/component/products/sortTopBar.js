@@ -38,9 +38,10 @@ export default function SortTopBar() {
           autoWidth={true}
           input={<Input classes={inputClasses} />}
         >
-          <option value='popular'>Theo độ phổ biến</option>
-          <option value='price lower'>Theo giá từ cao tới thấp</option>
-          <option value='price higher'>Theo giá từ thấp tới cao</option>
+          <option value='popular'>Theo lượt xem</option>
+          <option value='rating'>Theo đánh giá</option>
+          <option value='price lower'>Theo giá từ cao đến thấp</option>
+          <option value='price higher'>Theo giá từ thấp đến cao</option>
         </Select >
       </FormControl>
 

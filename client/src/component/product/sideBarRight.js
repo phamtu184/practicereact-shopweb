@@ -61,7 +61,7 @@ export default function SideBarRight() {
                 <div className='product-rating'>
                   <Rating
                     name="read-only"
-                    value={item.comment.items.reduce((total, next) => total + next.star, 0) / item.comment.total}
+                    value={item.rates}
                     readOnly size='small'
                     precision={0.5}
                   />

@@ -33,12 +33,16 @@ module.exports.putReviewProduct = function (req, res) {
   Product.findOne({ _id: productId })
     .then((product) => {
       var today = new Date();
+      const rs = product.comment.items.reduce((total, next) => total + next.star, 0) / product.comment.total
       product.comment.items.push({
         content: content,
         name: username,
         date: today,
         star: star
       });
+      if (isNaN(rs) === false) {
+        product.rates = rs
+      }
       product.comment.total++;
       product.save();
       res.json('REVIEW_SUCCESS')
@@ -46,8 +50,15 @@ module.exports.putReviewProduct = function (req, res) {
     .catch(e => console.log(e))
 }
 
-module.exports.getSlickProduct = async function (req, res) {
-  //const productsNew = await Product.find({}).sort({ createAt: -1 }).limit(8);
-  const productView = await Product.find({}).sort({ viewCounts: -1 }).limit(8);
-  res.json(productView)
+module.exports.getNewProducts = async function (req, res) {
+  const productsNew = await Product.find({}).sort({ createAt: -1 }).limit(8);
+  res.json(productsNew)
+}
+module.exports.getTopViewsProducts = async function (req, res) {
+  const productsView = await Product.find({}).sort({ viewCounts: -1 }).limit(8);
+  res.json(productsView)
+}
+module.exports.getTopRateProducts = async function (req, res) {
+  const productsRate = await Product.find({}).sort({ rates: -1 }).limit(8);
+  res.json(productsRate)
 }
