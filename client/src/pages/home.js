@@ -7,7 +7,9 @@ import GetAccess from '../component/homePages/getAccess';
 import Contact from '../component/homePages/contact';
 import Parallax from '../component/homePages/parallax';
 import MeetTheDogs from '../component/homePages/meetTheDogs';
+import CountDowm from '../component/homePages/countDown';
 
+import { ProductProvider } from '../component/products/productContext';
 export default function Home() {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [infoSnackbar, setInfoSnackbar] = useState('');
@@ -49,9 +51,12 @@ export default function Home() {
       <ScrollAnimation animateIn='fadeIn'>
         <GetAccess />
       </ScrollAnimation>
-      <Contact />
+      <ScrollAnimation animateIn='fadeIn'>
+        <Contact />
+      </ScrollAnimation>
       <Parallax />
-      <MeetTheDogs />
+      <ProductProvider><MeetTheDogs /></ProductProvider>
+      <CountDowm />
     </div>
   )
 }

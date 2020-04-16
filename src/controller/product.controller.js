@@ -33,14 +33,17 @@ module.exports.putReviewProduct = function (req, res) {
   Product.findOne({ _id: productId })
     .then((product) => {
       var today = new Date();
-      const rs = product.comment.items.reduce((total, next) => total + next.star, 0) / product.comment.total
+      const rs = product.comment.items.reduce((total, next) => total + next.star, star) / (product.comment.total + 1)
       product.comment.items.push({
         content: content,
         name: username,
         date: today,
         star: star
       });
-      if (isNaN(rs) === false) {
+      if (rs === 0 || isNaN(rs)) {
+        product.rates = star
+      }
+      if (!isNaN(rs)) {
         product.rates = rs
       }
       product.comment.total++;
@@ -48,17 +51,4 @@ module.exports.putReviewProduct = function (req, res) {
       res.json('REVIEW_SUCCESS')
     })
     .catch(e => console.log(e))
-}
-
-module.exports.getNewProducts = async function (req, res) {
-  const productsNew = await Product.find({}).sort({ createAt: -1 }).limit(8);
-  res.json(productsNew)
-}
-module.exports.getTopViewsProducts = async function (req, res) {
-  const productsView = await Product.find({}).sort({ viewCounts: -1 }).limit(8);
-  res.json(productsView)
-}
-module.exports.getTopRateProducts = async function (req, res) {
-  const productsRate = await Product.find({}).sort({ rates: -1 }).limit(8);
-  res.json(productsRate)
 }

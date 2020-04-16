@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Button, Box, IconButton, SvgIcon, Tooltip } from '@material-ui/core';
 import { Rating } from '@material-ui/lab';
 
-import WalkingLoader from './wakingLoader';
+import WalkingLoader from '../loader/wakingLoader';
 import Pagination from './pagination';
 import ModalInfo from './modalInfo';
 import { SearchIcon, HeartIcon } from '../../image/jslogo/svlogo';
@@ -43,9 +43,9 @@ h3{
   text-overflow: ellipsis;
   white-space: nowrap;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 18px;
   text-transform: uppercase;
-  color: #1e88e5
+  color: #333
 }
 .product-price{
   font-size: 20px;

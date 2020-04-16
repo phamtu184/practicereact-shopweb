@@ -43,7 +43,7 @@ export default function ReviewProduct(props) {
           <Rating
             name="size-small"
             defaultValue={value}
-            size="small"
+            size="large"
             onChange={(event, newValue) => { setValue(newValue); }}
             className='mb-3'
             onChangeActive={(event, newHover) => {

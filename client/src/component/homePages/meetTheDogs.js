@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import DogBoneImg from '../../image/background/dog-bon.png'
+import Loader from '../loader/wakingLoader';
 import { Button } from '@material-ui/core';
-//import ProductList from './productSlick';
-import axios from 'axios';
+import SlickProducts from './slickProducts';
+import { ProductContext } from '../products/productContext';
 
 const H2Title = styled.h2`
   margin-bottom: 10px;
@@ -57,11 +58,10 @@ const LiTab = styled.li`
 `
 export default function MeetTheDogs() {
   const [tabProduct, setTabProduct] = useState('new');
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    axios.get('/product/toprateproducts')
-      .then((res) => setProducts(res.data))
-  }, [])
+  const { products, loading } = useContext(ProductContext);
+  const productsNew = products.sort((a, b) => new Date(b.createAt) - new Date(a.createAt)).slice(0, 8);
+  const productsView = products.sort((a, b) => b.viewCounts - a.viewCounts).slice(0, 8);
+  const productsRate = products.sort((a, b) => b.rates - a.rates).slice(0, 8);
   return (
     <div className='container' style={{ backgroundColor: 'white', borderRadius: '10px' }}>
       <div>
@@ -92,11 +92,10 @@ export default function MeetTheDogs() {
           </LiTab>
         </UlTitleTab>
       </div>
-      <div>
-        {products.map((item, index) => (
-          <div>{item.viewCounts}</div>
-        ))}
-      </div>
+      {!loading ? (tabProduct === 'new' ? <SlickProducts products={productsNew} />
+        : tabProduct === 'topview' ? <SlickProducts products={productsView} />
+          : <SlickProducts products={productsRate} />)
+        : <> <Loader /> <div style={{ height: '300px' }}></div></>}
     </div>
 
   )

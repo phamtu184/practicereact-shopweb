@@ -20,7 +20,7 @@ text-shadow: 0 0 5px #000;
   right: 0;
   bottom: 0;
   left: 0;
-  transform: translateZ(-1px) scale(1.4);
+  transform: translateZ(-1px) scaleY(1.35);
   background-size: 120%;
   background-repeat: no-repeat;
   background-position: center center;
