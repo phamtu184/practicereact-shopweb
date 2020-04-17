@@ -8,6 +8,8 @@ import Contact from '../component/homePages/contact';
 import Parallax from '../component/homePages/parallax';
 import MeetTheDogs from '../component/homePages/meetTheDogs';
 import CountDowm from '../component/homePages/countDown';
+import PriceService from '../component/homePages/priceService';
+import OurTeam from '../component/homePages/ourTeam';
 
 import { ProductProvider } from '../component/products/productContext';
 export default function Home() {
@@ -57,6 +59,8 @@ export default function Home() {
       <Parallax />
       <ProductProvider><MeetTheDogs /></ProductProvider>
       <CountDowm />
+      <PriceService />
+      <OurTeam />
     </div>
   )
 }
