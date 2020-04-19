@@ -1,10 +1,12 @@
 
 @import url('https://fonts.googleapis.com/css?family=Dosis&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap');
 body{
   line-height:none;
   color: #333;
   font-family: 'Open Sans', sans-serif;
 }
+
 .dois-font{
   font-family: 'Dosis', sans-serif;
 }
@@ -13,6 +15,9 @@ body{
 }
 .title18 {
   font-size: 18px;
+}
+.font-bold{
+  font-weight: 700;
 }
 .MuiFormLabel-root.Mui-focused{
   color: #1e88e5 !important;
@@ -133,3 +138,78 @@ a:hover{
 .animated{
   animation-duration: 0.5s !important;
 }
+
+/* [data-social-icons] {
+  list-style-type: none;
+}
+[data-social-icons] li {
+  line-height: 80px;
+  width: 80px;
+  font-size: 60px;
+  text-align: center;
+  font-family: 'Raleway';
+  font-weight: 80;
+  color: white;
+  float: left;
+  margin-right: 5px;
+}
+[data-social-icons] li:last-child {
+  margin-right: 0;
+}
+[data-social-icons]:hover [data-social-icon] {
+  background-color: gray;
+  opacity: 0.7;
+}
+[data-social-icons] [data-social-icon]:hover {
+  cursor: pointer;
+  animation-name: hover-anim;
+  animation-duration: 100ms;
+  animation-timing-function: ease-out;
+  animation-iteration-count: 2;
+}
+[data-social-icons] [data-social-icon~=facebook],
+[data-social-icons] [data-social-icon~=facebook]:hover {
+  background-color: #43609c;
+  opacity: 1;
+}
+[data-social-icons] [data-social-icon~=facebook]:before,
+[data-social-icons] [data-social-icon~=facebook]:hover:before {
+  content: "F";
+}
+[data-social-icons] [data-social-icon~=twitter],
+[data-social-icons] [data-social-icon~=twitter]:hover {
+  background-color: #53a7e7;
+  opacity: 1;
+}
+[data-social-icons] [data-social-icon~=twitter]:before,
+[data-social-icons] [data-social-icon~=twitter]:hover:before {
+  content: "T";
+}
+[data-social-icons] [data-social-icon~=gplus],
+[data-social-icons] [data-social-icon~=gplus]:hover {
+  background-color: #d95232;
+  opacity: 1;
+}
+[data-social-icons] [data-social-icon~=gplus]:before,
+[data-social-icons] [data-social-icon~=gplus]:hover:before {
+  content: "G";
+}
+[data-social-icons] [data-social-icon~=linkedin],
+[data-social-icons] [data-social-icon~=linkedin]:hover {
+  background-color: #0274b3;
+  opacity: 1;
+}
+[data-social-icons] [data-social-icon~=linkedin]:before,
+[data-social-icons] [data-social-icon~=linkedin]:hover:before {
+  content: "L";
+}
+[data-social-icons] [data-social-icon~=youtube],
+[data-social-icons] [data-social-icon~=youtube]:hover {
+  background-color: #ec282a;
+  opacity: 1;
+}
+[data-social-icons] [data-social-icon~=youtube]:before,
+[data-social-icons] [data-social-icon~=youtube]:hover:before {
+  content: "Y";
+} */
+
