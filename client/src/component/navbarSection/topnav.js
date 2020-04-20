@@ -1,10 +1,9 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import { AppBar, Toolbar, Button, IconButton, useScrollTrigger, Slide, Fab, SvgIcon, useMediaQuery } from '@material-ui/core';
+import { AppBar, Toolbar, Button, IconButton, useScrollTrigger, Slide, Fab, useMediaQuery } from '@material-ui/core';
 // icon
 import MenuIcon from '../../image/svglogo/menu.svg';
 import LoginIcon from '../../image/svglogo/user.svg';
-import { SearchIcon } from '../../image/jslogo/svlogo';
 import KeyboardArrowUpIcon from "../../image/jslogo/KeyboardArrowUp";
 
 import { NavLink } from "react-router-dom";
@@ -66,11 +65,6 @@ export default function Topnav(props) {
                 : <NavbarLeft role={role} />
               }
               <UlNavcontent style={{ marginLeft: 'auto' }}>
-                <LiIcon>
-                  <IconButton edge="start" color="inherit">
-                    <Searchicon />
-                  </IconButton>
-                </LiIcon>
                 <LiIcon>
                   <CartItems cartItems={cartItems} deleteCart={deleteCart} />
                 </LiIcon>
@@ -144,10 +138,4 @@ function HideOnScroll(props) {
       {children}
     </Slide>
   );
-}
-function Searchicon(props) {
-  return (
-    <SvgIcon {...props} viewBox="0 -28 512.001 512" xmlns="http://www.w3.org/2000/svg"><path d={SearchIcon} />
-    </SvgIcon>
-  )
 }

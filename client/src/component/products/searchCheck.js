@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { Checkbox, TextField, Slider, Chip } from '@material-ui/core';
+import { Checkbox, Slider, Chip } from '@material-ui/core';
 import { ProductContext } from './productContext';
 export function SearchCheckBreed() {
   const { breed, setBreed, productsTemp } = useContext(ProductContext);
@@ -8,26 +8,17 @@ export function SearchCheckBreed() {
   const pug = productsTemp.filter(e => e.breed === 'pug');
   const corgi = productsTemp.filter(e => e.breed === 'corgi');
   const bloodhound = productsTemp.filter(e => e.breed === 'bloodhound');
-  const changeSearchBreed = (event) => {
-    setBreed({
-      labrador: false,
-      pug: false,
-      corgi: false,
-      bloodhound: false,
-      search: event.target.value
-    })
-  }
   const checkBreedLabrador = () => {
-    setBreed({ labrador: !breed.labrador, pug: false, corgi: false, bloodhound: false, search: '' });
+    setBreed({ labrador: !breed.labrador, pug: false, corgi: false, bloodhound: false });
   };
   const checkBreedPug = () => {
-    setBreed({ labrador: false, pug: !breed.pug, corgi: false, bloodhound: false, search: '' });
+    setBreed({ labrador: false, pug: !breed.pug, corgi: false, bloodhound: false });
   };
   const checkBreedCorgi = () => {
-    setBreed({ labrador: false, pug: false, corgi: !breed.corgi, bloodhound: false, search: '' });
+    setBreed({ labrador: false, pug: false, corgi: !breed.corgi, bloodhound: false });
   };
   const checkBreedBloodhound = () => {
-    setBreed({ labrador: false, pug: false, corgi: false, bloodhound: !breed.bloodhound, search: '' });
+    setBreed({ labrador: false, pug: false, corgi: false, bloodhound: !breed.bloodhound });
   };
   // const changeSearchBreed = (event) => {
   //   setBreed({
@@ -39,7 +30,7 @@ export function SearchCheckBreed() {
   //   })
   // }
   // const CheckBreed = name => event => {
-  //   setBreed({ ...breed, [name]: event.target.checked, search: '' });
+  //   setBreed({ ...breed, [name]: event.target.checked });
   // };
   const items = [
     {
@@ -76,7 +67,6 @@ export function SearchCheckBreed() {
           <Chip size="small" label={item.label} className='chip-nums' />
         </label>
       ))}
-      <TextField label="Giống" variant="filled" value={breed.search} onChange={changeSearchBreed} size='small' />
     </>
   )
 }

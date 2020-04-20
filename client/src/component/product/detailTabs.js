@@ -165,10 +165,10 @@ export default function DetailTab(props) {
       <div className='detail-tab-title'>
         <ul className='list-tag-detail list-none text-uppercase'>
           <li className={tabActive === 'description' ? 'a-active' : ''} style={{ borderTop: '1px solid #e5e5e5' }}>
-            <a href='#listdetail' onClick={() => clickActive('description')}>Miêu tả</a>
+            <a onClick={() => clickActive('description')}>Miêu tả</a>
           </li>
           <li className={tabActive === 'review' ? 'a-active' : ''}>
-            <a href='#listdetail' onClick={() => clickActive('review')}>Đánh giá({quatityReviews})</a>
+            <a onClick={() => clickActive('review')}>Đánh giá({quatityReviews})</a>
           </li>
         </ul>
       </div>

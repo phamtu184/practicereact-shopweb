@@ -5,8 +5,8 @@ import './style/animate.min.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "react-image-gallery/styles/css/image-gallery.css";
-import { AnimatedSwitch, spring } from 'react-router-transition';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { Toolbar } from '@material-ui/core';
 import { PrivateRouteAdmin, PrivateRouteAuthen } from './pages/privateRoute';
 
@@ -21,53 +21,37 @@ import Product from './pages/product';
 import VerifyEmail from './pages/verifiEmail';
 import VerifyToken from './component/verifyToken/verifyToken';
 
-function bounce(val) {
-  return spring(val, {
-    stiffness: 330,
-    damping: 30,
-  });
-}
-function mapStyles(styles) {
-  return {
-    opacity: styles.opacity,
-    transform: `scale(${styles.scale})`,
-  };
-}
 function App() {
   return (
     <CartProvider>
       <Router>
         <Navbar />
         <Toolbar id="back-to-top-anchor" />
-        <AnimatedSwitch
-          atEnter={{
-            opacity: 0,
-            scale: 1.2
-          }}
-          atLeave={{
-            opacity: bounce(0),
-            scale: bounce(0.8)
-          }}
-          atActive={{
-            opacity: bounce(1),
-            scale: bounce(1),
-          }}
-          mapStyles={mapStyles}
-        >
-          <PrivateRouteAdmin path="/magsetting">
-            <MagSetting />
-          </PrivateRouteAdmin>
-          <PrivateRouteAuthen path="/verifyemail">
-            <VerifyEmail />
-          </PrivateRouteAuthen>
-          <PrivateRouteAuthen path="/verifytoken/:token">
-            <VerifyToken />
-          </PrivateRouteAuthen>
-          <Route path="/product/:productId" component={Product} />
-          <Route path="/cart" component={Cart} />
-          <Route path="/products" component={Products} />
-          <Route path="/" component={Home} />
-        </AnimatedSwitch>
+        <Route render={({ location }) => (
+          <TransitionGroup>
+            <CSSTransition
+              key={location.key}
+              timeout={450}
+              classNames="fade"
+            >
+              <Switch location={location}>
+                <PrivateRouteAdmin path="/magsetting">
+                  <MagSetting />
+                </PrivateRouteAdmin>
+                <PrivateRouteAuthen path="/verifyemail">
+                  <VerifyEmail />
+                </PrivateRouteAuthen>
+                <PrivateRouteAuthen path="/verifytoken/:token">
+                  <VerifyToken />
+                </PrivateRouteAuthen>
+                <Route path="/product/:productId" component={Product} />
+                <Route path="/cart" component={Cart} />
+                <Route path="/products" component={Products} />
+                <Route path="/" component={Home} />
+              </Switch>
+            </CSSTransition>
+          </TransitionGroup>
+        )} />
         <Footer />
       </Router>
     </CartProvider>
