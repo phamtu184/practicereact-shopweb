@@ -14,7 +14,7 @@ const DivDetailTab = styled.div`
     min-width: 200px;
     .list-tag-detail{
       font-weight: 700;
-      a{
+      span{
         display: block;
         position: relative;
         padding: 12px 25px;
@@ -23,7 +23,7 @@ const DivDetailTab = styled.div`
         outline: none;
         color: #555;
       }
-      a:hover{
+      span:hover{
         color: #2196f3;
         transition: 0.5s;
       }
@@ -100,7 +100,7 @@ const DivDetailTab = styled.div`
           display: inline-block;
           border-left: 1px solid #e5e5e5;
           border-right: 1px solid #e5e5e5;
-          a{
+          span{
             border-bottom: none;
           }
         }
@@ -165,10 +165,10 @@ export default function DetailTab(props) {
       <div className='detail-tab-title'>
         <ul className='list-tag-detail list-none text-uppercase'>
           <li className={tabActive === 'description' ? 'a-active' : ''} style={{ borderTop: '1px solid #e5e5e5' }}>
-            <a onClick={() => clickActive('description')}>Miêu tả</a>
+            <span onClick={() => clickActive('description')}>Miêu tả</span>
           </li>
           <li className={tabActive === 'review' ? 'a-active' : ''}>
-            <a onClick={() => clickActive('review')}>Đánh giá({quatityReviews})</a>
+            <span onClick={() => clickActive('review')}>Đánh giá({quatityReviews})</span>
           </li>
         </ul>
       </div>

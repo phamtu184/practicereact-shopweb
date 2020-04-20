@@ -16,6 +16,7 @@ export function CartProvider(props) {
   const [infoSnackbar, setInfoSnackbar] = useState('');
   const [typeSnackbar, setTypeSnackbar] = useState('');
   const [isPutData, setIsPutData] = useState(false);
+  const [isDrawer, setDrawer] = useState(false);
 
   useEffect(() => {
     axios.get('/auth/islogin')
@@ -115,18 +116,23 @@ export function CartProvider(props) {
   return (
     <CartContext.Provider
       value={{
-        cartItems: cartItems,
-        addToCart: addToCart,
-        userInfo: userInfo,
-        deleteCart: deleteCart,
-        increQty: increQty,
-        decreQty: decreQty,
-        checkOutCart: checkOutCart,
+        cartItems,
+        addToCart,
+        userInfo,
+        setUserInfo,
+        setCartItems,
+        deleteCart,
+        increQty,
+        decreQty,
+        checkOutCart,
         // snackbar
-        openSnackbar: openSnackbar,
-        infoSnackbar: infoSnackbar,
-        typeSnackbar: typeSnackbar,
-        closeSnackbar: closeSnackbar
+        openSnackbar,
+        infoSnackbar,
+        typeSnackbar,
+        closeSnackbar,
+        // drawler
+        isDrawer,
+        setDrawer
       }}
     >
       {props.children}

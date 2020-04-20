@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { SwipeableDrawer, IconButton } from '@material-ui/core';
+import { useHistory } from "react-router-dom";
+import { CartContext } from '../../context/cart';
 import BackIcon from '../../image/svglogo/back.svg'
 import RegisterForm from './registerDrawer';
 import LoginForm from './loginDrawer';
@@ -24,10 +26,12 @@ export default function LoginDrawer(props) {
   const [usernameLogin, setUsernameLogin] = useState('');
   const [passwordLogin, setPasswordLogin] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const { setUserInfo, setCartItems, setDrawer } = useContext(CartContext);
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [infoSnackbar, setInfoSnackbar] = useState('');
   const [typeSnackbar, setTypeSnackbar] = useState('');
+  let history = useHistory();
   const onChangeUsernameLogin = (e) => {
     setUsernameLogin(e.target.value)
   };
@@ -71,7 +75,24 @@ export default function LoginDrawer(props) {
           else {
             localStorage.setItem("event", "LOGIN_SUCCESS");
             setIsLoading(false);
-            window.location.assign('/');
+            axios.get('/auth/islogin')
+              .then(res => {
+                if (res.data !== 'login:false') {
+                  setUserInfo({
+                    isLogin: true,
+                    username: res.data.username,
+                    role: res.data.role,
+                    id: res.data.id,
+                    isAuthenticated: res.data.isAuthenticated
+                  })
+                  axios.post('/user/cart', { userId: res.data.id })
+                    .then(carts => setCartItems(carts.data.map(e => ({ ...e, quantity: 1 }))))
+                }
+              })
+            setUsernameLogin('')
+            setPasswordLogin('')
+            setDrawer(false)
+            history.push("/")
           }
         })
     }
@@ -196,12 +217,28 @@ export default function LoginDrawer(props) {
           }
           else {
             axios.post('/auth/confirmemail')
-              .then()
+              .then(
+                axios.get('/auth/islogin')
+                  .then(res => {
+                    if (res.data !== 'login:false') {
+                      setUserInfo({
+                        isLogin: true,
+                        username: res.data.username,
+                        role: res.data.role,
+                        id: res.data.id,
+                        isAuthenticated: res.data.isAuthenticated
+                      })
+                      setDrawer(false)
+                      axios.post('/user/cart', { userId: res.data.id })
+                        .then(carts => setCartItems(carts.data.map(e => ({ ...e, quantity: 1 }))))
+                    }
+                  })
+              )
               .catch(function (error) {
                 console.log(error);
               })
             setIsLoading2(false);
-            window.location.assign('/verifyemail');
+            history.push("/verifyemail")
           }
         })
     }

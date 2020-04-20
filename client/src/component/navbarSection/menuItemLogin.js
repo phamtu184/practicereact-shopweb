@@ -1,11 +1,13 @@
 import React from 'react';
 import { Button, Menu, MenuItem } from '@material-ui/core';
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import { CartContext } from '../../context/cart';
 import axios from 'axios';
 
 export default function Menuitemlogin(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  const { setUserInfo, setCartItems } = React.useContext(CartContext);
+  let history = useHistory();
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
@@ -17,7 +19,17 @@ export default function Menuitemlogin(props) {
   const handleLogout = () => {
     try {
       axios.post('/auth/islogin', {}, { withCredentials: true })
-        .then(window.location.assign('/'))
+        .then(() => {
+          setUserInfo({
+            isLogin: false,
+            username: '',
+            role: 2,
+            isAuthenticated: false,
+            id: ''
+          })
+          setCartItems([])
+        })
+      history.push("/")
     }
     catch (e) {
       console.log(e)

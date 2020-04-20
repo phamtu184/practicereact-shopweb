@@ -35,8 +35,8 @@ const UlNavcontent = styled.ul`
   overflow: hidden;
 `
 export default function Topnav(props) {
-  const { cartItems, userInfo, deleteCart } = useContext(CartContext);
-  const [isDrawer, setDrawer] = useState(false);
+  const { cartItems, userInfo, deleteCart, isDrawer, setDrawer } = useContext(CartContext);
+
   const [isExpanded, setIsExpanded] = useState(false);
   const openDrawer = () => {
     setDrawer(true)
