@@ -4,7 +4,7 @@ import "./style/style.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "react-image-gallery/styles/css/image-gallery.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { Toolbar } from "@material-ui/core";
 import { PrivateRouteAdmin, PrivateRouteAuthen } from "./pages/privateRoute";
