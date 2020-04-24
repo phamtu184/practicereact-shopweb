@@ -24,7 +24,7 @@ import VerifyToken from "./component/verifyToken/verifyToken";
 function App() {
   return (
     <CartProvider>
-      <Router basename={process.env.URLHOST}>
+      <Router>
         <Navbar />
         <Toolbar id="back-to-top-anchor" />
         <Route
