@@ -5,6 +5,7 @@ import ReviewProduct from "./reviewProduct";
 import { CartContext } from "../../context/cart";
 import SnackBar from "../snackBar/snackBar";
 import axios from "axios";
+import url from "../../config/url";
 
 const DivDetailTab = styled.div`
   display: flex;
@@ -133,7 +134,7 @@ export default function DetailTab(props) {
     if (userInfo.isLogin && userInfo.isAuthenticated) {
       if (content.length) {
         axios
-          .put("/product/product", {
+          .put(`${url.LOCAL}/product/product`, {
             star: star,
             content: content,
             productId: product._id,

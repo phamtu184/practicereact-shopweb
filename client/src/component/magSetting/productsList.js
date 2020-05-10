@@ -1,7 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import axiost from 'axios';
-import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
+import React, { useEffect, useState } from "react";
+import axiost from "axios";
+import url from "../../config/url";
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Button,
+  Typography,
+} from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
@@ -15,29 +24,28 @@ const useStyles = makeStyles({
 export default function UsersSetting() {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    axiost.get('/product/products')
-      .then((res) => setProducts(res.data))
+    axiost
+      .get(`${url.LOCAL}/product/products`)
+      .then((res) => setProducts(res.data));
   }, []);
 
   const deleteProduct = (product) => {
     const index = products.indexOf(product);
-    axiost.delete('/product/product', { data: { _id: product._id } })
-      .then(() => setProducts(
-        [
-          ...products.slice(0, index),
-          ...products.slice(index + 1)
-        ]
-      ))
-  }
+    axiost
+      .delete(`${url.LOCAL}/product/products`, { data: { _id: product._id } })
+      .then(() =>
+        setProducts([...products.slice(0, index), ...products.slice(index + 1)])
+      );
+  };
 
   const classes = useStyles();
   return (
     <div>
       <h2>Danh sách sản phẩm</h2>
-      <div className='row'>
+      <div className="row">
         {products.map((product, index) => (
-          <div className='col-md-3 mt-4' key={index}>
-            <Card className={classes.root} >
+          <div className="col-md-3 mt-4" key={index}>
+            <Card className={classes.root}>
               <CardActionArea>
                 <CardMedia
                   className={classes.media}
@@ -66,7 +74,11 @@ export default function UsersSetting() {
                 </CardContent>
               </CardActionArea>
               <CardActions>
-                <Button size="small" color="primary" onClick={() => deleteProduct(product)}>
+                <Button
+                  size="small"
+                  color="primary"
+                  onClick={() => deleteProduct(product)}
+                >
                   Xóa
                 </Button>
               </CardActions>
@@ -75,5 +87,5 @@ export default function UsersSetting() {
         ))}
       </div>
     </div>
-  )
+  );
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
+import url from "../config/url";
 import { ProductProvider } from "../component/products/productContext";
 import ProductInfo from "../component/products/productInfo";
 import CarouselCus from "../component/carousel/CarouselCus";
@@ -44,7 +45,7 @@ export default function ProductPage() {
   let history = useHistory();
   useEffect(() => {
     const getProduct = async () => {
-      const res = await axios.get(`/product/product/${productId}`);
+      const res = await axios.get(`${url.LOCAL}/product/product/${productId}`);
       if (res.data !== "GET_PRODUCT_ERROR") {
         setProduct(res.data);
         setQuatityReviews(res.data.comment.total);

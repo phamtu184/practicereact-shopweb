@@ -1,117 +1,117 @@
-import React, { useState, createContext, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, createContext, useEffect } from "react";
+import axios from "axios";
+import url from "../config/url";
 
 export const CartContext = createContext();
 
 export function CartProvider(props) {
   const [userInfo, setUserInfo] = useState({
     isLogin: false,
-    username: '',
+    username: "",
     role: 2,
     isAuthenticated: false,
-    id: ''
+    id: "",
   });
-  const [cartItems, setCartItems] = useState([])
+  const [cartItems, setCartItems] = useState([]);
   const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [infoSnackbar, setInfoSnackbar] = useState('');
-  const [typeSnackbar, setTypeSnackbar] = useState('');
+  const [infoSnackbar, setInfoSnackbar] = useState("");
+  const [typeSnackbar, setTypeSnackbar] = useState("");
   const [isPutData, setIsPutData] = useState(false);
   const [isDrawer, setDrawer] = useState(false);
 
   useEffect(() => {
-    axios.get('/auth/islogin')
-      .then(res => {
-        if (res.data !== 'login:false') {
-          setUserInfo({
-            isLogin: true,
-            username: res.data.username,
-            role: res.data.role,
-            id: res.data.id,
-            isAuthenticated: res.data.isAuthenticated
-          })
-          axios.post('/user/cart', { userId: res.data.id })
-            .then(carts => setCartItems(carts.data.map(e => ({ ...e, quantity: 1 }))))
-        }
-      })
+    axios.get(`${url.LOCAL}/auth/islogin`).then((res) => {
+      if (res.data !== "login:false") {
+        setUserInfo({
+          isLogin: true,
+          username: res.data.username,
+          role: res.data.role,
+          id: res.data.id,
+          isAuthenticated: res.data.isAuthenticated,
+        });
+        axios
+          .post("/user/cart", { userId: res.data.id })
+          .then((carts) =>
+            setCartItems(carts.data.map((e) => ({ ...e, quantity: 1 })))
+          );
+      }
+    });
   }, []);
   useEffect(() => {
     if (isPutData) {
-      const rs = cartItems.map(item => item._id)
-      axios.put('/user/cart', { userId: userInfo.id, cart: rs })
+      const rs = cartItems.map((item) => item._id);
+      axios
+        .put(`${url.LOCAL}/user/cart`, { userId: userInfo.id, cart: rs })
         .then(setIsPutData(false))
-        .catch(e => console.log(e))
+        .catch((e) => console.log(e));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartItems]);
 
   const addToCart = (product) => {
     if (userInfo.isLogin === true) {
-      if (cartItems.some(e => e._id === product._id)) {
+      if (cartItems.some((e) => e._id === product._id)) {
         setOpenSnackbar(true);
-        setInfoSnackbar('Sản phẩm này đã có trong giỏ hàng');
-        setTypeSnackbar('warning');
-      }
-      else {
+        setInfoSnackbar("Sản phẩm này đã có trong giỏ hàng");
+        setTypeSnackbar("warning");
+      } else {
         const getProducts = async () => {
-          setCartItems(cartItems.concat(product).map(e => ({ ...e, quantity: 1 })))
+          setCartItems(
+            cartItems.concat(product).map((e) => ({ ...e, quantity: 1 }))
+          );
           setOpenSnackbar(true);
-          setInfoSnackbar('Thêm sản phẩm thành công');
-          setTypeSnackbar('success');
-          setIsPutData(true)
-        }
-        getProducts()
+          setInfoSnackbar("Thêm sản phẩm thành công");
+          setTypeSnackbar("success");
+          setIsPutData(true);
+        };
+        getProducts();
       }
-    }
-    else {
+    } else {
       setOpenSnackbar(true);
-      setInfoSnackbar('Vui lòng đăng nhập để thực hiện thao tác');
-      setTypeSnackbar('warning');
+      setInfoSnackbar("Vui lòng đăng nhập để thực hiện thao tác");
+      setTypeSnackbar("warning");
     }
-  }
+  };
   const closeSnackbar = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
     setOpenSnackbar(false);
   };
   const deleteCart = async (cart) => {
     const index = cartItems.indexOf(cart);
-    setIsPutData(true)
-    setCartItems([
-      ...cartItems.slice(0, index),
-      ...cartItems.slice(index + 1)
-    ])
-  }
+    setIsPutData(true);
+    setCartItems([...cartItems.slice(0, index), ...cartItems.slice(index + 1)]);
+  };
   const increQty = (item) => {
     const rs = cartItems.map((element, index) => {
       if (element._id === item._id && item.quantity < 10) {
         cartItems[index].quantity = item.quantity + 1;
       }
-      return element
+      return element;
     });
-    setCartItems(rs)
-  }
+    setCartItems(rs);
+  };
   const decreQty = (item) => {
     const rs = cartItems.map((element, index) => {
       if (element._id === item._id && item.quantity > 1) {
         cartItems[index].quantity = item.quantity - 1;
       }
-      return element
+      return element;
     });
-    setCartItems(rs)
-  }
+    setCartItems(rs);
+  };
   const checkOutCart = () => {
     if (!userInfo.isAuthenticated) {
       setOpenSnackbar(true);
-      setInfoSnackbar('Vui lòng kích hoạt tài khoản để thanh toán!');
-      setTypeSnackbar('warning');
-    }
-    else {
+      setInfoSnackbar("Vui lòng kích hoạt tài khoản để thanh toán!");
+      setTypeSnackbar("warning");
+    } else {
       setOpenSnackbar(true);
-      setInfoSnackbar('Thanh toán thành công!');
-      setTypeSnackbar('success');
+      setInfoSnackbar("Thanh toán thành công!");
+      setTypeSnackbar("success");
     }
-  }
+  };
 
   return (
     <CartContext.Provider
@@ -132,10 +132,10 @@ export function CartProvider(props) {
         closeSnackbar,
         // drawler
         isDrawer,
-        setDrawer
+        setDrawer,
       }}
     >
       {props.children}
     </CartContext.Provider>
-  )
+  );
 }
