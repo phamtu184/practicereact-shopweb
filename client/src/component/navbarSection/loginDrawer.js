@@ -1,33 +1,46 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { Button, Card, CardContent, CardActions, TextField, CircularProgress } from '@material-ui/core';
+import React from "react";
+import { withStyles } from "@material-ui/core/styles";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardActions,
+  TextField,
+  CircularProgress,
+} from "@material-ui/core";
 
 const CssTextField = withStyles({
   root: {
-    '& .MuiInputBase-input': {
-      color: 'black',
+    "& .MuiInputBase-input": {
+      color: "black",
     },
-    '& .MuiOutlinedInput-root': {
-      '& fieldset': {
-        borderColor: 'black',
-        color: 'black'
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "black",
+        color: "black",
       },
-      '&:hover fieldset': {
-        borderColor: '#40c4ff',
+      "&:hover fieldset": {
+        borderColor: "#40c4ff",
       },
-      '&.Mui-focused fieldset': {
-        borderColor: '#4285F4',
+      "&.Mui-focused fieldset": {
+        borderColor: "#4285F4",
       },
     },
-  }
+  },
 })(TextField);
 
 export default function LoginDrawer(props) {
-  const { onSubmitLogin, onChangeUsernameLogin,
-    usernameLogin, onChangePasswordLogin, passwordLogin,
-    isLoading, toRegister } = props;
+  const {
+    onSubmitLogin,
+    onChangeUsernameLogin,
+    usernameLogin,
+    onChangePasswordLogin,
+    passwordLogin,
+    isLoading,
+    toRegister,
+  } = props;
   return (
-    <Card className='card-login'>
+    <Card className="card-login">
       <CardContent className="mx-4">
         <div className="text-center">
           <h3 className="mb-5">
@@ -50,7 +63,7 @@ export default function LoginDrawer(props) {
             onChange={onChangePasswordLogin}
             value={passwordLogin}
             fullWidth
-            className='mt-3'
+            className="mt-3"
           />
           <div className="text-center mb-3">
             <Button
@@ -59,11 +72,17 @@ export default function LoginDrawer(props) {
               className="btn-block z-depth-1a mt-4"
               disabled={isLoading}
               style={{
-                color: 'white',
-                backgroundColor: '#1e88e5'
+                color: "white",
+                backgroundColor: "#1e88e5",
               }}
             >
-              {isLoading && <CircularProgress size={16} color="inherit" className="middle" />}
+              {isLoading && (
+                <CircularProgress
+                  size={16}
+                  color="inherit"
+                  className="middle"
+                />
+              )}
               <span className="ml-2">Login</span>
             </Button>
           </div>
@@ -72,11 +91,19 @@ export default function LoginDrawer(props) {
       <CardActions className="mx-5 pt-3 mb-1">
         <p className="font-small d-flex justify-content-end align-items-center">
           Chưa có tài khoản?
-          <button onClick={toRegister} className="ml-1" style={{ backgroundColr: 'white', color: '#1e88e5', border: 'none' }}>
+          <button
+            onClick={toRegister}
+            className="ml-1"
+            style={{
+              backgroundColr: "white",
+              color: "#1e88e5",
+              border: "none",
+            }}
+          >
             Đăng kí
           </button>
         </p>
       </CardActions>
     </Card>
-  )
+  );
 }

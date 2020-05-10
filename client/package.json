@@ -26,7 +26,7 @@
     "eject": "react-scripts eject",
     "build:css": "postcss src/style/bootstrap.min.css -o src/style/main.css"
   },
-  "proxy": "http://localhost:4000",
+  "proxy": "https://simple-shopping-dog.herokuapp.com",
   "eslintConfig": {
     "extends": "react-app"
   },
