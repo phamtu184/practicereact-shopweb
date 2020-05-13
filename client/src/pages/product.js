@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
+import Loader from "../component/loader/pageLoader";
 import axios from "axios";
 import url from "../config/url";
 import { ProductProvider } from "../component/products/productContext";
@@ -41,14 +42,17 @@ export default function ProductPage() {
   let { productId } = useParams();
   const [product, setProduct] = useState([]);
   const [isSubmit, setIsSubmit] = useState(true);
+  const [isLoading, setLoading] = useState(false);
   const [quatityReviews, setQuatityReviews] = useState("");
   let history = useHistory();
   useEffect(() => {
     const getProduct = async () => {
+      setLoading(true);
       const res = await axios.get(`${url.LOCAL}/product/product/${productId}`);
       if (res.data !== "GET_PRODUCT_ERROR") {
         setProduct(res.data);
         setQuatityReviews(res.data.comment.total);
+        setLoading(false);
       } else {
         history.goBack();
       }
@@ -61,21 +65,28 @@ export default function ProductPage() {
   return (
     <ProductProvider>
       <CarouselCus items={items} animatedClass="animated rollIn" />
-      <div className="container mt-4">
-        <div className="row">
-          <div className="col-lg-9 col-md-8 col-sm-12">
-            <ProductInfo product={product} />
-            <DetaiTabs
-              product={product}
-              setIsSubmit={setIsSubmit}
-              quatityReviews={quatityReviews}
-            />
-          </div>
-          <div className="col-lg-3 col-md-4 col-sm-12">
-            <SideBarRight />
+      {isLoading ? (
+        <div style={{ height: "50vh" }}>
+          <Loader />
+        </div>
+      ) : (
+        <div className="container mt-4">
+          <div className="row">
+            <div className="col-lg-9 col-md-8 col-sm-12">
+              <ProductInfo product={product} />
+              <DetaiTabs
+                product={product}
+                setIsSubmit={setIsSubmit}
+                quatityReviews={quatityReviews}
+                isLoading={isLoading}
+              />
+            </div>
+            <div className="col-lg-3 col-md-4 col-sm-12">
+              <SideBarRight />
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </ProductProvider>
   );
 }

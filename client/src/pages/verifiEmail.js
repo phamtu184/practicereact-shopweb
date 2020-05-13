@@ -8,15 +8,27 @@ export default function VerifyEmail() {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    axios.get(`${url.LOCAL}/auth/islogin`).then((res) => {
-      if (res.data !== "login:false") {
-        setEmail(res.data.email);
-      }
-    });
+    if (localStorage.authToken) {
+      axios
+        .post(`${url.LOCAL}/auth/islogin`, {
+          authToken: localStorage.authToken,
+        })
+        .then((res) => {
+          if (res.data !== "login:false") {
+            setEmail(res.data.email);
+          }
+        });
+    }
   }, []);
   const resendMail = () => {
-    setIsLoading(true);
-    axios.post(`${url.LOCAL}/auth/confirmemail`).then();
+    if (localStorage.authToken) {
+      setIsLoading(true);
+      axios
+        .post(`${url.LOCAL}/auth/confirmemail`, {
+          authToken: localStorage.authToken,
+        })
+        .then();
+    }
   };
   return (
     <>
@@ -25,12 +37,13 @@ export default function VerifyEmail() {
         <p>
           Đã gửi mã kích hoạt vào Email: <b>{email}</b>{" "}
         </p>
+        <p>Thanh toán sản phẩm chỉ áp dụng khi tài khoản đã được kích hoạt.</p>
         <p>
           Để kích hoạt tài khoản vui lòng truy cập vào Email: <b>{email}</b>{" "}
         </p>
         <p>
           Mã kích hoạt có thời hạn là 24h, nếu không nhận được mã vui lòng gửi
-          lại
+          lại.
         </p>
         <Button
           onClick={resendMail}

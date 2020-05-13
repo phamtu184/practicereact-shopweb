@@ -2,8 +2,6 @@ import React from "react";
 import { Button, Menu, MenuItem } from "@material-ui/core";
 import { Link, useHistory } from "react-router-dom";
 import { CartContext } from "../../context/cart";
-import axios from "axios";
-import url from "../../config/url";
 
 export default function Menuitemlogin(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -19,18 +17,15 @@ export default function Menuitemlogin(props) {
 
   const handleLogout = () => {
     try {
-      axios
-        .post(`${url.LOCAL}/auth/islogin`, {}, { withCredentials: true })
-        .then(() => {
-          setUserInfo({
-            isLogin: false,
-            username: "",
-            role: 2,
-            isAuthenticated: false,
-            id: "",
-          });
-          setCartItems([]);
-        });
+      localStorage.removeItem("authToken");
+      setUserInfo({
+        isLogin: false,
+        username: "",
+        role: 2,
+        isAuthenticated: false,
+        id: "",
+      });
+      setCartItems([]);
       history.push("/");
     } catch (e) {
       console.log(e);

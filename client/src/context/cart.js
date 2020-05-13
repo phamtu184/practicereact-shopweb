@@ -20,22 +20,28 @@ export function CartProvider(props) {
   const [isDrawer, setDrawer] = useState(false);
 
   useEffect(() => {
-    axios.get(`${url.LOCAL}/auth/islogin`).then((res) => {
-      if (res.data !== "login:false") {
-        setUserInfo({
-          isLogin: true,
-          username: res.data.username,
-          role: res.data.role,
-          id: res.data.id,
-          isAuthenticated: res.data.isAuthenticated,
+    if (localStorage.authToken) {
+      axios
+        .post(`${url.LOCAL}/auth/islogin`, {
+          authToken: localStorage.authToken,
+        })
+        .then((res) => {
+          if (res.data !== "login:false") {
+            setUserInfo({
+              isLogin: true,
+              username: res.data.username,
+              role: res.data.role,
+              id: res.data.id,
+              isAuthenticated: res.data.isAuthenticated,
+            });
+            axios
+              .post("/user/cart", { userId: res.data.id })
+              .then((carts) =>
+                setCartItems(carts.data.map((e) => ({ ...e, quantity: 1 })))
+              );
+          }
         });
-        axios
-          .post("/user/cart", { userId: res.data.id })
-          .then((carts) =>
-            setCartItems(carts.data.map((e) => ({ ...e, quantity: 1 })))
-          );
-      }
-    });
+    }
   }, []);
   useEffect(() => {
     if (isPutData) {

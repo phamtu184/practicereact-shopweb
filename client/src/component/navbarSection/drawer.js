@@ -72,23 +72,20 @@ export default function LoginDrawer(props) {
           setIsLoading(false);
         } else {
           localStorage.setItem("event", "LOGIN_SUCCESS");
+          localStorage.setItem("authToken", res.data.token);
           setIsLoading(false);
-          axios.get(`${url.LOCAL}/auth/islogin`).then((res) => {
-            if (res.data !== "login:false") {
-              setUserInfo({
-                isLogin: true,
-                username: res.data.username,
-                role: res.data.role,
-                id: res.data.id,
-                isAuthenticated: res.data.isAuthenticated,
-              });
-              axios
-                .post(`${url.LOCAL}/user/cart`, { userId: res.data.id })
-                .then((carts) =>
-                  setCartItems(carts.data.map((e) => ({ ...e, quantity: 1 })))
-                );
-            }
+          setUserInfo({
+            isLogin: true,
+            username: res.data.user.username,
+            role: res.data.user.role,
+            id: res.data.user.id,
+            isAuthenticated: res.data.user.isAuthenticated,
           });
+          axios
+            .post(`${url.LOCAL}/user/cart`, { userId: res.data.user.id })
+            .then((carts) =>
+              setCartItems(carts.data.map((e) => ({ ...e, quantity: 1 })))
+            );
           setUsernameLogin("");
           setPasswordLogin("");
           setDrawer(false);
@@ -217,7 +214,7 @@ export default function LoginDrawer(props) {
         passwordCf.value
       )
     ) {
-      axios.post("/auth/register", info).then((res) => {
+      axios.post(`${url.LOCAL}/auth/register`, info).then((res) => {
         if (res.data === "USERNAME_EXIST") {
           setOpenSnackbar(true);
           setInfoSnackbar("Tên đăng nhập đã tồn tại");
@@ -229,29 +226,20 @@ export default function LoginDrawer(props) {
           setTypeSnackbar("error");
           setIsLoading2(false);
         } else {
+          setUserInfo({
+            isLogin: true,
+            username: res.data.user.username,
+            role: res.data.user.role,
+            id: res.data.user.id,
+            isAuthenticated: res.data.user.isAuthenticated,
+          });
+          localStorage.setItem("authToken", res.data.token);
+          setDrawer(false);
           axios
-            .post("/auth/confirmemail")
-            .then(
-              axios.get("/auth/islogin").then((res) => {
-                if (res.data !== "login:false") {
-                  setUserInfo({
-                    isLogin: true,
-                    username: res.data.username,
-                    role: res.data.role,
-                    id: res.data.id,
-                    isAuthenticated: res.data.isAuthenticated,
-                  });
-                  setDrawer(false);
-                  axios
-                    .post("/user/cart", { userId: res.data.id })
-                    .then((carts) =>
-                      setCartItems(
-                        carts.data.map((e) => ({ ...e, quantity: 1 }))
-                      )
-                    );
-                }
-              })
-            )
+            .post(`${url.LOCAL}/auth/confirmemail`, {
+              authToken: res.data.token,
+            })
+            .then(() => {})
             .catch(function (error) {
               console.log(error);
             });

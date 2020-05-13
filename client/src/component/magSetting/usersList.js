@@ -24,7 +24,11 @@ const useStyles = makeStyles({
 export default function UsersSetting() {
   const [users, setUsers] = useState([]);
   useEffect(() => {
-    axiost.get(`${url.LOCAL}/user/userslist`).then((res) => setUsers(res.data));
+    axiost
+      .post(`${url.LOCAL}/user/userslist`, {
+        authToken: localStorage.authToken,
+      })
+      .then((res) => setUsers(res.data));
   }, []);
 
   const classes = useStyles();
