@@ -61,6 +61,7 @@ export default function ProductPage() {
       getProduct();
       setIsSubmit(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productId, isSubmit]);
   return (
     <ProductProvider>

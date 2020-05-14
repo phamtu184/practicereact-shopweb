@@ -16,12 +16,12 @@ const useStyles = makeStyles((theme) => ({
 export default function VerifyEmail() {
   let { token } = useParams();
   const history = useHistory();
-  const { setUserInfo } = useContext(CartContext);
+  const { setUserInfo, setCartItems } = useContext(CartContext);
   useEffect(() => {
     axios
       .post(`${url.LOCAL}/auth/activeemail`, { token: token })
       .then((res) => {
-        if (res.data.title === "active success") {
+        if (res.status === 200) {
           localStorage.setItem("event", "ACTIVE_EMAIL");
           localStorage.setItem("authToken", res.data.token);
           setUserInfo({
@@ -30,7 +30,11 @@ export default function VerifyEmail() {
             role: res.data.user.role,
             id: res.data.user.id,
             isAuthenticated: res.data.user.isAuthenticated,
+            email: res.data.user.email,
           });
+          if (res.data.cart) {
+            setCartItems(res.data.cart.map((e) => ({ ...e, quantity: 1 })));
+          }
           history.push("/");
         } else {
           history.push("/");
@@ -39,6 +43,7 @@ export default function VerifyEmail() {
       .catch(function (error) {
         console.log(error);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
   const classes = useStyles();
   return (

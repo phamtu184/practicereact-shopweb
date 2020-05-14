@@ -11,6 +11,7 @@ export function CartProvider(props) {
     role: 2,
     isAuthenticated: false,
     id: "",
+    email: "",
   });
   const [cartItems, setCartItems] = useState([]);
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -26,19 +27,18 @@ export function CartProvider(props) {
           authToken: localStorage.authToken,
         })
         .then((res) => {
-          if (res.data !== "login:false") {
+          if (res.status === 200) {
             setUserInfo({
               isLogin: true,
-              username: res.data.username,
-              role: res.data.role,
-              id: res.data.id,
-              isAuthenticated: res.data.isAuthenticated,
+              username: res.data.auth.username,
+              role: res.data.auth.role,
+              id: res.data.auth.id,
+              isAuthenticated: res.data.auth.isAuthenticated,
+              email: res.data.auth.email,
             });
-            axios
-              .post("/user/cart", { userId: res.data.id })
-              .then((carts) =>
-                setCartItems(carts.data.map((e) => ({ ...e, quantity: 1 })))
-              );
+            if (res.data.cart) {
+              setCartItems(res.data.cart.map((e) => ({ ...e, quantity: 1 })));
+            }
           }
         });
     }

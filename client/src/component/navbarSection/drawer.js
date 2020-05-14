@@ -59,39 +59,36 @@ export default function LoginDrawer(props) {
       setTypeSnackbar("warning");
       setIsLoading(false);
     } else {
-      axios.post(`${url.LOCAL}/auth/login`, info).then((res) => {
-        if (res.data === "notuser") {
-          setOpenSnackbar(true);
-          setInfoSnackbar("Tài khoản không tồn tại");
-          setTypeSnackbar("error");
-          setIsLoading(false);
-        } else if (res.data === "wrongpw") {
-          setOpenSnackbar(true);
-          setInfoSnackbar("Sai mật khẩu");
-          setTypeSnackbar("error");
-          setIsLoading(false);
-        } else {
-          localStorage.setItem("event", "LOGIN_SUCCESS");
-          localStorage.setItem("authToken", res.data.token);
-          setIsLoading(false);
-          setUserInfo({
-            isLogin: true,
-            username: res.data.user.username,
-            role: res.data.user.role,
-            id: res.data.user.id,
-            isAuthenticated: res.data.user.isAuthenticated,
-          });
-          axios
-            .post(`${url.LOCAL}/user/cart`, { userId: res.data.user.id })
-            .then((carts) =>
-              setCartItems(carts.data.map((e) => ({ ...e, quantity: 1 })))
-            );
-          setUsernameLogin("");
-          setPasswordLogin("");
-          setDrawer(false);
-          history.push("/");
-        }
-      });
+      axios
+        .post(`${url.LOCAL}/auth/login`, info)
+        .then((res) => {
+          if (res.status === 200) {
+            localStorage.setItem("event", "LOGIN_SUCCESS");
+            localStorage.setItem("authToken", res.data.token);
+            setIsLoading(false);
+            setUserInfo({
+              isLogin: true,
+              username: res.data.user.username,
+              role: res.data.user.role,
+              id: res.data.user.id,
+              isAuthenticated: res.data.user.isAuthenticated,
+              email: res.data.user.email,
+            });
+            setCartItems(res.data.cart.map((e) => ({ ...e, quantity: 1 })));
+            setUsernameLogin("");
+            setPasswordLogin("");
+            setDrawer(false);
+            history.push("/");
+          }
+        })
+        .catch((e) => {
+          if (e) {
+            setOpenSnackbar(true);
+            setInfoSnackbar(e.response.data.message);
+            setTypeSnackbar("error");
+            setIsLoading(false);
+          }
+        });
     }
   };
   // register
@@ -214,39 +211,38 @@ export default function LoginDrawer(props) {
         passwordCf.value
       )
     ) {
-      axios.post(`${url.LOCAL}/auth/register`, info).then((res) => {
-        if (res.data === "USERNAME_EXIST") {
-          setOpenSnackbar(true);
-          setInfoSnackbar("Tên đăng nhập đã tồn tại");
-          setTypeSnackbar("error");
-          setIsLoading2(false);
-        } else if (res.data === "EMAIL_EXIST") {
-          setOpenSnackbar(true);
-          setInfoSnackbar("Email đã tồn tại");
-          setTypeSnackbar("error");
-          setIsLoading2(false);
-        } else {
-          setUserInfo({
-            isLogin: true,
-            username: res.data.user.username,
-            role: res.data.user.role,
-            id: res.data.user.id,
-            isAuthenticated: res.data.user.isAuthenticated,
-          });
-          localStorage.setItem("authToken", res.data.token);
-          setDrawer(false);
-          axios
-            .post(`${url.LOCAL}/auth/confirmemail`, {
-              authToken: res.data.token,
-            })
-            .then(() => {})
-            .catch(function (error) {
-              console.log(error);
+      axios
+        .post(`${url.LOCAL}/auth/register`, info)
+        .then((res) => {
+          if (res.status === 200) {
+            setUserInfo({
+              isLogin: true,
+              username: res.data.user.username,
+              role: res.data.user.role,
+              id: res.data.user.id,
+              isAuthenticated: res.data.user.isAuthenticated,
+              email: res.data.user.email,
             });
+            localStorage.setItem("authToken", res.data.token);
+            setDrawer(false);
+            axios
+              .post(`${url.LOCAL}/auth/confirmemail`, {
+                authToken: res.data.token,
+              })
+              .then(() => {})
+              .catch(function (error) {
+                console.log(error);
+              });
+            setIsLoading2(false);
+            history.push("/verifyemail");
+          }
+        })
+        .catch((e) => {
+          setOpenSnackbar(true);
+          setInfoSnackbar(e.response.data.message);
+          setTypeSnackbar("error");
           setIsLoading2(false);
-          history.push("/verifyemail");
-        }
-      });
+        });
     } else {
       setOpenSnackbar(true);
       setInfoSnackbar("Vui lòng nhập đầy đủ các trường");
