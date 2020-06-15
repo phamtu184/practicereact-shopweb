@@ -1,24 +1,35 @@
-import React, { useState } from 'react';
-import ProductSetting from '../component/magSetting/productsSetting';
-import ProductsList from '../component/magSetting/productsList';
-import UsersList from '../component/magSetting/usersList';
+import React, { useState } from "react";
+import ProductSetting from "../component/magSetting/productsSetting";
+import ProductsList from "../component/magSetting/productsList";
+import UsersList from "../component/magSetting/usersList";
+import Catalog from "../component/magSetting/catalog";
 
-import { makeStyles } from '@material-ui/core/styles';
-import { Collapse, ListItemText, ListItemIcon, ListItem, List, Tab, Tabs, Box, Typography } from '@material-ui/core';
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  Collapse,
+  ListItemText,
+  ListItemIcon,
+  ListItem,
+  List,
+  Tab,
+  Tabs,
+  Box,
+  Typography,
+} from "@material-ui/core";
 
-import InboxIcon from '../image/jslogo/MoveToInbox';
-import ExpandLess from '../image/jslogo/ExpandLess';
-import ExpandMore from '../image/jslogo/ExpandMore';
+import InboxIcon from "../image/jslogo/MoveToInbox";
+import ExpandLess from "../image/jslogo/ExpandLess";
+import ExpandMore from "../image/jslogo/ExpandMore";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
+    width: "100%",
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
   nested: {
     paddingLeft: theme.spacing(4),
-  }
+  },
 }));
 
 export default function MagSetting() {
@@ -39,8 +50,8 @@ export default function MagSetting() {
     setOpenProduct(!openProduct);
   };
   return (
-    <div className='row'>
-      <div className='col-sm-2'>
+    <div className="row">
+      <div className="col-sm-2">
         <List
           component="nav"
           aria-labelledby="nested-list-subheader"
@@ -55,7 +66,7 @@ export default function MagSetting() {
           </ListItem>
           <Collapse in={openProduct} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem >
+              <ListItem>
                 <Tabs
                   value={value}
                   onChange={handleChange}
@@ -66,6 +77,7 @@ export default function MagSetting() {
                 >
                   <Tab label="Nhập sản phẩm" {...a11yProps(0)} />
                   <Tab label="Danh sách sản phẩm" {...a11yProps(1)} />
+                  <Tab label="Thêm catalog" {...a11yProps(2)} />
                 </Tabs>
               </ListItem>
             </List>
@@ -80,7 +92,7 @@ export default function MagSetting() {
           </ListItem>
           <Collapse in={openUser} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem >
+              <ListItem>
                 <Tabs
                   value={value}
                   onChange={handleChange}
@@ -89,17 +101,18 @@ export default function MagSetting() {
                   scrollButtons="auto"
                   orientation="vertical"
                 >
-                  <Tab style={{ display: 'none' }} {...a11yProps(0)} />
-                  <Tab style={{ display: 'none' }} {...a11yProps(1)} />
-                  <Tab label="Danh sách tài khoản" {...a11yProps(2)} />
-                  <Tab label="Item 4" {...a11yProps(3)} />
+                  <Tab style={{ display: "none" }} {...a11yProps(0)} />
+                  <Tab style={{ display: "none" }} {...a11yProps(1)} />
+                  <Tab style={{ display: "none" }} {...a11yProps(2)} />
+                  <Tab label="Danh sách tài khoản" {...a11yProps(3)} />
+                  <Tab label="Item 4" {...a11yProps(4)} />
                 </Tabs>
               </ListItem>
             </List>
           </Collapse>
         </List>
       </div>
-      <div className='col-sm-10'>
+      <div className="col-sm-10">
         <TabPanel value={value} index={0}>
           <ProductSetting />
         </TabPanel>
@@ -107,14 +120,17 @@ export default function MagSetting() {
           <ProductsList />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <UsersList />
+          <Catalog />
         </TabPanel>
         <TabPanel value={value} index={3}>
+          <UsersList />
+        </TabPanel>
+        <TabPanel value={value} index={4}>
           Item 4
         </TabPanel>
       </div>
     </div>
-  )
+  );
 }
 
 function TabPanel(props) {
@@ -136,6 +152,6 @@ function TabPanel(props) {
 function a11yProps(index) {
   return {
     id: `vertical-tab-${index}`,
-    'aria-controls': `vertical-tabpanel-${index}`,
+    "aria-controls": `vertical-tabpanel-${index}`,
   };
 }

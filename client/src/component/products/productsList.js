@@ -168,7 +168,7 @@ export default function ProductsList() {
                       size="small"
                       precision={0.5}
                     />
-                    <Box ml={2}>{labels[item.rates.toFixed(0)]}</Box>
+                    {/* <Box ml={2}>{labels[item.rates.toFixed(0)]}</Box> */}
                   </div>
                   <span className="product-price">
                     {new Intl.NumberFormat("de-DE", {
