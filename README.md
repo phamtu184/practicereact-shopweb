@@ -5,6 +5,7 @@ Show web with reactjs, nodejs and mongodb
 - login to add product to cart
 - active account to offer product
 - multi option filter
+- rating product
 # sreen shot
 - home page
 ![image](https://user-images.githubusercontent.com/54318890/84968000-a3f4b200-b13f-11ea-9c68-76f0e422441c.png)
@@ -15,3 +16,5 @@ Show web with reactjs, nodejs and mongodb
 - vetify email page
 ![image](https://user-images.githubusercontent.com/54318890/84968205-27ae9e80-b140-11ea-8741-ed7ce57a284a.png)
 ![image](https://user-images.githubusercontent.com/54318890/84968256-42811300-b140-11ea-8912-53b8e1c2da6c.png)
+- rating
+![image](https://user-images.githubusercontent.com/54318890/84968485-cb984a00-b140-11ea-99b6-2f0ae9f6a6b4.png)
